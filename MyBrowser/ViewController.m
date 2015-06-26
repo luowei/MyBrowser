@@ -12,6 +12,36 @@
 #import "AWActionSheet.h"
 #import "Defines.h"
 
+@implementation NSString(Match)
+
+
+- (BOOL)isMatch:(NSString *)pattern {
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    if (error) {
+        return NO;
+    }
+    NSTextCheckingResult *res = [regex firstMatchInString:self options:0 range:NSMakeRange(0, self.length)];
+    return res != nil;
+}
+
+- (BOOL)isiTunesURL {
+    return [self isMatch:@"\\/\\/itunes\\.apple\\.com\\/"];
+}
+
+//是否是域名
+-(BOOL)isDomain{
+    return [self isMatch:@"^(((ht|f)tp(s?))\\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\\-\\.]+\\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\;\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$"];
+}
+
+//是否是网址
+- (BOOL)isHttpURL{
+    return  [self isMatch:@"(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?"];
+}
+
+@end
+
+
 @interface ViewController ()<UISearchBarDelegate, AWActionSheetDelegate>
 
 
@@ -309,18 +339,25 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [_searchBar resignFirstResponder];
     NSString *text = _searchBar.text;
-    NSString *urlRegex = @"((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?";
-    NSPredicate *urlStrPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegex];
-
     NSString *urlStr = [NSString stringWithFormat:@"http://www.baidu.com/s?wd=%@", text];
+
+/*
+    NSString *urlRegex = @"((http|ftp|https|Http|Https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?";
+    NSPredicate *urlStrPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegex];
     if ([urlStrPredicate evaluateWithObject:text]) {
         urlStr = [NSString stringWithFormat:@"%@", text];
+    }
+*/
+
+    if ([text isHttpURL]) {
+        urlStr = [NSString stringWithFormat:@"%@", text];
+    }else if([text isDomain]){
+        urlStr = [NSString stringWithFormat:@"http://%@",text];
     }
 
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
 }
-
 
 #pragma mark AWActionSheetDelegate Implementation
 

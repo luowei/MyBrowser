@@ -16,4 +16,17 @@
 @property(nonatomic, copy) void (^addWebViewBlock)(MyWebView **wb, NSURL *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
+
+
+//Sync JavaScript in WKWebView
+//evaluateJavaScript is callback type. result should be handled by callback so, it is async.
+- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript;
+
+@end
+
+
+@interface NSString (BSEncoding)
+
++ (NSString *)encodedString:(NSString *)string;
+
 @end

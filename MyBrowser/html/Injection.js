@@ -2,7 +2,7 @@
  * Created by luowei on 15/5/2.
  */
 
-//重载window.open,window.close等方法
+
 /*
 (function () {
     'use strict';
@@ -76,10 +76,10 @@
 
 function postMyMessage() {
 
-/*
+    /*
      var message = {'message':'Hello,World!','numbers':[1,2,3]};
      window.webkit.messageHandlers.myName.postMessage(message);
-*/
+     */
 
 
 

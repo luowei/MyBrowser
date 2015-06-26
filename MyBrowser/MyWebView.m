@@ -7,13 +7,8 @@
 //
 
 #import "MyWebView.h"
+#import "ViewController.h"
 
-
-@interface NSString (BSEncoding)
-
-+ (NSString *)encodedString:(NSString *)string;
-
-@end
 
 @implementation NSString (BSEncoding)
 
@@ -25,7 +20,9 @@
 
 
 
-@interface MyWebView()
+@interface MyWebView(){
+
+}
 
 @property(nonatomic, strong) WKWebViewConfiguration *webViewConfiguration;
 
@@ -33,8 +30,21 @@
 
 @implementation MyWebView
 
+static WKProcessPool *_pool;
+
++ (WKProcessPool *)pool {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _pool = [[WKProcessPool alloc] init];
+    });
+    return _pool;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
+
+    //设置多窗口cookie共享
+    configuration.processPool = [MyWebView pool];
+
     self = [super initWithFrame:frame configuration:configuration];
     if (self) {
         self.navigationDelegate = self;
@@ -55,7 +65,7 @@
 //加载用户js文件
 - (void)addUserScriptsToWeb {
 
-    NSString *userScriptString = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"userScript" withExtension:@"js"]
+    NSString *userScriptString = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Injection" withExtension:@"js"]
                                                                 encoding:NSUTF8StringEncoding error:NULL];
 //    NSString *scriptString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"postingMsg" ofType:@"js"]
 //                                                       encoding:NSUTF8StringEncoding error:NULL];
@@ -76,18 +86,34 @@
     [self.webViewConfiguration.userContentController addScriptMessageHandler:self name:@"myName"];
 }
 
+
+//Sync JavaScript in WKWebView
+//evaluateJavaScript is callback type. result should be handled by callback so, it is async.
+- (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript {
+    __block NSString *res = nil;
+    __block BOOL finish = NO;
+    [self evaluateJavaScript:javascript completionHandler:^(NSString *result, NSError *error){
+        res = result;
+        finish = YES;
+    }];
+
+    while(!finish) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    return res;
+}
+
 #pragma mark WKNavigationDelegate Implementation
 
 //当加载页面发生错误
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
 
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
-//                                                                   message:error.localizedDescription
-//                                                            preferredStyle:UIAlertControllerStyleAlert];
-//    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
-//    [self presentViewController:alert animated:YES completion:nil];
+    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:error.localizedDescription
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+    self.presentViewControllerBlock(alertViewController);
 
-    [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 //当页面加载完成
@@ -95,20 +121,19 @@
     self.finishNavigationProgressBlock();
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-    //处理特殊网址
-    if (navigationAction.navigationType == WKNavigationTypeLinkActivated && navigationAction.request.URL.host != nil
-            && [navigationAction.request.URL.host.lowercaseString hasPrefix:@"www.youku.com"]) {
-        //用用户默认浏览器safari打开
-        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+    NSURL *url = navigationAction.request.URL;
+    //处理App一类的特殊网址
+    if(![url.absoluteString isHttpURL] && ![url.absoluteString isDomain]){
+        [[UIApplication sharedApplication] openURL:url];
         decisionHandler(WKNavigationActionPolicyCancel);
-    } else {
+    }else {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 
 
+    //以下是通过重载页面的window.open,window.close方法来实现打开新窗口，关闭新窗口等逻辑
 /*
     if ([[[navigationAction.request URL] absoluteString] rangeOfString:@"affiliate_id="].location != NSNotFound) {
         [[UIApplication sharedApplication] openURL:[navigationAction.request URL]];
@@ -151,6 +176,49 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
 }
 
+//处理当接收到验证窗口时
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+        completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
+    NSString *hostName = webView.URL.host;
+
+    NSString *authenticationMethod = [[challenge protectionSpace] authenticationMethod];
+    if ([authenticationMethod isEqualToString:NSURLAuthenticationMethodDefault]
+            || [authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic]
+            || [authenticationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]) {
+
+        NSString *title = @"Authentication Challenge";
+        NSString *message = [NSString stringWithFormat:@"%@ requires user name and password", hostName];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"User";
+            //textField.secureTextEntry = YES;
+        }];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"Password";
+            textField.secureTextEntry = YES;
+        }];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+            NSString *userName = ((UITextField *)alertController.textFields[0]).text;
+            NSString *password = ((UITextField *)alertController.textFields[1]).text;
+
+            NSURLCredential *credential = [[NSURLCredential alloc] initWithUser:userName password:password persistence:NSURLCredentialPersistenceNone];
+
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        }]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.presentViewControllerBlock(alertController);
+        });
+
+    } else {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    }
+}
+
 
 
 #pragma mark WKMessageHandle Implementation
@@ -164,6 +232,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 //                          cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
+
 
 
 #pragma mark WKUIDelegate Implementation
