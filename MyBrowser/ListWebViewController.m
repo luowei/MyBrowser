@@ -97,14 +97,19 @@
     WKPagesCollectionViewCell* cell=(WKPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     cell.collectionView=collectionView;
 
-    //对webView截图
-    UIGraphicsBeginImageContextWithOptions(webView.bounds.size, YES, 1.0);
-    [webView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    //对wkwebView截图
+//    UIImage *image = [webView screenCapture:webView.bounds.size];
+    UIImage *image = [webView snapshotContent:webView.bounds withScale:1.0 completionHandler:nil];
+/*
+    //保存截图
+    NSString *imgPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, true)[0];
+    NSString *imgFilePath = [imgPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%i.png",indexPath.row]];
+    [UIImagePNGRepresentation(image) writeToFile:imgFilePath atomically:YES];
+    //读取截图
+    image = [UIImage imageWithContentsOfFile:imgFilePath];
+*/
 
     UIImageView* imageView= [[UIImageView alloc] initWithImage:image];
-
     imageView.frame=self.view.bounds;
     [cell.cellContentView addSubview:imageView];
 

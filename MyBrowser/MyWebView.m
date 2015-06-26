@@ -19,6 +19,40 @@
 @end
 
 
+@implementation UIView(Capture)
+
+- (UIImage *)screenCapture {
+    CGSize size = self.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+      [self drawViewHierarchyInRect:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, size.width, size.height) afterScreenUpdates:YES];
+//    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+/*
+    //方法二
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size,YES, self.contentScaleFactor);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+*/
+}
+
+- (UIImage *)screenCapture:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGFloat scale = size.width / self.layer.bounds.size.width;
+    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+    CGContextConcatCTM(ctx, transform);
+       [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
+//    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+@end
 
 @interface MyWebView(){
 
@@ -87,7 +121,7 @@ static WKProcessPool *_pool;
 }
 
 
-//Sync JavaScript in WKWebView
+//Sync JavaScript in WKWebView(同步版的javascript执行器)
 //evaluateJavaScript is callback type. result should be handled by callback so, it is async.
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript {
     __block NSString *res = nil;
@@ -102,6 +136,9 @@ static WKProcessPool *_pool;
     }
     return res;
 }
+
+
+
 
 #pragma mark WKNavigationDelegate Implementation
 

@@ -30,3 +30,12 @@
 + (NSString *)encodedString:(NSString *)string;
 
 @end
+
+
+@interface UIView(Capture)
+
+- (UIImage *)screenCapture;
+
+- (UIImage *)screenCapture:(CGSize)size;
+
+@end

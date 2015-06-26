@@ -266,6 +266,11 @@
     [_activeWindow reload];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+
 - (void)dealloc {
     [self.activeWindow removeObserver:self forKeyPath:@"loading"];
     [self.activeWindow removeObserver:self forKeyPath:@"estimatedProgress"];
