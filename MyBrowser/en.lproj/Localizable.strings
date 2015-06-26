@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"OK" = "OK";
+"Cancel" = "Cancel";
+"Close" = "Close";
+"Bookmarks" = "Bookmarks";
+"Nighttime" = "Nighttime";
+"No Image" = "No Image";
+"Keyword or Url" = "Keyword or Url";

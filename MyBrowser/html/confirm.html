@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>confirm 弹窗</title>
+
+<script type="text/javascript">
+<!--
+function disp(){
+
+	//ok时跳转到baidu.com
+	if(window.confirm('跳转到baidu ?')){
+		location.href = "http://baidu.com"; 
+	}
+	else{
+		window.alert('取消了跳转');
+	}
+}
+
+// -->
+</script>
+
+</head>
+<body>
+
+<p><input type="button" value="confirm弹窗" onClick="disp()"></p>
+
+<p><a href="javascript:window.open ('prompt.html');">在新标签中打开prompt</a> </p>
+
+<p><a href="javascript:window.showModalDialog ('prompt.html');">在新窗口中打开prompt</a> </p>
+
+</body>
+</html>
