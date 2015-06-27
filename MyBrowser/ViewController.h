@@ -15,18 +15,36 @@
 
 @property(nonatomic, strong) ListWebViewController *listWebViewController;
 
-@property (nonatomic,strong) MyWebView *activeWindow;
+@property(nonatomic, strong) MyWebView *activeWindow;
 
+
+@property(nonatomic, strong) NSMutableArray *favoriteArray;
+@end
+
+
+@interface NSString (Match)
+
+- (BOOL)isMatch:(NSString *)pattern;
+
+- (BOOL)isiTunesURL;
+
+- (BOOL)isDomain;
+
+- (BOOL)isHttpURL;
 
 @end
 
 
+@interface Favorite : NSObject<NSCoding>
 
-@interface NSString(Match)
+@property(nonatomic, copy) NSString *title;
+@property(nonatomic, strong) NSURL *URL;
+@property(nonatomic, strong) NSDate *createtime;
 
-- (BOOL)isMatch:(NSString *)pattern;
-- (BOOL)isiTunesURL;
--(BOOL)isDomain;
-- (BOOL)isHttpURL;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dic;
+- (instancetype)initWithCreateAt:(NSDate *)createtime content:(NSString *)title url:(NSURL *)URL;
+
+- (BOOL)isEqualToFavorite:(Favorite *)fav;
 
 @end

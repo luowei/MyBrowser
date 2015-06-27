@@ -39,3 +39,9 @@
 - (UIImage *)screenCapture:(CGSize)size;
 
 @end
+
+@interface WKBackForwardList (WKPrivate)
+
+- (void)_clear;
+
+@end

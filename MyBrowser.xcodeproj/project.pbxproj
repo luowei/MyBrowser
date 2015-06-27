@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */; };
+		BEF06E17CE46469133B81711 /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BD2D27116A758FEB416 /* MyHelper.m */; };
 		EA8ED5321B3D245F00168B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
 		EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5341B3D245F00168B69 /* AppDelegate.m */; };
 		EA8ED5381B3D245F00168B69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5371B3D245F00168B69 /* ViewController.m */; };
@@ -26,8 +28,9 @@
 		EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
 		EA8ED5C21B3D60DD00168B69 /* alert.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5BE1B3D60DD00168B69 /* alert.html */; };
 		EA8ED5C31B3D60DD00168B69 /* confirm.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5BF1B3D60DD00168B69 /* confirm.html */; };
-		EA8ED5C41B3D60DD00168B69 /* Injection.js in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C01B3D60DD00168B69 /* Injection.js */; };
+		EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */; };
 		EA8ED5C51B3D60DD00168B69 /* prompt.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C11B3D60DD00168B69 /* prompt.html */; };
+		EA94FA7A1B3EA6D400B12A7A /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA94FA791B3EA6D400B12A7A /* FavoritesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
+		BEF06B2DC198B322B984AE62 /* MyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelper.h; sourceTree = "<group>"; };
+		BEF06BD2D27116A758FEB416 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
 		EA8ED52C1B3D245F00168B69 /* MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8ED5301B3D245F00168B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8ED5311B3D245F00168B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,9 +89,11 @@
 		EA8ED5B11B3D313300168B69 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		EA8ED5BE1B3D60DD00168B69 /* alert.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = alert.html; sourceTree = "<group>"; };
 		EA8ED5BF1B3D60DD00168B69 /* confirm.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = confirm.html; sourceTree = "<group>"; };
-		EA8ED5C01B3D60DD00168B69 /* Injection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Injection.js; sourceTree = "<group>"; };
+		EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocEndInjection.js; sourceTree = "<group>"; };
 		EA8ED5C11B3D60DD00168B69 /* prompt.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = prompt.html; sourceTree = "<group>"; };
 		EA8ED5C61B3D61BA00168B69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EA94FA781B3EA6D400B12A7A /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		EA94FA791B3EA6D400B12A7A /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,11 +151,15 @@
 				EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */,
 				EA8ED5AE1B3D30E400168B69 /* SettingViewController.h */,
 				EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */,
+				EA94FA781B3EA6D400B12A7A /* FavoritesViewController.h */,
+				EA94FA791B3EA6D400B12A7A /* FavoritesViewController.m */,
 				EA8ED5851B3D2CA100168B69 /* Main.storyboard */,
 				EA8ED57E1B3D2C0A00168B69 /* LaunchScreen.xib */,
 				EA8ED53C1B3D245F00168B69 /* Images.xcassets */,
 				EA8ED52F1B3D245F00168B69 /* Supporting Files */,
 				EA8ED5BD1B3D60DD00168B69 /* html */,
+				BEF06B2DC198B322B984AE62 /* MyHelper.h */,
+				BEF06BD2D27116A758FEB416 /* MyHelper.m */,
 			);
 			path = MyBrowser;
 			sourceTree = "<group>";
@@ -208,8 +220,9 @@
 			children = (
 				EA8ED5BE1B3D60DD00168B69 /* alert.html */,
 				EA8ED5BF1B3D60DD00168B69 /* confirm.html */,
-				EA8ED5C01B3D60DD00168B69 /* Injection.js */,
+				EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */,
 				EA8ED5C11B3D60DD00168B69 /* prompt.html */,
+				BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */,
 			);
 			path = html;
 			sourceTree = "<group>";
@@ -297,7 +310,7 @@
 			files = (
 				EA8ED57C1B3D2C0A00168B69 /* LaunchScreen.xib in Resources */,
 				EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */,
-				EA8ED5C41B3D60DD00168B69 /* Injection.js in Resources */,
+				EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */,
 				EA8ED5C51B3D60DD00168B69 /* prompt.html in Resources */,
 				EA8ED55C1B3D24DE00168B69 /* Localizable.strings in Resources */,
 				EA8ED5C31B3D60DD00168B69 /* confirm.html in Resources */,
@@ -323,6 +336,7 @@
 			files = (
 				EA8ED5381B3D245F00168B69 /* ViewController.m in Sources */,
 				EA8ED5A41B3D307300168B69 /* AWActionSheet.m in Sources */,
+				EA94FA7A1B3EA6D400B12A7A /* FavoritesViewController.m in Sources */,
 				EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */,
 				EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */,
 				EA8ED5321B3D245F00168B69 /* main.m in Sources */,
@@ -331,6 +345,8 @@
 				EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */,
 				EA8ED5AD1B3D30B100168B69 /* ListWebViewController.m in Sources */,
 				EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */,
+				BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */,
+				BEF06E17CE46469133B81711 /* MyHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

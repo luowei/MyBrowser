@@ -11,8 +11,10 @@
 #import "ListWebViewController.h"
 #import "AWActionSheet.h"
 #import "Defines.h"
+#import "FavoritesViewController.h"
+#import "MyHelper.h"
 
-@implementation NSString(Match)
+@implementation NSString (Match)
 
 
 - (BOOL)isMatch:(NSString *)pattern {
@@ -30,24 +32,69 @@
 }
 
 //是否是域名
--(BOOL)isDomain{
-    return [self isMatch:@"^(((ht|f)tp(s?))\\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\\-\\.]+\\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\;\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$"];
+- (BOOL)isDomain {
+    return [self isMatch:@"^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$"]
+            || [self isMatch:@"^(www.|[a-zA-Z].)[a-zA-Z0-9\\-\\.]+\\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\;\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$"];
 }
 
 //是否是网址
-- (BOOL)isHttpURL{
-    return  [self isMatch:@"(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?"];
+- (BOOL)isHttpURL {
+    return [self isMatch:@"(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?"]
+            || [self isMatch:@"^(http|https|ftp)\\://([a-zA-Z0-9\\.\\-]+(\\:[a-zA-Z0-9\\.&amp;%\\$\\-]+)*@)?((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,4})(\\:[0-9]+)?(/[^/][a-zA-Z0-9\\.\\,\\?\\'\\\\/\\+&amp;%\\$#\\=~_\\-@]*)*$"]
+            || [self isMatch:@"^(http|https|ftp)\\://([a-zA-Z0-9\\.\\-]+(\\:[a-zA-Z0-9\\.&amp;%\\$\\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$"];
 }
 
 @end
 
 
-@interface ViewController ()<UISearchBarDelegate, AWActionSheetDelegate>
+@implementation Favorite
+
+- (instancetype)initWithDictionary:(NSDictionary *)dic {
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dic];
+        self.title = dic[@"title"];
+        self.URL = dic[@"URL"];
+        self.createtime = dic[@"createtime"] ?: [NSDate date];
+    }
+    return self;
+}
+
+- (instancetype)initWithCreateAt:(NSDate *)createtime content:(NSString *)title url:(NSURL *)URL {
+    if (self = [super init]) {
+        self.createtime = createtime ?: [NSDate date];
+        self.title = title;
+        self.URL = URL;
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        self.title = [coder decodeObjectForKey:@"title"];
+        self.URL = [coder decodeObjectForKey:@"URL"];
+        self.createtime = [coder decodeObjectForKey:@"createtime"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_title forKey:@"title"];
+    [coder encodeObject:_URL forKey:@"URL"];
+    [coder encodeObject:_createtime forKey:@"createtime"];
+}
+
+- (BOOL)isEqualToFavorite:(Favorite *)fav {
+    return [_title isEqualToString:fav.title] && [_URL.absoluteString isEqualToString:fav.URL.absoluteString];
+}
+
+@end
+
+
+@interface ViewController () <UISearchBarDelegate, AWActionSheetDelegate>
 
 
 //@property(nonatomic, strong) UITextField *urlField;
 @property(strong, nonatomic) UISearchBar *searchBar;
-@property(nonatomic, strong) UIToolbar *bottomToolbar;
 @property(nonatomic, strong) UIBarButtonItem *backBtn;
 @property(nonatomic, strong) UIBarButtonItem *forwardBtn;
 @property(nonatomic, strong) UIBarButtonItem *reloadBtn;
@@ -118,7 +165,7 @@
     _searchBar = [UISearchBar new];
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.delegate = self;
-    _searchBar.placeholder = NSLocalizedString(@"KeyWord or Url", nil);//@"搜索或输入地址";
+    _searchBar.placeholder = NSLocalizedString(@"Keyword or Url", nil);//@"搜索或输入地址";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
     self.navigationItem.titleView = _searchBar;
@@ -138,35 +185,18 @@
 
 
 - (void)addBottomBar {
-//底部工具栏
+    //底部工具栏
     self.homeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"home"] style:UIBarButtonItemStylePlain target:self action:@selector(home)];
     self.favoriteBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorite"] style:UIBarButtonItemStylePlain target:self action:@selector(favorite)];
     self.menuBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(menu)];
     self.reloadBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(reload:)];
-    self.bottomToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 120, self.view.frame.size.width, 40)];
-    self.bottomToolbar.backgroundColor = [UIColor whiteColor];
     self.backBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
     self.forwardBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward"] style:UIBarButtonItemStylePlain target:self action:@selector(forward:)];
 
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    fixedSpace.width = 20;
 
-
-    self.bottomToolbar.items = @[self.homeBtn, fixedSpace, self.favoriteBtn, fixedSpace, self.menuBtn, fixedSpace, self.reloadBtn, flexibleSpace, self.backBtn, fixedSpace, self.forwardBtn];
-    [self.view addSubview:self.bottomToolbar];
-    [self.view bringSubviewToFront:self.bottomToolbar];
-
-    //底部工具栏
-    self.bottomToolbar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomToolbar]|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:@{@"bottomToolbar" : self.bottomToolbar}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bottomToolbar(40)]|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:@{@"bottomToolbar" : self.bottomToolbar}]];
+    self.toolbarItems = @[self.homeBtn, fixedSpace, self.favoriteBtn, fixedSpace, self.menuBtn, fixedSpace, self.reloadBtn, flexibleSpace, self.backBtn, fixedSpace, self.forwardBtn];
 }
 
 //webContainer作为webView的容器
@@ -190,6 +220,7 @@
 - (MyWebView *)addWebView:(NSURL *)url {
     //添加webview
     _activeWindow = [[MyWebView alloc] initWithFrame:_webContainer.frame configuration:[[WKWebViewConfiguration alloc] init]];
+    _activeWindow.backgroundColor = [UIColor whiteColor];
     _activeWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_webContainer addSubview:_activeWindow];
     [_webContainer bringSubviewToFront:_activeWindow];
@@ -206,21 +237,21 @@
     };
 
     //添加新webView的block
-    _activeWindow.addWebViewBlock = ^(MyWebView **wb, NSURL *aurl){
-        if(*wb){
+    _activeWindow.addWebViewBlock = ^(MyWebView **wb, NSURL *aurl) {
+        if (*wb) {
             *wb = [weakSelf addWebView:aurl];
-        }else{
+        } else {
             [weakSelf addWebView:aurl];
         }
     };
 
     //presentViewController block
-    _activeWindow.presentViewControllerBlock = ^(UIViewController *viewController){
+    _activeWindow.presentViewControllerBlock = ^(UIViewController *viewController) {
         [weakSelf presentViewController:viewController animated:YES completion:nil];
     };
 
     //关闭激活的webView的block
-    _activeWindow.closeActiveWebViewBlock = ^(){
+    _activeWindow.closeActiveWebViewBlock = ^() {
         [weakSelf closeActiveWebView];
     };
 
@@ -230,9 +261,9 @@
 
         //设置添加webView的block
         _listWebViewController.addWebViewBlock = ^(MyWebView **wb, NSURL *aurl) {
-            if(*wb){
+            if (*wb) {
                 *wb = [weakSelf addWebView:aurl];
-            }else{
+            } else {
                 [weakSelf addWebView:aurl];
             }
         };
@@ -254,20 +285,31 @@
     // Do any additional setup after loading the view.
 
     //加上这句可以去掉毛玻璃效果
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationController.navigationItem.hidesBackButton = YES;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //隐藏backItem
     [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController.navigationBar.backItem setHidesBackButton:YES];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+
+    self.navigationController.toolbarHidden = NO;
+
+    //从userDefault中加载收藏,给_favoriteArray赋初值
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:MY_FAVORITES];
+    _favoriteArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 
     [_activeWindow reload];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    self.navigationController.toolbarHidden = YES;
 }
 
 
@@ -294,7 +336,9 @@
 //添加新webView窗口
 - (void)presentAddWebViewVC {
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:_listWebViewController];
-    [self presentViewController:_listWebViewController animated:YES completion:nil];
+//    [self presentViewController:_listWebViewController animated:YES completion:nil];
+
+    [self.navigationController pushViewController:_listWebViewController animated:YES];
 }
 
 //主页
@@ -304,7 +348,43 @@
 
 //收藏
 - (void)favorite {
+    Favorite *fav = [[Favorite alloc] initWithDictionary:@{@"title" : _activeWindow.title, @"URL" : _activeWindow.URL}];
 
+/*
+    //方法一
+    BOOL containFav = NO;
+    for(Favorite *obj in _favoriteArray){
+        if([fav isEqualToFavorite:obj]){
+            containFav = YES;
+        }
+    }
+
+    //方法二
+    __block BOOL containFav = NO;
+    [_favoriteArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([fav isEqualToFavorite:obj]){
+            containFav = YES;
+        }
+    }];
+*/
+
+    //方法三
+    BOOL containFav = [_favoriteArray indexesOfObjectsWithOptions:NSEnumerationConcurrent
+                                                      passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                                                          return [fav isEqualToFavorite:obj];
+                                                      }].count > 0;
+    if (!containFav) {
+        [_favoriteArray addObject:fav];
+    } else {
+        [MyHelper showToastAlert:NSLocalizedString(@"Has Been Favorited", nil)];
+        return;
+    }
+
+    //序列化存储
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_favoriteArray];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:MY_FAVORITES];
+
+    [MyHelper showToastAlert:NSLocalizedString(@"Add Favorite Success", nil)];
 }
 
 //设置菜单
@@ -356,8 +436,8 @@
 
     if ([text isHttpURL]) {
         urlStr = [NSString stringWithFormat:@"%@", text];
-    }else if([text isDomain]){
-        urlStr = [NSString stringWithFormat:@"http://%@",text];
+    } else if ([text isDomain]) {
+        urlStr = [NSString stringWithFormat:@"http://%@", text];
     }
 
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -367,29 +447,35 @@
 #pragma mark AWActionSheetDelegate Implementation
 
 - (int)numberOfItemsInActionSheet {
-    return 3;
+    return 4;
 }
 
 - (AWActionSheetCell *)cellForActionAtIndex:(NSInteger)index {
     AWActionSheetCell *cell = [[AWActionSheetCell alloc] init];
     cell.index = (int) index;
 
-    switch (index){
-        case 0:{
+    switch (index) {
+        case 0: {
             cell.titleLabel.text = NSLocalizedString(@"Bookmarks", nil);//@"书签管理";
             [cell.iconView setImage:[UIImage imageNamed:@"bookmark"]];
 
             break;
         }
-        case 1:{
+        case 1: {
             cell.titleLabel.text = NSLocalizedString(@"Nighttime", nil);//@"夜间模式";
             [cell.iconView setImage:[UIImage imageNamed:@"night"]];
 
             break;
         }
-        case 2:{
+        case 2: {
             cell.titleLabel.text = NSLocalizedString(@"No Image", nil);//@"无图模式";
             [cell.iconView setImage:[UIImage imageNamed:@"noimage"]];
+
+            break;
+        }
+        case 3: {
+            cell.titleLabel.text = NSLocalizedString(@"Clear All History", nil);//@"清除痕迹";
+            [cell.iconView setImage:[UIImage imageNamed:@"clearAllHistory"]];
 
             break;
         }
@@ -403,6 +489,40 @@
 
 - (void)DidTapOnItemAtIndex:(NSInteger)index title:(NSString *)name {
     NSLog(@"tap on %d", (int) index);
+
+    switch (index) {
+        case 0: {
+            //书签管理
+            FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
+            favoritesViewController.getCurrentWebViewBlock = ^(MyWebView **wb) {
+                *wb = _activeWindow;
+            };
+            favoritesViewController.loadRequestBlock = ^(NSURL *url){
+                [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
+            };
+            [self.navigationController pushViewController:favoritesViewController animated:YES];
+
+            break;
+        }
+        case 1: {
+            //夜间模式
+
+            break;
+        }
+        case 2: {
+            //无图模式
+
+            break;
+        }
+        case 3: {
+            //无图模式
+
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 
 
@@ -411,7 +531,7 @@
     // Grab and remove the top web view, remove its reference from the windows array,
     // and nil itself and its delegate. Then we re-set the activeWindow to the
     // now-top web view and refresh the toolbar.
-    if(_activeWindow == _listWebViewController.windows.lastObject){
+    if (_activeWindow == _listWebViewController.windows.lastObject) {
         [_activeWindow loadRequest:[NSURLRequest requestWithURL:HOME_URL]];
         return;
     }
@@ -421,7 +541,6 @@
     _activeWindow = _listWebViewController.windows.lastObject;
     [_webContainer bringSubviewToFront:_activeWindow];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -78,6 +78,7 @@ static WKProcessPool *_pool;
 
     //设置多窗口cookie共享
     configuration.processPool = [MyWebView pool];
+//    self.backForwardList
 
     self = [super initWithFrame:frame configuration:configuration];
     if (self) {
@@ -91,6 +92,10 @@ static WKProcessPool *_pool;
 
         //加载用户js文件,修改加载网页内容
         [self addUserScriptsToWeb];
+
+        //无图模式
+//        self.getSettings().setLoadsImagesAutomatically(false);
+//        self.getSettings().setBlockNetworkLoads (true);
     }
 
     return self;
@@ -99,22 +104,25 @@ static WKProcessPool *_pool;
 //加载用户js文件
 - (void)addUserScriptsToWeb {
 
-    NSString *userScriptString = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Injection" withExtension:@"js"]
-                                                                encoding:NSUTF8StringEncoding error:NULL];
-//    NSString *scriptString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"postingMsg" ofType:@"js"]
-//                                                       encoding:NSUTF8StringEncoding error:NULL];
-
 //    NSString *path = [[NSBundle mainBundle] pathsForResourcesOfType:@"js" inDirectory:@"Resource"][0];
-//    NSString *scriptString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+//    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
 
-//    //在document加载前执行注入js脚本
-//    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:scriptString injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-//                                                   forMainFrameOnly:YES];
+    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
+                                                       encoding:NSUTF8StringEncoding error:NULL];
+
+    //在document加载前执行注入js脚本
+    WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                   forMainFrameOnly:YES];
+    [self.webViewConfiguration.userContentController addUserScript:docStartScript];
+
+
+    NSString *docEndInjectionJS = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"DocEndInjection" withExtension:@"js"]
+                                                           encoding:NSUTF8StringEncoding error:NULL];
 
     //在document加载完成后执行注入js脚本
-    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:userScriptString injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+    WKUserScript *docEndScript = [[WKUserScript alloc] initWithSource:docEndInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                    forMainFrameOnly:YES];
-    [self.webViewConfiguration.userContentController addUserScript:userScript];
+    [self.webViewConfiguration.userContentController addUserScript:docEndScript];
 
     //添加js脚本到处理器中
     [self.webViewConfiguration.userContentController addScriptMessageHandler:self name:@"myName"];
@@ -138,26 +146,15 @@ static WKProcessPool *_pool;
 }
 
 
+//加载请求
+- (WKNavigation *)loadRequest:(NSURLRequest *)request {
+    return [super loadRequest:request];
+}
 
 
 #pragma mark WKNavigationDelegate Implementation
 
-//当加载页面发生错误
-- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-
-    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:error.localizedDescription
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
-    self.presentViewControllerBlock(alertViewController);
-
-}
-
-//当页面加载完成
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    self.finishNavigationProgressBlock();
-}
-
+//决定是否请允许打开
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     NSURL *url = navigationAction.request.URL;
@@ -210,8 +207,32 @@ static WKProcessPool *_pool;
 //    }
 */
 
-
 }
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+/*
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)navigationResponse.response;
+    NSArray *cookies =[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:response.URL];
+
+    for (NSHTTPCookie *cookie in cookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+*/
+
+//    if(navigationResponse.canShowMIMEType){
+//        NSString *mimeType = navigationResponse.response.MIMEType.lowercaseString;
+//        if([mimeType isEqualToString:@"image/jpeg"] || [mimeType isEqualToString:@"image/png"] || [mimeType isEqualToString:@"image/gif"]){
+//            decisionHandler(WKNavigationResponsePolicyCancel);
+//            return;
+//        }
+//    }
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+}
+
+
 
 //处理当接收到验证窗口时
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
@@ -256,6 +277,21 @@ static WKProcessPool *_pool;
     }
 }
 
+//当加载页面发生错误
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+
+    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                                 message:error.localizedDescription
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+    self.presentViewControllerBlock(alertViewController);
+
+}
+
+//当页面加载完成
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    self.finishNavigationProgressBlock();
+}
 
 
 #pragma mark WKMessageHandle Implementation

@@ -98,8 +98,8 @@
     cell.collectionView=collectionView;
 
     //对wkwebView截图
-//    UIImage *image = [webView screenCapture:webView.bounds.size];
-    UIImage *image = [webView snapshotContent:webView.bounds withScale:1.0 completionHandler:nil];
+    UIImage *image = [webView screenCapture:webView.bounds.size];
+//    UIImage *image = [webView snapshotContent:webView.bounds withScale:1.0 completionHandler:nil];
 /*
     //保存截图
     NSString *imgPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, true)[0];
@@ -123,12 +123,16 @@
 
     MyWebView *webView = _windows[(NSUInteger) indexPath.row];
     self.updateActiveWindowBlock(webView);
+    [_collectionView deselectItemAtIndexPath:indexPath animated:NO];
 
-//    BSViewController *viewController = (BSViewController *)self.parentViewController;
-//    BSViewController *viewController = (BSViewController *)[self.view.superview nextResponder];
-    [self dismissViewControllerAnimated:YES completion:^{
-//        [viewController.activeWindow reload];
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
+
+////    BSViewController *viewController = (BSViewController *)self.parentViewController;
+////    BSViewController *viewController = (BSViewController *)[self.view.superview nextResponder];
+//    [self dismissViewControllerAnimated:YES completion:^{
+////        [viewController.activeWindow reload];
+//    }];
+
 }
 
 
