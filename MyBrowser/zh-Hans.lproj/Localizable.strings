@@ -11,6 +11,7 @@
 "Error" = "错误";
 "Bookmarks" = "收藏管理";
 "Nighttime" = "夜间模式";
+"Daytime" = "日间模式";
 "No Image" = "无图模式";
 "Keyword or Url" = "搜索或输入地址";
 "Add Favorite Success" = "添加收藏成功";
@@ -21,6 +22,7 @@
 "Clear History" = "清除";
 "Clear All History" = "清除痕迹";
 "Clear History Success" = "清除历史成功";
+"Successfully cleared Footprint" = "已成功清除痕迹";
 "Add Favorite" = "添加收藏";
 "Update Favorite" = "修改收藏";
 "Editing isn't Saved" = "修改没有保存";

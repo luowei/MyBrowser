@@ -19,6 +19,7 @@
 
 
 @property(nonatomic, strong) NSMutableArray *favoriteArray;
+@property(nonatomic, strong) CALayer *webmaskLayer;
 @end
 
 

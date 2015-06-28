@@ -464,7 +464,10 @@
         case 1: {
             cell.titleLabel.text = NSLocalizedString(@"Nighttime", nil);//@"夜间模式";
             [cell.iconView setImage:[UIImage imageNamed:@"night"]];
-
+            if(_webmaskLayer && _webmaskLayer.superlayer == _webContainer.layer){
+                cell.titleLabel.text = NSLocalizedString(@"Daytime", nil);//@"白天模式";
+                [cell.iconView setImage:[UIImage imageNamed:@"day"]];
+            }
             break;
         }
         case 2: {
@@ -506,6 +509,21 @@
         }
         case 1: {
             //夜间模式
+            if(!_webmaskLayer){
+                _webmaskLayer = [CALayer layer];
+                _webmaskLayer.frame = _activeWindow.layer.frame;
+                _webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
+                _webmaskLayer.opacity = 0.3;
+                //移到最顶层
+//                _webmaskLayer.zPosition = 1000;
+
+                //给webContain加上一层半透明的遮罩层
+                [_webContainer.layer addSublayer:_webmaskLayer];
+            }else{
+                //去掉遮罩层
+                [_webmaskLayer removeFromSuperlayer];
+                _webmaskLayer = nil;
+            }
 
             break;
         }
@@ -515,8 +533,14 @@
             break;
         }
         case 3: {
-            //无图模式
-
+            //清除痕迹
+            [_webContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if([obj isMemberOfClass:[MyWebView class]]){
+                    MyWebView *wb = (MyWebView *)obj;
+                    [wb.backForwardList performSelector:@selector(_clear)];
+                }
+            }];
+            [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
             break;
         }
         default: {

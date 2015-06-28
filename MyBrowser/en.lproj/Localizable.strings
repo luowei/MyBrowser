@@ -11,6 +11,7 @@
 "Error" = "Error";
 "Bookmarks" = "Bookmarks";
 "Nighttime" = "Nighttime";
+"Daytime" = "Daytime";
 "No Image" = "No Image";
 "Keyword or Url" = "Keyword or Url";
 "Add Favorite Success" = "Add Favorite Success";
@@ -20,6 +21,7 @@
 "Has Been Favorited" = "You Has Been Favorited";
 "Clear History" = "Clear";
 "Clear All History" = "Clear All History";
+"Successfully cleared Footprint" = "Successfully cleared Footprint";
 "Clear History Success" = "Clear History Success";
 "Add Favorite" = "Add Favorite";
 "Update Favorite" = "Update Favorite";

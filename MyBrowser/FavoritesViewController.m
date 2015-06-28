@@ -111,6 +111,7 @@
             break;
         }
         case 1: {
+            self.navigationController.toolbarHidden = YES;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear History", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self action:@selector(clearHistory)];
@@ -306,8 +307,8 @@
 //编辑收藏
 - (void)editFavorite:(UIView *)editBtn {
     UITableViewCell *cell = nil;
-    if (editBtn.superview && [editBtn.superview.superview isMemberOfClass:[UITableViewCell class]]) {
-        cell = (UITableViewCell *) editBtn.superview.superview;
+    if (editBtn.superview && [editBtn.superview isMemberOfClass:[UITableViewCell class]]) {
+        cell = (UITableViewCell *) editBtn.superview;
     } else {
         return;
     }
