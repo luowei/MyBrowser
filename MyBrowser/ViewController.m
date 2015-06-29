@@ -13,6 +13,7 @@
 #import "Defines.h"
 #import "FavoritesViewController.h"
 #import "MyHelper.h"
+#import "MyPopupView.h"
 
 @implementation NSString (Match)
 
@@ -90,7 +91,7 @@
 @end
 
 
-@interface ViewController () <UISearchBarDelegate, AWActionSheetDelegate>
+@interface ViewController () <UISearchBarDelegate, MyPopupViewDelegate,AWActionSheetDelegate>
 
 
 //@property(nonatomic, strong) UITextField *urlField;
@@ -107,9 +108,12 @@
 
 @property(nonatomic, strong) UIView *webContainer;
 
+@property(nonatomic, strong) MyPopupView *popupView;
 @end
 
-@implementation ViewController
+@implementation ViewController{
+    BOOL menuIsShow;
+}
 
 - (void)loadView {
     [super loadView];
@@ -138,6 +142,13 @@
     [self.activeWindow addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     [self.activeWindow addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
 }
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+
+
+}
+
 
 //进度条
 - (void)addProgressBar {
@@ -312,6 +323,11 @@
     self.navigationController.toolbarHidden = YES;
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [awActionSheet dismiss];
+    
+}
 
 - (void)dealloc {
     [self.activeWindow removeObserver:self forKeyPath:@"loading"];
@@ -389,8 +405,31 @@
 
 //设置菜单
 - (void)menu {
-    AWActionSheet *sheet = [[AWActionSheet alloc] initWithIconSheetDelegate:self ItemCount:[self numberOfItemsInActionSheet]];
-    [sheet show];
+//    [[[AWActionSheet alloc] initWithIconSheetDelegate:self ItemCount:[self numberOfItemsInActionSheet]] show];
+    if(!menuIsShow){
+        CGRect frame = self.view.frame;
+        NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil),NSLocalizedString(@"Nighttime", nil),NSLocalizedString(@"Daytime", nil),
+                NSLocalizedString(@"No Image", nil),NSLocalizedString(@"Clear All History", nil)];
+        _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height-240, frame.size.width, 240) dataSource:titleArray];
+        _popupView.delegate = self;
+        [self.view addSubview:_popupView];
+
+//        _popupView.translatesAutoresizingMaskIntoConstraints = NO;
+//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[popupView]|" options:0 metrics:nil views:@{@"popupView":_popupView}]];
+//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[popupView(240)]|" options:0 metrics:nil views:@{@"popupView":_popupView}]];
+
+        menuIsShow = YES;
+    }else{
+        [_popupView removeFromSuperview];
+        _popupView = nil;
+        menuIsShow = NO;
+    }
+
+
+//    self.view.maskView = [[UIView alloc] initWithFrame:frame];
+//    self.view.maskView.backgroundColor = [UIColor blackColor];
+//    self.view.maskView.alpha = 0.8;
+
 }
 
 //刷新
@@ -488,6 +527,11 @@
     }
 
     return cell;
+}
+
+
+- (void)itemTaped:(MyCollectionViewCell *)cell {
+
 }
 
 - (void)DidTapOnItemAtIndex:(NSInteger)index title:(NSString *)name {

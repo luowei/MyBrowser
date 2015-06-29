@@ -7,31 +7,32 @@
 //
 
 #import "AWActionSheet.h"
+#import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface AWActionSheet()<UIScrollViewDelegate>
-@property (nonatomic, retain)UIScrollView* scrollView;
-@property (nonatomic, retain)UIPageControl* pageControl;
-@property (nonatomic, retain)NSMutableArray* items;
-@property (nonatomic, assign)id<AWActionSheetDelegate> IconDelegate;
-@property (nonatomic, assign) NSInteger itemCountforOneLine;
+@interface AWActionSheet () <UIScrollViewDelegate>
+@property(nonatomic, retain) UIScrollView *scrollView;
+@property(nonatomic, retain) UIPageControl *pageControl;
+@property(nonatomic, retain) NSMutableArray *items;
+@property(nonatomic, assign) id <AWActionSheetDelegate> IconDelegate;
+@property(nonatomic, assign) NSInteger itemCountforOneLine;
 
-@property (nonatomic, strong) UIView *backgroundMask;
-@property (nonatomic, strong) UIView *contentView;
+@property(nonatomic, strong) UIView *backgroundMask;
+@property(nonatomic, strong) UIView *contentView;
 @end
+
 @implementation AWActionSheet
 @synthesize scrollView;
 @synthesize pageControl;
 @synthesize items;
 @synthesize IconDelegate;
--(void)dealloc
-{
-    IconDelegate= nil;
+
+- (void)dealloc {
+    IconDelegate = nil;
 }
 
 
--(id)initWithIconSheetDelegate:(id<AWActionSheetDelegate>)delegate ItemCount:(int)count
-{
+- (id)initWithIconSheetDelegate:(id <AWActionSheetDelegate>)delegate ItemCount:(int)count {
     self = [self initWithFrame:[UIScreen mainScreen].bounds];
 
     if (self) {
@@ -53,7 +54,7 @@
         self.itemCountforOneLine = 4;
 
         IconDelegate = delegate;
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 105*3)];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 105 * 3)];
         [scrollView setPagingEnabled:YES];
         [scrollView setBackgroundColor:[UIColor clearColor]];
         [scrollView setShowsHorizontalScrollIndicator:NO];
@@ -68,7 +69,7 @@
         [pageControl setNumberOfPages:0];
         [pageControl setCurrentPage:0];
         pageControl.hidesForSinglePage = YES;
-        [pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
+        [pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:pageControl];
 
         self.items = [[NSMutableArray alloc] initWithCapacity:count];
@@ -78,43 +79,53 @@
     return self;
 }
 
-static AWActionSheet *sheet = nil;
+////更新ActionSheet的frame
+//-(void)updateFrame:(UIInterfaceOrientation)toInterfaceOrientation{
+//    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight
+//            || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+//        self.frame = [UIScreen mainScreen].bounds;
+//        self.scrollView.frame = CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 105 * 2);
+//        self.pageControl.frame = CGRectMake(0, CGRectGetHeight(self.scrollView.frame), CGRectGetWidth(self.contentView.bounds), 20);
+//    }else{
+//        self.frame = [UIScreen mainScreen].bounds;
+//        self.scrollView.frame = CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 105 * 3);
+//        self.pageControl.frame = CGRectMake(0, CGRectGetHeight(self.scrollView.frame), CGRectGetWidth(self.contentView.bounds), 20);
+//    }
+//
+//
+//}
 
-- (void)dismiss
-{
+- (void)dismiss {
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.backgroundMask.alpha = 0;
         [self setContentViewFrameY:CGRectGetHeight(self.bounds)];
-    } completion:^(BOOL finished) {
-        sheet.hidden = YES;
-        sheet = nil;
+    }                completion:^(BOOL finished) {
+        awActionSheet.hidden = YES;
+        awActionSheet = nil;
     }];
 }
 
-- (void)setContentViewFrameY:(CGFloat)y
-{
+- (void)setContentViewFrameY:(CGFloat)y {
     CGRect frame = self.contentView.frame;
     frame.origin.y = y;
     self.contentView.frame = frame;
 }
 
-- (void)show
-{
+- (void)show {
     [self reloadData];
 
-    sheet = self;
-    sheet.hidden = NO;
+    awActionSheet = self;
+    awActionSheet.hidden = NO;
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.backgroundMask.alpha = 0.6;
         [self setContentViewFrameY:CGRectGetHeight(self.bounds) - CGRectGetHeight(self.contentView.frame)];
-    } completion:^(BOOL finished) {
+    }                completion:^(BOOL finished) {
 
     }];
 }
 
-- (void)reloadData
-{
-    for (AWActionSheetCell* cell in items) {
+- (void)reloadData {
+    for (AWActionSheetCell *cell in items) {
         [cell removeFromSuperview];
         [items removeObject:cell];
     }
@@ -130,7 +141,7 @@ static AWActionSheet *sheet = nil;
     if (count <= self.itemCountforOneLine) {
         [scrollView setFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 105)];
         rowCount = 1;
-    } else if (count <= self.itemCountforOneLine*2) {
+    } else if (count <= self.itemCountforOneLine * 2) {
         [scrollView setFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.bounds), 210)];
         rowCount = 2;
     }
@@ -140,29 +151,29 @@ static AWActionSheet *sheet = nil;
     pageControlFrame.origin.y = pageControlY;
     self.pageControl.frame = pageControlFrame;
 
-    NSUInteger itemPerPage = self.itemCountforOneLine*rowCount;
-    [scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.contentView.bounds)*ceilf((((float)count)/itemPerPage)), scrollView.frame.size.height)];
-    [pageControl setNumberOfPages:ceilf((((float)count)/itemPerPage))];
+    NSUInteger itemPerPage = self.itemCountforOneLine * rowCount;
+    [scrollView setContentSize:CGSizeMake(CGRectGetWidth(self.contentView.bounds) * ceilf((((float) count) / itemPerPage)), scrollView.frame.size.height)];
+    [pageControl setNumberOfPages:ceilf((((float) count) / itemPerPage))];
     [pageControl setCurrentPage:0];
 
     CGFloat margin = 8;
-    CGFloat width = self.scrollView.frame.size.width - margin*2;
+    CGFloat width = self.scrollView.frame.size.width - margin * 2;
 
-    for (int i = 0; i< count; i++) {
-        AWActionSheetCell* cell = [IconDelegate cellForActionAtIndex:i];
-        int PageNo = i/itemPerPage;
-        int index  = i%itemPerPage;
+    for (int i = 0; i < count; i++) {
+        AWActionSheetCell *cell = [IconDelegate cellForActionAtIndex:i];
+        int PageNo = i / itemPerPage;
+        int index = i % itemPerPage;
 
-        int row = index/self.itemCountforOneLine;
-        int column = index%self.itemCountforOneLine;
+        int row = index / self.itemCountforOneLine;
+        int column = index % self.itemCountforOneLine;
 
-        float centerY = (1+row*2)*self.scrollView.frame.size.height/(2*rowCount);
-        float centerX = (1+column*2)*width/(2*self.itemCountforOneLine);
+        float centerY = (1 + row * 2) * self.scrollView.frame.size.height / (2 * rowCount);
+        float centerX = (1 + column * 2) * width / (2 * self.itemCountforOneLine);
 
-        [cell setCenter:CGPointMake(margin + centerX+CGRectGetWidth(self.contentView.bounds)*PageNo, centerY)];
+        [cell setCenter:CGPointMake(margin + centerX + CGRectGetWidth(self.contentView.bounds) * PageNo, centerY)];
         [self.scrollView addSubview:cell];
 
-        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionForItem:)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionForItem:)];
         [cell addGestureRecognizer:tap];
 
         [items addObject:cell];
@@ -175,7 +186,7 @@ static AWActionSheet *sheet = nil;
     scrollBG.layer.cornerRadius = 5;
     [self.contentView insertSubview:scrollBG belowSubview:self.scrollView];
 
-    CGFloat y = CGRectGetMinY(self.pageControl.frame) +  5 + (self.pageControl.numberOfPages == 1 ? 0 : CGRectGetHeight(self.pageControl.frame));
+    CGFloat y = CGRectGetMinY(self.pageControl.frame) + 5 + (self.pageControl.numberOfPages == 1 ? 0 : CGRectGetHeight(self.pageControl.frame));
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(margin, y, CGRectGetWidth(self.contentView.frame) - margin * 2, 44);
     [btn setTitle:@"取消" forState:UIControlStateNormal];
@@ -193,13 +204,11 @@ static AWActionSheet *sheet = nil;
     self.contentView.frame = frame;
 }
 
-- (void)setBtn:(UIButton*)btn backgroundColor:(UIColor*)color
-{
+- (void)setBtn:(UIButton *)btn backgroundColor:(UIColor *)color {
     [btn setBackgroundImage:[self singleColor:color size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
 }
 
-- (UIImage*)singleColor:(UIColor*)color size:(CGSize)size
-{
+- (UIImage *)singleColor:(UIColor *)color size:(CGSize)size {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -211,37 +220,38 @@ static AWActionSheet *sheet = nil;
     return img;
 }
 
-- (void)actionForItem:(UITapGestureRecognizer*)recongizer
-{
-    AWActionSheetCell* cell = (AWActionSheetCell*)[recongizer view];
+- (void)actionForItem:(UITapGestureRecognizer *)recongizer {
+    AWActionSheetCell *cell = (AWActionSheetCell *) [recongizer view];
 
     [self dismiss];
     [IconDelegate DidTapOnItemAtIndex:cell.index title:cell.titleLabel.text];
 }
 
 - (IBAction)changePage:(id)sender {
-    int page = (int)pageControl.currentPage;
+    int page = (int) pageControl.currentPage;
     [scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.contentView.bounds) * page, 0)];
 }
+
 #pragma mark -
 #pragma scrollview delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
-    int page = scrollView.contentOffset.x /CGRectGetWidth(self.contentView.bounds);
+    int page = scrollView.contentOffset.x / CGRectGetWidth(self.contentView.bounds);
     pageControl.currentPage = page;
 }
 
 @end
 
 #pragma mark - AWActionSheetCell
+
 @interface AWActionSheetCell ()
 @end
+
 @implementation AWActionSheetCell
 @synthesize iconView;
 @synthesize titleLabel;
 
--(id)init
-{
+- (id)init {
     self = [super initWithFrame:CGRectMake(0, 0, 70, 70)];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -265,7 +275,7 @@ static AWActionSheet *sheet = nil;
         [self addSubview:titleLabel];
 
         if ([self isVersionSupport:@"7.0"]) {
-            titleLabel.textColor = [UIColor colorWithRed:94.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1];
+            titleLabel.textColor = [UIColor colorWithRed:94.0 / 255.0 green:94.0 / 255.0 blue:94.0 / 255.0 alpha:1];
             titleLabel.shadowColor = [UIColor clearColor];
             titleLabel.shadowOffset = CGSizeZero;
         }

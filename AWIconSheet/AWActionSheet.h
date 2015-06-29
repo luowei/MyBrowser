@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class AWActionSheetCell;
+@class AWActionSheet;
 
 @protocol AWActionSheetDelegate <UIActionSheetDelegate>
 
@@ -17,10 +18,14 @@
 
 @end
 
+static AWActionSheet *awActionSheet = nil;
+
 @interface AWActionSheet : UIWindow
 -(id)initWithIconSheetDelegate:(id<AWActionSheetDelegate>)delegate ItemCount:(int)cout;
 
 - (void)show;
+- (void)dismiss;
+
 @end
 
 

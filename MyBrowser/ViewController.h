@@ -10,6 +10,8 @@
 
 @class MyWebView;
 @class ListWebViewController;
+@class AWActionSheet;
+@class MyPopupView;
 
 @interface ViewController : UIViewController
 
