@@ -15,4 +15,7 @@
 //显示提示窗
 + (void)showToastAlert:(NSString *)message;
 
+//获得屏幕大小
++ (CGSize)fixedScreenSize;
+
 @end

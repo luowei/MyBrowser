@@ -410,7 +410,7 @@
         CGRect frame = self.view.frame;
         NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil),NSLocalizedString(@"Nighttime", nil),NSLocalizedString(@"Daytime", nil),
                 NSLocalizedString(@"No Image", nil),NSLocalizedString(@"Clear All History", nil)];
-        _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height-240, frame.size.width, 240) dataSource:titleArray];
+        _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height-self.bottomLayoutGuide.length-240, frame.size.width, 240) dataSource:titleArray];
         _popupView.delegate = self;
         [self.view addSubview:_popupView];
 

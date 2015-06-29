@@ -25,4 +25,14 @@
     });
 }
 
+//获得屏幕大小
++ (CGSize)fixedScreenSize {
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    if ((NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_7_1) && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        return CGSizeMake(screenSize.height, screenSize.width);
+    } else {
+        return screenSize;
+    }
+}
+
 @end

@@ -119,8 +119,8 @@
         [self addSubview:_collectionView];
 
         _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[collectionView]-10-|" options:0 metrics:nil views:@{@"collectionView" : _collectionView}]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[collectionView]-5-|" options:0 metrics:nil views:@{@"collectionView" : _collectionView}]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[collectionView]|" options:0 metrics:nil views:@{@"collectionView" : _collectionView}]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[collectionView]|" options:0 metrics:nil views:@{@"collectionView" : _collectionView}]];
 
     }
 

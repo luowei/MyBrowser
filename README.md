@@ -12,3 +12,13 @@ WKWeb​View:http://nshipster.com/wkwebkit/
 WKWebView Screenshots:http://atmarkplant.com/wkwebview-screenshots/
 
 Customize behavior when long-pressing a link:https://github.com/mozilla/firefox-ios/pull/61/files
+
+
+AutoLayoutDemo:https://github.com/yechunjun/AutoLayoutDemo/tree/master/CCAutoLayoutDemo
+
+细数AutoLayout以来UIView和UIViewController新增的相关API – UIView篇:
+http://chun.tips/blog/2014/10/23/xi-shu-autolayoutyi-lai-uiviewhe-uiviewcontrollerxin-zeng-de-xiang-guan-api-uiviewpian/
+
+
+WWDC 2014 Session笔记 - iOS界面开发的大一统:http://onevcat.com/2014/07/ios-ui-unique/
+iOS8 Size Classes的理解与使用:http://joywii.github.io/blog/2014/09/24/ios8-size-classesde-li-jie-yu-shi-yong/
