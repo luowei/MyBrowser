@@ -12,7 +12,7 @@
 
 @protocol MyPopupViewDelegate<NSObject>
 
--(void)itemTaped:(MyCollectionViewCell *)cell;
+-(void)popupViewItemTaped:(MyCollectionViewCell *)cell;
 
 @end;
 

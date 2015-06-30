@@ -20,7 +20,6 @@
 		EA8ED57C1B3D2C0A00168B69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED57E1B3D2C0A00168B69 /* LaunchScreen.xib */; };
 		EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5851B3D2CA100168B69 /* Main.storyboard */; };
 		EA8ED5981B3D2FF700168B69 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8ED5971B3D2FF700168B69 /* WebKit.framework */; };
-		EA8ED5A41B3D307300168B69 /* AWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED59B1B3D307300168B69 /* AWActionSheet.m */; };
 		EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED59F1B3D307300168B69 /* WKPagesCollectionView.m */; };
 		EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A11B3D307300168B69 /* WKPagesCollectionViewCell.m */; };
 		EA8ED5A71B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A31B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m */; };
@@ -74,8 +73,6 @@
 		EA8ED5951B3D2EB200168B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA8ED5961B3D2EB400168B69 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		EA8ED5971B3D2FF700168B69 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		EA8ED59A1B3D307300168B69 /* AWActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWActionSheet.h; sourceTree = "<group>"; };
-		EA8ED59B1B3D307300168B69 /* AWActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWActionSheet.m; sourceTree = "<group>"; };
 		EA8ED59D1B3D307300168B69 /* WK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WK.h; sourceTree = "<group>"; };
 		EA8ED59E1B3D307300168B69 /* WKPagesCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPagesCollectionView.h; sourceTree = "<group>"; };
 		EA8ED59F1B3D307300168B69 /* WKPagesCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPagesCollectionView.m; sourceTree = "<group>"; };
@@ -131,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				EA8ED5971B3D2FF700168B69 /* WebKit.framework */,
-				EA8ED5991B3D307300168B69 /* AWIconSheet */,
 				EA8ED59C1B3D307300168B69 /* WKPagesCollectionView */,
 				EA8ED52E1B3D245F00168B69 /* MyBrowser */,
 				EA8ED5481B3D245F00168B69 /* MyBrowserTests */,
@@ -203,15 +199,6 @@
 				EA8ED54A1B3D245F00168B69 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		EA8ED5991B3D307300168B69 /* AWIconSheet */ = {
-			isa = PBXGroup;
-			children = (
-				EA8ED59A1B3D307300168B69 /* AWActionSheet.h */,
-				EA8ED59B1B3D307300168B69 /* AWActionSheet.m */,
-			);
-			path = AWIconSheet;
 			sourceTree = "<group>";
 		};
 		EA8ED59C1B3D307300168B69 /* WKPagesCollectionView */ = {
@@ -348,7 +335,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8ED5381B3D245F00168B69 /* ViewController.m in Sources */,
-				EA8ED5A41B3D307300168B69 /* AWActionSheet.m in Sources */,
 				EA94FA7A1B3EA6D400B12A7A /* FavoritesViewController.m in Sources */,
 				EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */,
 				EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */,

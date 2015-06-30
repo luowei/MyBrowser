@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "MyWebView.h"
 #import "ListWebViewController.h"
-#import "AWActionSheet.h"
 #import "Defines.h"
 #import "FavoritesViewController.h"
 #import "MyHelper.h"
@@ -91,7 +90,7 @@
 @end
 
 
-@interface ViewController () <UISearchBarDelegate, MyPopupViewDelegate,AWActionSheetDelegate>
+@interface ViewController () <UISearchBarDelegate, MyPopupViewDelegate>
 
 
 //@property(nonatomic, strong) UITextField *urlField;
@@ -111,7 +110,7 @@
 @property(nonatomic, strong) MyPopupView *popupView;
 @end
 
-@implementation ViewController{
+@implementation ViewController {
     BOOL menuIsShow;
 }
 
@@ -323,12 +322,6 @@
     self.navigationController.toolbarHidden = YES;
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [awActionSheet dismiss];
-    
-}
-
 - (void)dealloc {
     [self.activeWindow removeObserver:self forKeyPath:@"loading"];
     [self.activeWindow removeObserver:self forKeyPath:@"estimatedProgress"];
@@ -405,31 +398,34 @@
 
 //设置菜单
 - (void)menu {
-//    [[[AWActionSheet alloc] initWithIconSheetDelegate:self ItemCount:[self numberOfItemsInActionSheet]] show];
-    if(!menuIsShow){
-        CGRect frame = self.view.frame;
-        NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil),NSLocalizedString(@"Nighttime", nil),NSLocalizedString(@"Daytime", nil),
-                NSLocalizedString(@"No Image", nil),NSLocalizedString(@"Clear All History", nil)];
-        _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height-self.bottomLayoutGuide.length-240, frame.size.width, 240) dataSource:titleArray];
-        _popupView.delegate = self;
-        [self.view addSubview:_popupView];
-
-//        _popupView.translatesAutoresizingMaskIntoConstraints = NO;
-//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[popupView]|" options:0 metrics:nil views:@{@"popupView":_popupView}]];
-//        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[popupView(240)]|" options:0 metrics:nil views:@{@"popupView":_popupView}]];
-
-        menuIsShow = YES;
-    }else{
-        [_popupView removeFromSuperview];
-        _popupView = nil;
-        menuIsShow = NO;
+    if (!menuIsShow) {
+        [self showMenu];
+    } else {
+        [self hiddenMenu];
     }
+}
 
+//显示设置菜单
+- (void)showMenu {
+    CGRect frame = self.view.frame;
+    NSString *timeMode = _webmaskLayer == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
+    NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil), timeMode, NSLocalizedString(@"No Image", nil), NSLocalizedString(@"Clear All History", nil)];
+    _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height - self.bottomLayoutGuide.length - 100, frame.size.width, 100) dataSource:titleArray];
+    _popupView.delegate = self;
+    [self.view addSubview:_popupView];
 
-//    self.view.maskView = [[UIView alloc] initWithFrame:frame];
-//    self.view.maskView.backgroundColor = [UIColor blackColor];
-//    self.view.maskView.alpha = 0.8;
+    _popupView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[popupView]|" options:0 metrics:nil views:@{@"popupView" : _popupView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[popupView(100)]-0-[bottomLayoutGuide]" options:0 metrics:nil views:@{@"popupView" : _popupView, @"bottomLayoutGuide" : self.bottomLayoutGuide}]];
 
+    menuIsShow = YES;
+}
+
+//隐藏设置菜单
+- (void)hiddenMenu {
+    [_popupView removeFromSuperview];
+    _popupView = nil;
+    menuIsShow = NO;
 }
 
 //刷新
@@ -483,116 +479,62 @@
     [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
-#pragma mark AWActionSheetDelegate Implementation
+#pragma mark MyPopupViewDelegate Implementation
 
-- (int)numberOfItemsInActionSheet {
-    return 4;
-}
+//当设置菜单项被选中
+- (void)popupViewItemTaped:(MyCollectionViewCell *)cell {
 
-- (AWActionSheetCell *)cellForActionAtIndex:(NSInteger)index {
-    AWActionSheetCell *cell = [[AWActionSheetCell alloc] init];
-    cell.index = (int) index;
+    //收藏历史管理
+    if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Bookmarks", nil)]) {
+        FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
+        favoritesViewController.getCurrentWebViewBlock = ^(MyWebView **wb) {
+            *wb = _activeWindow;
+        };
+        favoritesViewController.loadRequestBlock = ^(NSURL *url) {
+            [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
+        };
+        [self.navigationController pushViewController:favoritesViewController animated:YES];
 
-    switch (index) {
-        case 0: {
-            cell.titleLabel.text = NSLocalizedString(@"Bookmarks", nil);//@"书签管理";
-            [cell.iconView setImage:[UIImage imageNamed:@"bookmark"]];
+        //夜间模式
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
+        if (!_webmaskLayer) {
+            _webmaskLayer = [CALayer layer];
+            _webmaskLayer.frame = _activeWindow.layer.frame;
+            _webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
+            _webmaskLayer.opacity = 0.3;
 
-            break;
+            //给webContain加上一层半透明的遮罩层
+            [_webContainer.layer addSublayer:_webmaskLayer];
+
+//            self.view.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+//            self.view.maskView.backgroundColor = [UIColor blackColor];
+//            self.view.maskView.alpha = 0.8;
         }
-        case 1: {
-            cell.titleLabel.text = NSLocalizedString(@"Nighttime", nil);//@"夜间模式";
-            [cell.iconView setImage:[UIImage imageNamed:@"night"]];
-            if(_webmaskLayer && _webmaskLayer.superlayer == _webContainer.layer){
-                cell.titleLabel.text = NSLocalizedString(@"Daytime", nil);//@"白天模式";
-                [cell.iconView setImage:[UIImage imageNamed:@"day"]];
+
+        //日间模式
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
+        if (_webmaskLayer) {
+            //去掉遮罩层
+            [_webmaskLayer removeFromSuperlayer];
+            _webmaskLayer = nil;
+        }
+        //无图模式
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image", nil)]) {
+
+
+        //清除痕迹
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Clear All History", nil)]) {
+        [_webContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isMemberOfClass:[MyWebView class]]) {
+                MyWebView *wb = (MyWebView *) obj;
+                [wb.backForwardList performSelector:@selector(_clear)];
             }
-            break;
-        }
-        case 2: {
-            cell.titleLabel.text = NSLocalizedString(@"No Image", nil);//@"无图模式";
-            [cell.iconView setImage:[UIImage imageNamed:@"noimage"]];
-
-            break;
-        }
-        case 3: {
-            cell.titleLabel.text = NSLocalizedString(@"Clear All History", nil);//@"清除痕迹";
-            [cell.iconView setImage:[UIImage imageNamed:@"clearAllHistory"]];
-
-            break;
-        }
-        default: {
-            break;
-        }
+        }];
+        [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
     }
 
-    return cell;
+    [self hiddenMenu];
 }
-
-
-- (void)itemTaped:(MyCollectionViewCell *)cell {
-
-}
-
-- (void)DidTapOnItemAtIndex:(NSInteger)index title:(NSString *)name {
-    NSLog(@"tap on %d", (int) index);
-
-    switch (index) {
-        case 0: {
-            //书签管理
-            FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
-            favoritesViewController.getCurrentWebViewBlock = ^(MyWebView **wb) {
-                *wb = _activeWindow;
-            };
-            favoritesViewController.loadRequestBlock = ^(NSURL *url){
-                [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
-            };
-            [self.navigationController pushViewController:favoritesViewController animated:YES];
-
-            break;
-        }
-        case 1: {
-            //夜间模式
-            if(!_webmaskLayer){
-                _webmaskLayer = [CALayer layer];
-                _webmaskLayer.frame = _activeWindow.layer.frame;
-                _webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
-                _webmaskLayer.opacity = 0.3;
-                //移到最顶层
-//                _webmaskLayer.zPosition = 1000;
-
-                //给webContain加上一层半透明的遮罩层
-                [_webContainer.layer addSublayer:_webmaskLayer];
-            }else{
-                //去掉遮罩层
-                [_webmaskLayer removeFromSuperlayer];
-                _webmaskLayer = nil;
-            }
-
-            break;
-        }
-        case 2: {
-            //无图模式
-
-            break;
-        }
-        case 3: {
-            //清除痕迹
-            [_webContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                if([obj isMemberOfClass:[MyWebView class]]){
-                    MyWebView *wb = (MyWebView *)obj;
-                    [wb.backForwardList performSelector:@selector(_clear)];
-                }
-            }];
-            [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-}
-
 
 //关闭当前webView
 - (void)closeActiveWebView {
