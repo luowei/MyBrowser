@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
+		BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */; };
 		BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */; };
 		BEF06E17CE46469133B81711 /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BD2D27116A758FEB416 /* MyHelper.m */; };
 		EA8ED5321B3D245F00168B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
@@ -45,7 +46,9 @@
 
 /* Begin PBXFileReference section */
 		BEF060BA618069CAA9C55A7B /* MyPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPopupView.h; sourceTree = "<group>"; };
+		BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanQRViewController.m; sourceTree = "<group>"; };
 		BEF062D35449BEC134E42141 /* MyPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPopupView.m; sourceTree = "<group>"; };
+		BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRViewController.h; sourceTree = "<group>"; };
 		BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
 		BEF06B2DC198B322B984AE62 /* MyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelper.h; sourceTree = "<group>"; };
 		BEF06BD2D27116A758FEB416 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				BEF06B2DC198B322B984AE62 /* MyHelper.h */,
 				BEF06BD2D27116A758FEB416 /* MyHelper.m */,
 				BEF067C3ECF2977756167AEB /* CustomView */,
+				BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */,
+				BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */,
 			);
 			path = MyBrowser;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */,
 				BEF06E17CE46469133B81711 /* MyHelper.m in Sources */,
 				BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */,
+				BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

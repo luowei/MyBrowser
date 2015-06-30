@@ -9,6 +9,7 @@
 "Cancel" = "Cancel";
 "Close" = "Close";
 "Error" = "Error";
+"Open" = "Open";
 "Bookmarks" = "Bookmarks";
 "Nighttime" = "Nighttime";
 "Daytime" = "Daytime";
@@ -29,3 +30,8 @@
 "Title" = "Title";
 "Url Address" = "Url Address";
 "Is Empty" = "Is Empty";
+"Scan RQ Code" = "Scan RQ Code";
+"Url Saved,Open Now ?" = "Url Saved in Pasteboard,Open Now ?";
+"Not Url Saved in Pasteboard" = "Not Url,Saved in Pasteboard";
+"RQ Code" = "RQ Code";
+"ReScan" = "Rescan";

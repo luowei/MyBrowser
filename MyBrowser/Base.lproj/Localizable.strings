@@ -9,6 +9,7 @@
 "Cancel" = "取消";
 "Close" = "关闭";
 "Error" = "错误";
+"Open" = "打开";
 "Bookmarks" = "收藏管理";
 "Nighttime" = "夜间模式";
 "Daytime" = "日间模式";
@@ -29,3 +30,8 @@
 "Title" = "标题";
 "Url Address" = "网址";
 "Is Empty" = "为空";
+"Scan RQ Code" = "扫描二维码";
+"Url Saved,Open Now ?" = "已保存到剪粘板,是否立即打开?";
+"Not Url Saved in Pasteboard" = "非Url,已保存到剪粘板";
+"RQ Code" = "二维码";
+"ReScan" = "重新扫码";

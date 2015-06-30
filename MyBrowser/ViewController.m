@@ -13,6 +13,7 @@
 #import "FavoritesViewController.h"
 #import "MyHelper.h"
 #import "MyPopupView.h"
+#import "ScanQRViewController.h"
 
 @implementation NSString (Match)
 
@@ -180,6 +181,12 @@
     _searchBar.placeholder = NSLocalizedString(@"Keyword or Url", nil);//@"搜索或输入地址";
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
+
+    //二维码扫描按钮
+    _searchBar.showsBookmarkButton = YES;
+    [self.searchBar setImage:[UIImage imageNamed:@"RQScanNormal"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+    [self.searchBar setImage:[UIImage imageNamed:@"RQScanSelected"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateSelected];
+
     self.navigationItem.titleView = _searchBar;
 
     UIButton *btton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -459,6 +466,14 @@
 
 #pragma mark UISearchBarDelegate Implementation
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    searchBar.text = _activeWindow.URL.absoluteString;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    searchBar.showsBookmarkButton = YES;
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [_searchBar resignFirstResponder];
     NSString *text = _searchBar.text;
@@ -482,6 +497,21 @@
     [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar{
+    ScanQRViewController *viewController = [ScanQRViewController new];
+    viewController.title = NSLocalizedString(@"Scan RQ Code", nil);
+    viewController.view.backgroundColor = [UIColor whiteColor];
+    viewController.openURLBlock = ^(NSURL *url) {
+        [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
+        _searchBar.text = _activeWindow.URL.absoluteString;
+//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://luowei.github.com"]]];
+    };
+
+    [viewController setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+
 #pragma mark MyPopupViewDelegate Implementation
 
 //当设置菜单项被选中
@@ -495,7 +525,8 @@
         };
         favoritesViewController.loadRequestBlock = ^(NSURL *url) {
             [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
-//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://2345.com"]]];
+            _searchBar.text = _activeWindow.URL.absoluteString;
+//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://luowei.github.com"]]];
         };
         [self.navigationController pushViewController:favoritesViewController animated:YES];
 
