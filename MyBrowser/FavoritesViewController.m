@@ -45,6 +45,10 @@
     self.tableView.layoutMargins = UIEdgeInsetsZero;
 
     [self.view addSubview:_tableView];
+
+    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[tableView]|" options:0 metrics:nil views:@{@"tableView":_tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView":_tableView}]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

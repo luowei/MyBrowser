@@ -108,6 +108,8 @@
 @property(nonatomic, strong) UIView *webContainer;
 
 @property(nonatomic, strong) MyPopupView *popupView;
+//@property(nonatomic, strong) CALayer *webmaskLayer;
+@property(nonatomic, strong) UIView *maskView;
 @end
 
 @implementation ViewController {
@@ -309,7 +311,7 @@
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:MY_FAVORITES];
     _favoriteArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 
-    [_activeWindow reload];
+//    [_activeWindow reload];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -408,7 +410,8 @@
 //显示设置菜单
 - (void)showMenu {
     CGRect frame = self.view.frame;
-    NSString *timeMode = _webmaskLayer == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
+//    NSString *timeMode = _webmaskLayer == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
+    NSString *timeMode = _maskView == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
     NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil), timeMode, NSLocalizedString(@"No Image", nil), NSLocalizedString(@"Clear All History", nil)];
     _popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height - self.bottomLayoutGuide.length - 100, frame.size.width, 100) dataSource:titleArray];
     _popupView.delegate = self;
@@ -492,32 +495,40 @@
         };
         favoritesViewController.loadRequestBlock = ^(NSURL *url) {
             [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
+//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://2345.com"]]];
         };
         [self.navigationController pushViewController:favoritesViewController animated:YES];
 
         //夜间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
-        if (!_webmaskLayer) {
-            _webmaskLayer = [CALayer layer];
-            _webmaskLayer.frame = _activeWindow.layer.frame;
-            _webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
-            _webmaskLayer.opacity = 0.3;
+//        if (!_webmaskLayer) {
+//            _webmaskLayer = [CALayer layer];
+//            _webmaskLayer.frame = _activeWindow.layer.frame;
+//            _webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
+//            _webmaskLayer.opacity = 0.3;
+//
+//            //给webContain加上一层半透明的遮罩层
+//            [_webContainer.layer addSublayer:_webmaskLayer];
+//        }
+        _maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _maskView.backgroundColor = [UIColor blackColor];
+        _maskView.alpha = 0.2;
+        [self.view addSubview:_maskView];
 
-            //给webContain加上一层半透明的遮罩层
-            [_webContainer.layer addSublayer:_webmaskLayer];
-
-//            self.view.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
-//            self.view.maskView.backgroundColor = [UIColor blackColor];
-//            self.view.maskView.alpha = 0.8;
-        }
+        _maskView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView":_maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView":_maskView}]];
 
         //日间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
-        if (_webmaskLayer) {
-            //去掉遮罩层
-            [_webmaskLayer removeFromSuperlayer];
-            _webmaskLayer = nil;
-        }
+//        if (_webmaskLayer) {
+//            //去掉遮罩层
+//            [_webmaskLayer removeFromSuperlayer];
+//            _webmaskLayer = nil;
+//        }
+        [_maskView removeFromSuperview];
+        _maskView = nil;
+
         //无图模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image", nil)]) {
 

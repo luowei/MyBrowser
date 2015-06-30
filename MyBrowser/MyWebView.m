@@ -280,11 +280,11 @@ static WKProcessPool *_pool;
 //当加载页面发生错误
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
 
-    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                                 message:error.localizedDescription
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
-    self.presentViewControllerBlock(alertViewController);
+//    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"Error"
+//                                                                                 message:error.localizedDescription
+//                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+//    self.presentViewControllerBlock(alertViewController);
 
 }
 
