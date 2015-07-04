@@ -1,61 +1,16 @@
 //
-//  MyWebView.m
+//  MyWKWebView.m
 //  Webkit-Demo
 //
 //  Created by luowei on 15/6/25.
 //  Copyright (c) 2015 rootls. All rights reserved.
 //
 
-#import "MyWebView.h"
-#import "ViewController.h"
+#import "MyWKWebView.h"
+#import "MyWKWebViewController.h"
 #import "MyHelper.h"
 
-
-@implementation NSString (BSEncoding)
-
-+ (NSString *)encodedString:(NSString *)string {
-    return (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef) string, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
-}
-
-@end
-
-
-@implementation UIView(Capture)
-
-- (UIImage *)screenCapture {
-    CGSize size = self.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-      [self drawViewHierarchyInRect:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, size.width, size.height) afterScreenUpdates:YES];
-//    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-/*
-    //方法二
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size,YES, self.contentScaleFactor);
-    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-*/
-}
-
-- (UIImage *)screenCapture:(CGSize)size {
-    UIGraphicsBeginImageContext(size);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGFloat scale = size.width / self.layer.bounds.size.width;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGContextConcatCTM(ctx, transform);
-       [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
-//    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-@end
-
-@interface MyWebView(){
+@interface MyWKWebView (){
 
 }
 
@@ -63,7 +18,7 @@
 
 @end
 
-@implementation MyWebView
+@implementation MyWKWebView
 
 static WKProcessPool *_pool;
 
@@ -78,7 +33,7 @@ static WKProcessPool *_pool;
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
 
     //设置多窗口cookie共享
-    configuration.processPool = [MyWebView pool];
+    configuration.processPool = [MyWKWebView pool];
 //    self.backForwardList
 
     self = [super initWithFrame:frame configuration:configuration];
@@ -342,7 +297,7 @@ static WKProcessPool *_pool;
     //
     if (!navigationAction.targetFrame.isMainFrame) {
 //        [webView loadRequest:navigationAction.request];
-        MyWebView *wb = nil;
+        MyWKWebView *wb = nil;
         self.addWebViewBlock(&wb,navigationAction.request.mainDocumentURL);
         return wb;
     }

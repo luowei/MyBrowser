@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MyURLProtocol.h"
+#import "MyWKWebViewController.h"
+#import "MyUIWebViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,9 +21,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    //注册自定义的URLProtocol
-    [NSURLProtocol registerClass:[MyURLProtocol class]];
 
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+    //默认加载WKWebView
+    MyWKWebViewController *wkWebController = [MyWKWebViewController new];
+    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:wkWebController];
+
+    //如果是UIView
+    //注册自定义的URLProtocol
+//    [NSURLProtocol registerClass:[MyURLProtocol class]];
+//    MyUIWebViewController *uiWebController = [MyUIWebViewController new];
+//    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:uiWebController];
+
+    _window.rootViewController = _navigationViewController;
+    [_window makeKeyAndVisible];
     return YES;
 }
 

@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class MyWebView;
+@class MyWKWebView;
 
 @interface ListWebViewController : UIViewController
 
-@property(nonatomic, copy) void (^updateDatasourceBlock)(MyWebView *);
+@property(nonatomic, copy) void (^updateDatasourceBlock)(MyWKWebView *);
 
-@property(nonatomic, copy) void (^addWebViewBlock)(MyWebView **,NSURL *url);
+@property(nonatomic, copy) void (^addWebViewBlock)(MyWKWebView **,NSURL *url);
 
-@property(nonatomic, copy) void (^updateActiveWindowBlock)(MyWebView *);
+@property(nonatomic, copy) void (^updateActiveWindowBlock)(MyWKWebView *);
 
 @property(nonatomic, strong) NSMutableArray *windows;
 
-- (instancetype)initWithWebView:(MyWebView *)webView;
+- (instancetype)initWithWebView:(MyWKWebView *)webView;
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import "FavoritesViewController.h"
-#import "ViewController.h"
 #import "Defines.h"
-#import "MyWebView.h"
+#import "MyWKWebView.h"
 #import "MyHelper.h"
+#import "Favorite.h"
 
 @interface FavoritesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -54,7 +54,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //加载历史数据
-//    MyWebView *webView;
+//    MyWKWebView *webView;
 //    self.getCurrentWebViewBlock(&webView);
 //    _backForwardList = [NSMutableArray arrayWithArray:webView.backForwardList.backList];
 
@@ -122,7 +122,7 @@
 
             //历史数据从webView中加载
             _favoriteList = @[].mutableCopy;
-            MyWebView *webView;
+            MyWKWebView *webView;
             self.getCurrentWebViewBlock(&webView);
             [webView.backForwardList.backList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
                 [_favoriteList addObject:[[Favorite alloc] initWithDictionary:@{@"title" : item.title, @"URL" : item.URL}]];
@@ -379,7 +379,7 @@
 
 //清除历史
 - (void)clearHistory {
-    MyWebView *webView;
+    MyWKWebView *webView;
     self.getCurrentWebViewBlock(&webView);
     [webView.backForwardList performSelector:@selector(_clear)];
 

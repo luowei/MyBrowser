@@ -1,5 +1,5 @@
 //
-//  MyWebView.h
+//  MyWKWebView.h
 //  Webkit-Demo
 //
 //  Created by luowei on 15/6/25.
@@ -10,21 +10,21 @@
 
 #import <WebKit/WebKit.h>
 
-@class MyWebView;
+@class MyWKWebView;
 
 @protocol MyWebViewDelegate<NSObject>
 
 @property(nonatomic, copy) void (^finishNavigationProgressBlock)();
-@property(nonatomic, copy) void (^addWebViewBlock)(MyWebView **wb, NSURL *);
+@property(nonatomic, copy) void (^addWebViewBlock)(MyWKWebView **wb, NSURL *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 
 @end
 
-@interface MyWebView : WKWebView<WKNavigationDelegate, WKScriptMessageHandler,WKUIDelegate>
+@interface MyWKWebView : WKWebView<WKNavigationDelegate, WKScriptMessageHandler,WKUIDelegate>
 
 @property(nonatomic, copy) void (^finishNavigationProgressBlock)();
-@property(nonatomic, copy) void (^addWebViewBlock)(MyWebView **wb, NSURL *);
+@property(nonatomic, copy) void (^addWebViewBlock)(MyWKWebView **wb, NSURL *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 
