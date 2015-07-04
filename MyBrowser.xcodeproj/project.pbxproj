@@ -19,6 +19,7 @@
 		BEF0684ECA0BAEF70E62AA2E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060A0A12F0C6316C3E7A6 /* ViewController.m */; };
 		BEF068AE83B258B73120F91E /* Clipper.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06C4F58A47C6637041166 /* Clipper.js */; };
 		BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */; };
+		BEF069380BED7836056BE6E8 /* TOTWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06A2EE0472CF749ABD713 /* TOTWebView.m */; };
 		BEF06982ABBC1489AB198538 /* SearchWebView.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF063675C23711201AB9EC8 /* SearchWebView.js */; };
 		BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */; };
 		BEF06A1945DA6BBF43260669 /* GetElement.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06AA1FCBA716AF5E59C26 /* GetElement.js */; };
@@ -97,7 +98,9 @@
 		BEF0680FC7FBCA4C40074D8F /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		BEF0686EDA1B97852047FE9C /* MyUIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUIWebViewController.h; sourceTree = "<group>"; };
 		BEF0687B09B05459D0497763 /* NativeBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NativeBridge.js; sourceTree = "<group>"; };
+		BEF0692623B46136B1C0FB9A /* TOTWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOTWebView.h; sourceTree = "<group>"; };
 		BEF069FF6125BC432EFB1A06 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BEF06A2EE0472CF749ABD713 /* TOTWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOTWebView.m; sourceTree = "<group>"; };
 		BEF06AA1FCBA716AF5E59C26 /* GetElement.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = GetElement.js; sourceTree = "<group>"; };
 		BEF06B190BFCA8048C559BDF /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		BEF06B7D4CFD4C391551D2AF /* elemhide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = elemhide.js; sourceTree = "<group>"; };
@@ -260,6 +263,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BEF06FE835E923D2A7F65FC9 /* OtherWebViews */ = {
+			isa = PBXGroup;
+			children = (
+				BEF06A2EE0472CF749ABD713 /* TOTWebView.m */,
+				BEF0692623B46136B1C0FB9A /* TOTWebView.h */,
+			);
+			path = OtherWebViews;
+			sourceTree = "<group>";
+		};
 		EA8ED5231B3D245F00168B69 = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +319,7 @@
 				EA8ED53C1B3D245F00168B69 /* Images.xcassets */,
 				EA8ED52F1B3D245F00168B69 /* Supporting Files */,
 				EA8ED5BD1B3D60DD00168B69 /* html */,
+				BEF06FE835E923D2A7F65FC9 /* OtherWebViews */,
 			);
 			path = MyBrowser;
 			sourceTree = "<group>";
@@ -517,6 +530,7 @@
 				BEF06BB30E28D665CC3B571A /* MyUIWebView.m in Sources */,
 				BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */,
 				BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */,
+				BEF069380BED7836056BE6E8 /* TOTWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

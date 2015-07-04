@@ -127,6 +127,9 @@ static WKProcessPool *_pool;
 //    [mutableURLRequest addValue:@"TeskCookieKey1=TeskCookieValue1;TeskCookieKey2=TeskCookieValue2;" forHTTPHeaderField:@"Cookie"];
 //    // use stringWithFormat: in the above line to inject your values programmatically
 
+    //set user-agent
+//    [mutableURLRequest setValue:@"YourUserAgent/1.0" forHTTPHeaderField:@"User-Agent"];
+
     return [super loadRequest:request];
 }
 

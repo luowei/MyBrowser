@@ -25,14 +25,14 @@
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
     //默认加载WKWebView
-    MyWKWebViewController *wkWebController = [MyWKWebViewController new];
-    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:wkWebController];
+//    MyWKWebViewController *wkWebController = [MyWKWebViewController new];
+//    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:wkWebController];
 
     //如果是UIView
     //注册自定义的URLProtocol
-//    [NSURLProtocol registerClass:[MyURLProtocol class]];
-//    MyUIWebViewController *uiWebController = [MyUIWebViewController new];
-//    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:uiWebController];
+    [NSURLProtocol registerClass:[MyURLProtocol class]];
+    MyUIWebViewController *uiWebController = [MyUIWebViewController new];
+    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:uiWebController];
 
     _window.rootViewController = _navigationViewController;
     [_window makeKeyAndVisible];
