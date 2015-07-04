@@ -8,6 +8,7 @@
 
 #import "MyWebView.h"
 #import "ViewController.h"
+#import "MyHelper.h"
 
 
 @implementation NSString (BSEncoding)
@@ -107,13 +108,29 @@ static WKProcessPool *_pool;
 //    NSString *path = [[NSBundle mainBundle] pathsForResourcesOfType:@"js" inDirectory:@"Resource"][0];
 //    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
 
+//    //Add cookies by javascript to be accessible through AJAX
+//    WKUserScript * cookieScript = [[WKUserScript alloc]
+//            initWithSource: @"document.cookie = 'TeskCookieKey1=TeskCookieValue1';document.cookie = 'TeskCookieKey2=TeskCookieValue2';"
+//             injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+//    // again, use stringWithFormat: in the above line to inject your values programmatically
+//    [_webViewConfiguration.userContentController addUserScript:cookieScript];
+
+//    NSString *jqueryInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"jquery-1.11.3.min" ofType:@"js"]
+//                                                              encoding:NSUTF8StringEncoding error:NULL];
+//
+//    //在document加载前执行注入js脚本
+//    WKUserScript *jqueryScript = [[WKUserScript alloc] initWithSource:jqueryInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+//                                                       forMainFrameOnly:YES];
+//    [_webViewConfiguration.userContentController addUserScript:jqueryScript];
+
+
     NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
                                                        encoding:NSUTF8StringEncoding error:NULL];
 
     //在document加载前执行注入js脚本
-    WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+    WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                    forMainFrameOnly:YES];
-    [self.webViewConfiguration.userContentController addUserScript:docStartScript];
+    [_webViewConfiguration.userContentController addUserScript:docStartScript];
 
 
     NSString *docEndInjectionJS = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"DocEndInjection" withExtension:@"js"]
@@ -122,7 +139,7 @@ static WKProcessPool *_pool;
     //在document加载完成后执行注入js脚本
     WKUserScript *docEndScript = [[WKUserScript alloc] initWithSource:docEndInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                    forMainFrameOnly:YES];
-    [self.webViewConfiguration.userContentController addUserScript:docEndScript];
+    [_webViewConfiguration.userContentController addUserScript:docEndScript];
 
     //添加js脚本到处理器中
     [self.webViewConfiguration.userContentController addScriptMessageHandler:self name:@"myName"];
@@ -148,6 +165,13 @@ static WKProcessPool *_pool;
 
 //加载请求
 - (WKNavigation *)loadRequest:(NSURLRequest *)request {
+
+    NSMutableURLRequest *mutableURLRequest = [NSMutableURLRequest requestWithURL:request.URL];
+
+    //Add cookies to a request
+//    [mutableURLRequest addValue:@"TeskCookieKey1=TeskCookieValue1;TeskCookieKey2=TeskCookieValue2;" forHTTPHeaderField:@"Cookie"];
+//    // use stringWithFormat: in the above line to inject your values programmatically
+
     return [super loadRequest:request];
 }
 
@@ -300,6 +324,7 @@ static WKProcessPool *_pool;
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 //    [userContentController addScriptMessageHandler:self name:@"myName"];
     if ([message.name isEqualToString:@"myName"]) {
+        [MyHelper showToastAlert:message.body];
         //处理消息内容
 //        [[[UIAlertView alloc] initWithTitle:@"message" message:message.body delegate:self
 //                          cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

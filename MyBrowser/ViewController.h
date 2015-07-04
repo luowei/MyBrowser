@@ -25,19 +25,6 @@
 @end
 
 
-@interface NSString (Match)
-
-- (BOOL)isMatch:(NSString *)pattern;
-
-- (BOOL)isiTunesURL;
-
-- (BOOL)isDomain;
-
-- (BOOL)isHttpURL;
-
-@end
-
-
 @interface Favorite : NSObject<NSCoding>
 
 @property(nonatomic, copy) NSString *title;

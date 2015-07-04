@@ -6,8 +6,7 @@
 /*
 (function () {
     'use strict';
-    */
-/*global document, window, frames, setInterval, clearInterval *//*
+//global document, window, frames, setInterval, clearInterval
 
     var windowOpenFunction = function (url, name, specs, replace) {
         var iframe = document.createElement('IFRAME');
@@ -61,8 +60,8 @@
                     fb[i].onclick = windowMakeHandler(fb[i]);
                 }
             }
-        } catch (e) { */
-/* Security error. Can't access frame of different origin. Fail silently. *//*
+        } catch (e) {
+ //Security error. Can't access frame of different origin. Fail silently.
 
         }
     }
@@ -73,15 +72,11 @@
 //发送消息
 //window.webkit.messageHandlers.<name>.postMessage();
 
-
+/*
 function postMyMessage() {
 
-    /*
-     var message = {'message':'Hello,World!','numbers':[1,2,3]};
-     window.webkit.messageHandlers.myName.postMessage(message);
-     */
-
-
+     //var message = {'message':'Hello,World!','numbers':[1,2,3]};
+     //window.webkit.messageHandlers.myName.postMessage(message);
 
     var logoDiv = document.getElementById('logo');
     var logoImg = logoDiv != null ? logoDiv.firstElementChild : null;
@@ -90,11 +85,13 @@ function postMyMessage() {
         //logoImg.src = "http://tp1.sinaimg.cn/1745746500/180/39999543554/1"
         return "{'msg':'OK!'}"
     }
-
     return "{'msg':'-------'}"
 }
 
 //alert('aaaaa')
 var message = postMyMessage()
 window.webkit.messageHandlers.myName.postMessage(message);
+*/
+
+
 

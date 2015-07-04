@@ -22,3 +22,13 @@ http://chun.tips/blog/2014/10/23/xi-shu-autolayoutyi-lai-uiviewhe-uiviewcontroll
 
 WWDC 2014 Session笔记 - iOS界面开发的大一统:http://onevcat.com/2014/07/ios-ui-unique/
 iOS8 Size Classes的理解与使用:http://joywii.github.io/blog/2014/09/24/ios8-size-classesde-li-jie-yu-shi-yong/
+
+WebViewProxy:https://github.com/marcuswestin/WebViewProxy
+WebViewJavascriptBridge:https://github.com/marcuswestin/WebViewJavascriptBridge
+
+WebKit源码(github上也有):http://trac.webkit.org/browser/trunk/Source/WebKit2/UIProcess/API/Cocoa
+NSURLSession Tutorial:http://www.raywenderlich.com/51127/nsurlsession-tutorial
+Using NSURLProtocol with Swift:http://www.raywenderlich.com/76735/using-nsurlprotocol-swift
+
+Including WebKit framework for iOS8 fails validation:http://stackoverflow.com/questions/25897123/including-webkit-framework-for-ios8-fails-validation
+

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MyURLProtocol.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    //注册自定义的URLProtocol
+    [NSURLProtocol registerClass:[MyURLProtocol class]];
+
     return YES;
 }
 

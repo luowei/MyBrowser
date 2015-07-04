@@ -8,6 +8,7 @@
 
 #import "ScanQRViewController.h"
 #import "ViewController.h"
+#import "MyHelper.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 

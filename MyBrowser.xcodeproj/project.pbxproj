@@ -7,10 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEF060FF42EAA70F848F451D /* pagefind.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0669C013311EF06E08172 /* pagefind.js */; };
+		BEF061B9FBC85AB4A3B28A06 /* elemhide.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06B7D4CFD4C391551D2AF /* elemhide.js */; };
+		BEF062F36B8B054B03FDFCC7 /* MyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06197AF5C959A88371C05 /* MyURLProtocol.m */; };
+		BEF0647C0A17B2F4F9923981 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BEF064F78547119C4E85DB8C /* index.html */; };
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
+		BEF0656E01B936C84D2AF62F /* WebViewJavascriptBridge.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */; };
+		BEF0675846B2093BA142E53C /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E2E346DB38858A7D63 /* MyHelper.m */; };
+		BEF068AE83B258B73120F91E /* Clipper.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06C4F58A47C6637041166 /* Clipper.js */; };
 		BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */; };
-		BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */; };
-		BEF06E17CE46469133B81711 /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BD2D27116A758FEB416 /* MyHelper.m */; };
+		BEF06981D929D4285175B427 /* MyWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060DB575FEE2B6B530212 /* MyWebView.m */; };
+		BEF06982ABBC1489AB198538 /* SearchWebView.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF063675C23711201AB9EC8 /* SearchWebView.js */; };
+		BEF06A1945DA6BBF43260669 /* GetElement.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06AA1FCBA716AF5E59C26 /* GetElement.js */; };
+		BEF06A82BFACE5883BEB2D82 /* util.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06296FA04E464A2E6DA92 /* util.js */; };
+		BEF06BFC082E6F711BF40EFC /* MyWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0667476AF78E7EF3C38AC /* MyWKWebView.m */; };
+		BEF06C9013631D9DA9532374 /* NativeBridge.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0687B09B05459D0497763 /* NativeBridge.js */; };
+		BEF06D5A05AF90F024919D57 /* MyUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06C892B0368466E449F87 /* MyUIWebView.m */; };
 		EA8ED5321B3D245F00168B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
 		EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5341B3D245F00168B69 /* AppDelegate.m */; };
 		EA8ED5381B3D245F00168B69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5371B3D245F00168B69 /* ViewController.m */; };
@@ -24,7 +36,6 @@
 		EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED59F1B3D307300168B69 /* WKPagesCollectionView.m */; };
 		EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A11B3D307300168B69 /* WKPagesCollectionViewCell.m */; };
 		EA8ED5A71B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A31B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m */; };
-		EA8ED5AA1B3D308E00168B69 /* MyWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A91B3D308E00168B69 /* MyWebView.m */; };
 		EA8ED5AD1B3D30B100168B69 /* ListWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */; };
 		EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
 		EA8ED5C21B3D60DD00168B69 /* alert.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5BE1B3D60DD00168B69 /* alert.html */; };
@@ -32,6 +43,16 @@
 		EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */; };
 		EA8ED5C51B3D60DD00168B69 /* prompt.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C11B3D60DD00168B69 /* prompt.html */; };
 		EA94FA7A1B3EA6D400B12A7A /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA94FA791B3EA6D400B12A7A /* FavoritesViewController.m */; };
+		EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */; };
+		EACEC3E51B47E329003D3FE0 /* jquery-1.11.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E41B47E329003D3FE0 /* jquery-1.11.3.min.js */; };
+		EACEC3E71B480BB0003D3FE0 /* JSTools.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E61B480BB0003D3FE0 /* JSTools.js */; };
+		EACEC3EF1B480C41003D3FE0 /* AutoFillFormTools.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E81B480C41003D3FE0 /* AutoFillFormTools.js */; };
+		EACEC3F01B480C41003D3FE0 /* ext_semob_readystate.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E91B480C41003D3FE0 /* ext_semob_readystate.js */; };
+		EACEC3F11B480C41003D3FE0 /* InputMethodTools.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3EA1B480C41003D3FE0 /* InputMethodTools.js */; };
+		EACEC3F21B480C41003D3FE0 /* json2.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3EB1B480C41003D3FE0 /* json2.js */; };
+		EACEC3F31B480C41003D3FE0 /* nameSpace.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3EC1B480C41003D3FE0 /* nameSpace.js */; };
+		EACEC3F41B480C41003D3FE0 /* SogouMSEExtension.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3ED1B480C41003D3FE0 /* SogouMSEExtension.js */; };
+		EACEC3F51B480C41003D3FE0 /* Video.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3EE1B480C41003D3FE0 /* Video.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,12 +67,28 @@
 
 /* Begin PBXFileReference section */
 		BEF060BA618069CAA9C55A7B /* MyPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPopupView.h; sourceTree = "<group>"; };
+		BEF060DB575FEE2B6B530212 /* MyWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebView.m; sourceTree = "<group>"; };
+		BEF060E2E346DB38858A7D63 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
+		BEF06197AF5C959A88371C05 /* MyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyURLProtocol.m; sourceTree = "<group>"; };
+		BEF0623B2ABEE7C278808969 /* MyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelper.h; sourceTree = "<group>"; };
+		BEF06296FA04E464A2E6DA92 /* util.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = util.js; sourceTree = "<group>"; };
 		BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanQRViewController.m; sourceTree = "<group>"; };
 		BEF062D35449BEC134E42141 /* MyPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPopupView.m; sourceTree = "<group>"; };
+		BEF063675C23711201AB9EC8 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
+		BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WebViewJavascriptBridge.js; sourceTree = "<group>"; };
+		BEF0645CE54CA502276F0A30 /* MyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyURLProtocol.h; sourceTree = "<group>"; };
+		BEF064F78547119C4E85DB8C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		BEF064F9E7E76E5EC1B93DDA /* MyWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebView.h; sourceTree = "<group>"; };
+		BEF06535460E4FFE88FD0EC6 /* MyWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWKWebView.h; sourceTree = "<group>"; };
+		BEF0667476AF78E7EF3C38AC /* MyWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWKWebView.m; sourceTree = "<group>"; };
+		BEF0669C013311EF06E08172 /* pagefind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = pagefind.js; sourceTree = "<group>"; };
 		BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRViewController.h; sourceTree = "<group>"; };
-		BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
-		BEF06B2DC198B322B984AE62 /* MyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelper.h; sourceTree = "<group>"; };
-		BEF06BD2D27116A758FEB416 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
+		BEF0687B09B05459D0497763 /* NativeBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NativeBridge.js; sourceTree = "<group>"; };
+		BEF06AA1FCBA716AF5E59C26 /* GetElement.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = GetElement.js; sourceTree = "<group>"; };
+		BEF06B7D4CFD4C391551D2AF /* elemhide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = elemhide.js; sourceTree = "<group>"; };
+		BEF06C0EA12466D5AFB7B414 /* MyUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUIWebView.h; sourceTree = "<group>"; };
+		BEF06C4F58A47C6637041166 /* Clipper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Clipper.js; sourceTree = "<group>"; };
+		BEF06C892B0368466E449F87 /* MyUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUIWebView.m; sourceTree = "<group>"; };
 		EA8ED52C1B3D245F00168B69 /* MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8ED5301B3D245F00168B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8ED5311B3D245F00168B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,8 +120,6 @@
 		EA8ED5A11B3D307300168B69 /* WKPagesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPagesCollectionViewCell.m; sourceTree = "<group>"; };
 		EA8ED5A21B3D307300168B69 /* WKPagesCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPagesCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		EA8ED5A31B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPagesCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		EA8ED5A81B3D308E00168B69 /* MyWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebView.h; sourceTree = "<group>"; };
-		EA8ED5A91B3D308E00168B69 /* MyWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebView.m; sourceTree = "<group>"; };
 		EA8ED5AB1B3D30B100168B69 /* ListWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListWebViewController.h; sourceTree = "<group>"; };
 		EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListWebViewController.m; sourceTree = "<group>"; };
 		EA8ED5AE1B3D30E400168B69 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -97,6 +132,16 @@
 		EA8ED5C61B3D61BA00168B69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA94FA781B3EA6D400B12A7A /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		EA94FA791B3EA6D400B12A7A /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
+		EACEC3E41B47E329003D3FE0 /* jquery-1.11.3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.11.3.min.js"; sourceTree = "<group>"; };
+		EACEC3E61B480BB0003D3FE0 /* JSTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = JSTools.js; path = Sogou/JSTools.js; sourceTree = "<group>"; };
+		EACEC3E81B480C41003D3FE0 /* AutoFillFormTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AutoFillFormTools.js; sourceTree = "<group>"; };
+		EACEC3E91B480C41003D3FE0 /* ext_semob_readystate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ext_semob_readystate.js; sourceTree = "<group>"; };
+		EACEC3EA1B480C41003D3FE0 /* InputMethodTools.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = InputMethodTools.js; sourceTree = "<group>"; };
+		EACEC3EB1B480C41003D3FE0 /* json2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = json2.js; path = Sogou/json2.js; sourceTree = "<group>"; };
+		EACEC3EC1B480C41003D3FE0 /* nameSpace.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = nameSpace.js; sourceTree = "<group>"; };
+		EACEC3ED1B480C41003D3FE0 /* SogouMSEExtension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SogouMSEExtension.js; sourceTree = "<group>"; };
+		EACEC3EE1B480C41003D3FE0 /* Video.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Video.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,13 +163,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BEF060CC9E5745E3E52C3682 /* Sogou */ = {
+			isa = PBXGroup;
+			children = (
+				EACEC3E81B480C41003D3FE0 /* AutoFillFormTools.js */,
+				EACEC3E91B480C41003D3FE0 /* ext_semob_readystate.js */,
+				EACEC3EA1B480C41003D3FE0 /* InputMethodTools.js */,
+				EACEC3EC1B480C41003D3FE0 /* nameSpace.js */,
+				EACEC3ED1B480C41003D3FE0 /* SogouMSEExtension.js */,
+				EACEC3EE1B480C41003D3FE0 /* Video.js */,
+			);
+			path = Sogou;
+			sourceTree = "<group>";
+		};
+		BEF063243F2374DF86B66CBF /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */,
+				BEF06296FA04E464A2E6DA92 /* util.js */,
+				BEF0669C013311EF06E08172 /* pagefind.js */,
+			);
+			path = QQ;
+			sourceTree = "<group>";
+		};
+		BEF064ACDA730F1175F8873A /* MyUtils */ = {
+			isa = PBXGroup;
+			children = (
+				BEF060E2E346DB38858A7D63 /* MyHelper.m */,
+				BEF0623B2ABEE7C278808969 /* MyHelper.h */,
+				BEF06197AF5C959A88371C05 /* MyURLProtocol.m */,
+				BEF0645CE54CA502276F0A30 /* MyURLProtocol.h */,
+			);
+			path = MyUtils;
+			sourceTree = "<group>";
+		};
 		BEF067C3ECF2977756167AEB /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
 				BEF060BA618069CAA9C55A7B /* MyPopupView.h */,
 				BEF062D35449BEC134E42141 /* MyPopupView.m */,
+				BEF060DB575FEE2B6B530212 /* MyWebView.m */,
+				BEF064F9E7E76E5EC1B93DDA /* MyWebView.h */,
+				BEF0667476AF78E7EF3C38AC /* MyWKWebView.m */,
+				BEF06535460E4FFE88FD0EC6 /* MyWKWebView.h */,
+				BEF06C892B0368466E449F87 /* MyUIWebView.m */,
+				BEF06C0EA12466D5AFB7B414 /* MyUIWebView.h */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		BEF06879703BDBCC8EC86F7D /* dolphin */ = {
+			isa = PBXGroup;
+			children = (
+				BEF06B7D4CFD4C391551D2AF /* elemhide.js */,
+				BEF063675C23711201AB9EC8 /* SearchWebView.js */,
+				BEF06AA1FCBA716AF5E59C26 /* GetElement.js */,
+				BEF0687B09B05459D0497763 /* NativeBridge.js */,
+				BEF06C4F58A47C6637041166 /* Clipper.js */,
+			);
+			path = dolphin;
 			sourceTree = "<group>";
 		};
 		EA8ED5231B3D245F00168B69 = {
@@ -152,8 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				EA8ED5B11B3D313300168B69 /* Defines.h */,
-				EA8ED5A81B3D308E00168B69 /* MyWebView.h */,
-				EA8ED5A91B3D308E00168B69 /* MyWebView.m */,
 				EA8ED5331B3D245F00168B69 /* AppDelegate.h */,
 				EA8ED5341B3D245F00168B69 /* AppDelegate.m */,
 				EA8ED5361B3D245F00168B69 /* ViewController.h */,
@@ -169,11 +264,10 @@
 				EA8ED53C1B3D245F00168B69 /* Images.xcassets */,
 				EA8ED52F1B3D245F00168B69 /* Supporting Files */,
 				EA8ED5BD1B3D60DD00168B69 /* html */,
-				BEF06B2DC198B322B984AE62 /* MyHelper.h */,
-				BEF06BD2D27116A758FEB416 /* MyHelper.m */,
 				BEF067C3ECF2977756167AEB /* CustomView */,
 				BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */,
 				BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */,
+				BEF064ACDA730F1175F8873A /* MyUtils */,
 			);
 			path = MyBrowser;
 			sourceTree = "<group>";
@@ -223,11 +317,18 @@
 		EA8ED5BD1B3D60DD00168B69 /* html */ = {
 			isa = PBXGroup;
 			children = (
+				EACEC3EB1B480C41003D3FE0 /* json2.js */,
+				EACEC3E61B480BB0003D3FE0 /* JSTools.js */,
 				EA8ED5BE1B3D60DD00168B69 /* alert.html */,
 				EA8ED5BF1B3D60DD00168B69 /* confirm.html */,
+				EACEC3E41B47E329003D3FE0 /* jquery-1.11.3.min.js */,
+				EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */,
 				EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */,
 				EA8ED5C11B3D60DD00168B69 /* prompt.html */,
-				BEF068FF13A6E2E1C9F2C009 /* DocStartInjection.js */,
+				BEF064F78547119C4E85DB8C /* index.html */,
+				BEF060CC9E5745E3E52C3682 /* Sogou */,
+				BEF063243F2374DF86B66CBF /* QQ */,
+				BEF06879703BDBCC8EC86F7D /* dolphin */,
 			);
 			path = html;
 			sourceTree = "<group>";
@@ -313,15 +414,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EACEC3F31B480C41003D3FE0 /* nameSpace.js in Resources */,
+				EACEC3F11B480C41003D3FE0 /* InputMethodTools.js in Resources */,
+				EACEC3F51B480C41003D3FE0 /* Video.js in Resources */,
 				EA8ED57C1B3D2C0A00168B69 /* LaunchScreen.xib in Resources */,
 				EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */,
 				EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */,
+				EACEC3F41B480C41003D3FE0 /* SogouMSEExtension.js in Resources */,
 				EA8ED5C51B3D60DD00168B69 /* prompt.html in Resources */,
+				EACEC3E51B47E329003D3FE0 /* jquery-1.11.3.min.js in Resources */,
+				EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */,
 				EA8ED55C1B3D24DE00168B69 /* Localizable.strings in Resources */,
 				EA8ED5C31B3D60DD00168B69 /* confirm.html in Resources */,
 				EA8ED5571B3D24B500168B69 /* InfoPlist.strings in Resources */,
 				EA8ED53D1B3D245F00168B69 /* Images.xcassets in Resources */,
+				EACEC3EF1B480C41003D3FE0 /* AutoFillFormTools.js in Resources */,
 				EA8ED5C21B3D60DD00168B69 /* alert.html in Resources */,
+				EACEC3F01B480C41003D3FE0 /* ext_semob_readystate.js in Resources */,
+				BEF0647C0A17B2F4F9923981 /* index.html in Resources */,
+				EACEC3E71B480BB0003D3FE0 /* JSTools.js in Resources */,
+				EACEC3F21B480C41003D3FE0 /* json2.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,15 +456,25 @@
 				EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */,
 				EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */,
 				EA8ED5321B3D245F00168B69 /* main.m in Sources */,
-				EA8ED5AA1B3D308E00168B69 /* MyWebView.m in Sources */,
 				EA8ED5A71B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m in Sources */,
 				EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */,
 				EA8ED5AD1B3D30B100168B69 /* ListWebViewController.m in Sources */,
 				EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */,
-				BEF06DF1DC77BC6DA2C4C3DA /* DocStartInjection.js in Sources */,
-				BEF06E17CE46469133B81711 /* MyHelper.m in Sources */,
 				BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */,
 				BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */,
+				BEF0656E01B936C84D2AF62F /* WebViewJavascriptBridge.js in Sources */,
+				BEF06A82BFACE5883BEB2D82 /* util.js in Sources */,
+				BEF060FF42EAA70F848F451D /* pagefind.js in Sources */,
+				BEF061B9FBC85AB4A3B28A06 /* elemhide.js in Sources */,
+				BEF06982ABBC1489AB198538 /* SearchWebView.js in Sources */,
+				BEF06A1945DA6BBF43260669 /* GetElement.js in Sources */,
+				BEF06C9013631D9DA9532374 /* NativeBridge.js in Sources */,
+				BEF068AE83B258B73120F91E /* Clipper.js in Sources */,
+				BEF0675846B2093BA142E53C /* MyHelper.m in Sources */,
+				BEF06981D929D4285175B427 /* MyWebView.m in Sources */,
+				BEF062F36B8B054B03FDFCC7 /* MyURLProtocol.m in Sources */,
+				BEF06BFC082E6F711BF40EFC /* MyWKWebView.m in Sources */,
+				BEF06D5A05AF90F024919D57 /* MyUIWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
