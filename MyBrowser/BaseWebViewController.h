@@ -7,9 +7,12 @@
 
 @class MyPopupView;
 @class MyCollectionViewCell;
+@class ListWebViewController;
 
 
 @interface BaseWebViewController : UIViewController
+
+@property(nonatomic, strong) NSMutableArray *favoriteArray;
 
 @property(strong, nonatomic) UISearchBar *searchBar;
 @property(nonatomic, strong) UIBarButtonItem *backBtn;

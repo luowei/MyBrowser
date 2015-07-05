@@ -7,4 +7,8 @@
 
 
 @interface MyUIWebView : UIWebView
+@property(nonatomic, copy) void (^finishNavigationProgressBlock)();
+@property(nonatomic, copy) void (^addUIWebViewBlock)(MyUIWebView **, NSURL *);
+@property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
+@property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @end

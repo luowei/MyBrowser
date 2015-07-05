@@ -11,6 +11,7 @@
 		BEF060FF42EAA70F848F451D /* pagefind.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0669C013311EF06E08172 /* pagefind.js */; };
 		BEF061B9FBC85AB4A3B28A06 /* elemhide.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06B7D4CFD4C391551D2AF /* elemhide.js */; };
 		BEF062F36B8B054B03FDFCC7 /* MyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06197AF5C959A88371C05 /* MyURLProtocol.m */; };
+		BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06EC5CA0425CA5D13DA1E /* ListUIWebViewController.m */; };
 		BEF0647C0A17B2F4F9923981 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BEF064F78547119C4E85DB8C /* index.html */; };
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
 		BEF0656E01B936C84D2AF62F /* WebViewJavascriptBridge.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */; };
@@ -105,6 +106,8 @@
 		BEF06B190BFCA8048C559BDF /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		BEF06B7D4CFD4C391551D2AF /* elemhide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = elemhide.js; sourceTree = "<group>"; };
 		BEF06C4F58A47C6637041166 /* Clipper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Clipper.js; sourceTree = "<group>"; };
+		BEF06EC454D14594492CBCD0 /* ListUIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListUIWebViewController.h; sourceTree = "<group>"; };
+		BEF06EC5CA0425CA5D13DA1E /* ListUIWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListUIWebViewController.m; sourceTree = "<group>"; };
 		EA8ED52C1B3D245F00168B69 /* MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8ED5301B3D245F00168B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8ED5311B3D245F00168B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 				BEF060DCF8D93B3736EBDC4E /* MyUIWebView.m */,
 				BEF061A96E71FD32252F30E8 /* MyUIWebViewController.m */,
 				BEF0686EDA1B97852047FE9C /* MyUIWebViewController.h */,
+				BEF06EC5CA0425CA5D13DA1E /* ListUIWebViewController.m */,
+				BEF06EC454D14594492CBCD0 /* ListUIWebViewController.h */,
 			);
 			path = UIWebView;
 			sourceTree = "<group>";
@@ -531,6 +536,7 @@
 				BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */,
 				BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */,
 				BEF069380BED7836056BE6E8 /* TOTWebView.m in Sources */,
+				BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

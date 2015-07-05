@@ -4,7 +4,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseWebViewController.h"
+
+@class MyUIWebView;
+@class ListUIWebViewController;
 
 
-@interface MyUIWebViewController : UIViewController
+@interface MyUIWebViewController : BaseWebViewController
+
+@property(nonatomic, strong) MyUIWebView *activeWindow;
+@property(nonatomic, strong) ListUIWebViewController *listWebViewController;
+
 @end

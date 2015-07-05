@@ -24,7 +24,7 @@
 @interface MyWKWebView : WKWebView<WKNavigationDelegate, WKScriptMessageHandler,WKUIDelegate>
 
 @property(nonatomic, copy) void (^finishNavigationProgressBlock)();
-@property(nonatomic, copy) void (^addWebViewBlock)(MyWKWebView **wb, NSURL *);
+@property(nonatomic, copy) void (^addWKWebViewBlock)(MyWKWebView **wb, NSURL *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 

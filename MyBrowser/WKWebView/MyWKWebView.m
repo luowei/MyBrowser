@@ -148,47 +148,6 @@ static WKProcessPool *_pool;
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 
-
-    //以下是通过重载页面的window.open,window.close方法来实现打开新窗口，关闭新窗口等逻辑
-/*
-    if ([[[navigationAction.request URL] absoluteString] rangeOfString:@"affiliate_id="].location != NSNotFound) {
-        [[UIApplication sharedApplication] openURL:[navigationAction.request URL]];
-    }
-    // Check URL for special prefix, which marks where we overrode JS. If caught, return NO.
-    if ([[[navigationAction.request URL] absoluteString] hasPrefix:@"hdwebview"]) {
-
-        // The injected JS window override separates the method (i.e. "jswindowopenoverride") and the
-        // suffix (i.e. a URL to open in the overridden window.open method) with double pipes ("||")
-        // Here we strip out the prefix and break apart the method so we know how to handle it.
-        NSString *suffix = [[[navigationAction.request URL] absoluteString] stringByReplacingOccurrencesOfString:@"hdwebview://" withString:@""];
-        NSArray *methodAsArray = [suffix componentsSeparatedByString:[NSString encodedString:@"||"]];
-        NSString *method = methodAsArray[0];
-
-        if ([method isEqualToString:@"jswindowopenoverride"]) {
-
-            NSLog(@"window.open caught");
-            NSURL *url = [NSURL URLWithString:[NSString stringWithString:methodAsArray[1]]];
-            self.addWebViewBlock(nil,url);
-
-        } else if ([method isEqualToString:@"jswindowcloseoverride"] || [method isEqualToString:@"jswindowopenerfocusoverride"]) {
-
-            // Only close the active web view if it's not the base web view. We don't want to close
-            // the last web view, only ones added to the top of the original one.
-            NSLog(@"window.close caught");
-            self.closeActiveWebViewBlock();
-
-        }
-
-    }
-
-    // If the web view isn't the active window, we don't want it to do any more requests.
-    // This fixes the issue with popup window overrides, where the underlying window was still
-    // trying to redirect to the original anchor tag location in addition to the new window
-    // going to the same location, which resulted in the "back" button needing to be pressed twice.
-//    if (![webView isEqual:self.activeWindow]) {
-//    }
-*/
-
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
@@ -301,7 +260,7 @@ static WKProcessPool *_pool;
     if (!navigationAction.targetFrame.isMainFrame) {
 //        [webView loadRequest:navigationAction.request];
         MyWKWebView *wb = nil;
-        self.addWebViewBlock(&wb,navigationAction.request.mainDocumentURL);
+        self.addWKWebViewBlock(&wb,navigationAction.request.mainDocumentURL);
         return wb;
     }
     return nil;

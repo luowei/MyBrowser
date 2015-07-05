@@ -51,7 +51,7 @@
 
     //从userDefault中加载收藏,给_favoriteArray赋初值
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:MY_FAVORITES];
-    _favoriteArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    self.favoriteArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 
 //    [_activeWindow reload];
 }
@@ -106,7 +106,7 @@
     };
 
     //添加新webView的block
-    _activeWindow.addWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
+    _activeWindow.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
         if (*wb) {
             *wb = [weakSelf addWebView:aurl];
         } else {
@@ -125,11 +125,11 @@
     };
 
     // Add to windows array and make active window
-    if (!_listWebViewController) {
-        _listWebViewController = [[ListWebViewController alloc] initWithWebView:_activeWindow];
+    if (!self.listWebViewController) {
+        self.listWebViewController = [[ListWebViewController alloc] initWithWKWebView:_activeWindow];
 
         //设置添加webView的block
-        _listWebViewController.addWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
+        self.listWebViewController.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
             if (*wb) {
                 *wb = [weakSelf addWebView:aurl];
             } else {
@@ -137,13 +137,13 @@
             }
         };
         //更新活跃webView的block
-        _listWebViewController.updateActiveWindowBlock = ^(MyWKWebView *wb) {
+        self.listWebViewController.updateWKActiveWindowBlock = ^(MyWKWebView *wb) {
             weakSelf.activeWindow = wb;
             [weakSelf.webContainer bringSubviewToFront:weakSelf.activeWindow];
         };
 
     } else {
-        _listWebViewController.updateDatasourceBlock(_activeWindow);
+        self.listWebViewController.updateWKDatasourceBlock(_activeWindow);
     }
 
     return _activeWindow;
@@ -151,10 +151,10 @@
 
 //添加新webView窗口
 - (void)presentAddWebViewVC {
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:_listWebViewController];
-//    [self presentViewController:_listWebViewController animated:YES completion:nil];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.listWebViewController];
+//    [self presentViewController:self.listWebViewController animated:YES completion:nil];
 
-    [self.navigationController pushViewController:_listWebViewController animated:YES];
+    [self.navigationController pushViewController:self.listWebViewController animated:YES];
 }
 
 //主页
@@ -169,7 +169,7 @@
 /*
     //方法一
     BOOL containFav = NO;
-    for(Favorite *obj in _favoriteArray){
+    for(Favorite *obj in self.favoriteArray){
         if([fav isEqualToFavorite:obj]){
             containFav = YES;
         }
@@ -177,7 +177,7 @@
 
     //方法二
     __block BOOL containFav = NO;
-    [_favoriteArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [self.favoriteArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([fav isEqualToFavorite:obj]){
             containFav = YES;
         }
@@ -185,19 +185,19 @@
 */
 
     //方法三
-    BOOL containFav = [_favoriteArray indexesOfObjectsWithOptions:NSEnumerationConcurrent
+    BOOL containFav = [self.favoriteArray indexesOfObjectsWithOptions:NSEnumerationConcurrent
                                                       passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
                                                           return [fav isEqualToFavorite:obj];
                                                       }].count > 0;
     if (!containFav) {
-        [_favoriteArray addObject:fav];
+        [self.favoriteArray addObject:fav];
     } else {
         [MyHelper showToastAlert:NSLocalizedString(@"Has Been Favorited", nil)];
         return;
     }
 
     //序列化存储
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_favoriteArray];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.favoriteArray];
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:MY_FAVORITES];
 
     [MyHelper showToastAlert:NSLocalizedString(@"Add Favorite Success", nil)];
@@ -265,7 +265,7 @@
     viewController.view.backgroundColor = [UIColor whiteColor];
     viewController.openURLBlock = ^(NSURL *url) {
         [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
-        self.searchBar.text = _activeWindow.URL.absoluteString;
+        self.searchBar.text = url.absoluteString;
 //            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://luowei.github.com"]]];
     };
 
@@ -282,7 +282,7 @@
     //收藏历史管理
     if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Bookmarks", nil)]) {
         FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
-        favoritesViewController.getCurrentWebViewBlock = ^(MyWKWebView **wb) {
+        favoritesViewController.getCurrentWKWebViewBlock = ^(MyWKWebView **wb) {
             *wb = _activeWindow;
         };
         favoritesViewController.loadRequestBlock = ^(NSURL *url) {
@@ -347,14 +347,14 @@
     // Grab and remove the top web view, remove its reference from the windows array,
     // and nil itself and its delegate. Then we re-set the activeWindow to the
     // now-top web view and refresh the toolbar.
-    if (_activeWindow == _listWebViewController.windows.lastObject) {
+    if (_activeWindow == self.listWebViewController.windows.lastObject) {
         [_activeWindow loadRequest:[NSURLRequest requestWithURL:HOME_URL]];
         return;
     }
 
     [_activeWindow removeFromSuperview];
-    [_listWebViewController.windows removeObject:_activeWindow];
-    _activeWindow = _listWebViewController.windows.lastObject;
+    [self.listWebViewController.windows removeObject:_activeWindow];
+    _activeWindow = self.listWebViewController.windows.lastObject;
     [self.webContainer bringSubviewToFront:_activeWindow];
 }
 

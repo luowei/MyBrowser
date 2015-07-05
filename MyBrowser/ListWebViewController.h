@@ -12,14 +12,14 @@
 
 @interface ListWebViewController : UIViewController
 
-@property(nonatomic, copy) void (^updateDatasourceBlock)(MyWKWebView *);
+@property(nonatomic, copy) void (^updateWKDatasourceBlock)(MyWKWebView *);
 
-@property(nonatomic, copy) void (^addWebViewBlock)(MyWKWebView **,NSURL *url);
+@property(nonatomic, copy) void (^addWKWebViewBlock)(MyWKWebView **,NSURL *url);
 
-@property(nonatomic, copy) void (^updateActiveWindowBlock)(MyWKWebView *);
+@property(nonatomic, copy) void (^updateWKActiveWindowBlock)(MyWKWebView *);
 
 @property(nonatomic, strong) NSMutableArray *windows;
 
-- (instancetype)initWithWebView:(MyWKWebView *)webView;
+- (instancetype)initWithWKWebView:(MyWKWebView *)webView;
 
 @end

@@ -15,11 +15,7 @@
 
 @interface MyWKWebViewController : BaseWebViewController
 
-@property(nonatomic, strong) ListWebViewController *listWebViewController;
-
 @property(nonatomic, strong) MyWKWebView *activeWindow;
-
-
-@property(nonatomic, strong) NSMutableArray *favoriteArray;
+@property(nonatomic, strong) ListWebViewController *listWebViewController;
 
 @end

@@ -21,5 +21,6 @@
 //#define HOME_URL [[NSURL alloc] initWithString:@"http://wodedata.com/test/alert.html"]
 
 #define MY_FAVORITES @"MY_FAVORITES"
+#define UIWEBVIEW_MODE @"UIWebview_Mode"
 
 #endif

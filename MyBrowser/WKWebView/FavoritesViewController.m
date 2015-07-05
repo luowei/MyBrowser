@@ -11,6 +11,7 @@
 #import "MyWKWebView.h"
 #import "MyHelper.h"
 #import "Favorite.h"
+#import "MyUIWebView.h"
 
 @interface FavoritesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -55,7 +56,7 @@
     [super viewWillAppear:animated];
     //加载历史数据
 //    MyWKWebView *webView;
-//    self.getCurrentWebViewBlock(&webView);
+//    self.getCurrentWKWebViewBlock(&webView);
 //    _backForwardList = [NSMutableArray arrayWithArray:webView.backForwardList.backList];
 
     //加载数据
@@ -122,11 +123,19 @@
 
             //历史数据从webView中加载
             _favoriteList = @[].mutableCopy;
-            MyWKWebView *webView;
-            self.getCurrentWebViewBlock(&webView);
-            [webView.backForwardList.backList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
-                [_favoriteList addObject:[[Favorite alloc] initWithDictionary:@{@"title" : item.title, @"URL" : item.URL}]];
-            }];
+
+            //如果是WKWebView模式
+            if([[NSUserDefaults standardUserDefaults] boolForKey:UIWEBVIEW_MODE]){
+                //todo:
+
+                //UIWebView模式
+            }else{
+                MyWKWebView *webView;
+                self.getCurrentWKWebViewBlock(&webView);
+                [webView.backForwardList.backList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
+                    [_favoriteList addObject:[[Favorite alloc] initWithDictionary:@{@"title" : item.title, @"URL" : item.URL}]];
+                }];
+            }
 
             [_tableView reloadData];
             break;
@@ -379,9 +388,22 @@
 
 //清除历史
 - (void)clearHistory {
-    MyWKWebView *webView;
-    self.getCurrentWebViewBlock(&webView);
-    [webView.backForwardList performSelector:@selector(_clear)];
+
+    //如果是WKWebview模式
+    if([[NSUserDefaults standardUserDefaults] boolForKey:UIWEBVIEW_MODE]){
+        MyUIWebView *uiWebView;
+        self.getCurrentUIWebViewBlock(&uiWebView);
+        //todo:
+//        id internalWebView=[[uiWebView _documentView] webView];
+//        [internalWebView setMaintainsBackForwardList:NO];
+//        [internalWebView setMaintainsBackForwardList:YES];
+
+        //如果是UIWebview模式
+    }else{
+        MyWKWebView *wkwebView;
+        self.getCurrentWKWebViewBlock(&wkwebView);
+        [wkwebView.backForwardList performSelector:@selector(_clear)];
+    }
 
     [MyHelper showToastAlert:NSLocalizedString(@"Clear History Success", nil)];
 

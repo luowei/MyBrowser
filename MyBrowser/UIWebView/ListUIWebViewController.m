@@ -1,30 +1,31 @@
 //
-//  ListWebViewController.m
-//  MyBrowser
-//
-//  Created by luowei on 15/6/26.
-//  Copyright (c) 2015年 wodedata. All rights reserved.
+// Created by luowei on 15/7/5.
+// Copyright (c) 2015 wodedata. All rights reserved.
 //
 
-#import "ListWebViewController.h"
-#import "MyWKWebView.h"
+#import "ListUIWebViewController.h"
+#import "MyUIWebView.h"
 #import "WKPagesCollectionView.h"
 #import "Defines.h"
 #import "MyHelper.h"
 
-@interface ListWebViewController ()<WKPagesCollectionViewDataSource,WKPagesCollectionViewDelegate>
+@interface ListUIWebViewController()<WKPagesCollectionViewDataSource,WKPagesCollectionViewDelegate>
 
 @property(nonatomic, strong) WKPagesCollectionView *collectionView;
 
 @end
 
-@implementation ListWebViewController
 
-- (instancetype)initWithWKWebView:(MyWKWebView *)webView {
+@implementation ListUIWebViewController {
+
+}
+
+
+- (instancetype)initWithUIWebView:(MyUIWebView *)webView {
     self = [super init];
     if (self) {
         __weak __typeof(self) weakSelf = self;
-        self.updateWKDatasourceBlock = ^(MyWKWebView *wb){
+        self.updateUIDatasourceBlock = ^(MyUIWebView *wb){
             if(!weakSelf.windows){
                 weakSelf.windows = @[wb].mutableCopy;
             }else{
@@ -32,7 +33,7 @@
             }
 
         };
-        self.updateWKDatasourceBlock(webView);
+        self.updateUIDatasourceBlock(webView);
     }
     return self;
 }
@@ -105,7 +106,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    MyWKWebView *webView = _windows[(NSUInteger) indexPath.row];
+    MyUIWebView *webView = _windows[(NSUInteger) indexPath.row];
 
     static NSString* identity=@"cell";
     WKPagesCollectionViewCell* cell=(WKPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
@@ -135,8 +136,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    [self viewWillAppear:YES];
 
-    MyWKWebView *webView = _windows[(NSUInteger) indexPath.row];
-    self.updateWKActiveWindowBlock(webView);
+    MyUIWebView *webView = _windows[(NSUInteger) indexPath.row];
+    self.updateUIActiveWindowBlock(webView);
     [_collectionView deselectItemAtIndexPath:indexPath animated:NO];
 
     [self.navigationController popViewControllerAnimated:YES];
@@ -160,8 +161,8 @@
 - (void)willAppendItemInCollectionView:(WKPagesCollectionView *)collectionView {
 
     //添加一个webView,block会回调_windows addObject
-    MyWKWebView *webView = nil;
-    self.addWKWebViewBlock(&webView,HOME_URL);
+    MyUIWebView *webView = nil;
+    self.addUIWebViewBlock(&webView,HOME_URL);
 }
 
 @end

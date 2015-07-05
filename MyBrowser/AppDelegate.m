@@ -10,6 +10,7 @@
 #import "MyURLProtocol.h"
 #import "MyWKWebViewController.h"
 #import "MyUIWebViewController.h"
+#import "Defines.h"
 
 @interface AppDelegate ()
 
@@ -24,15 +25,20 @@
 
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-    //默认加载WKWebView
-//    MyWKWebViewController *wkWebController = [MyWKWebViewController new];
-//    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:wkWebController];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
 
-    //如果是UIView
-    //注册自定义的URLProtocol
-    [NSURLProtocol registerClass:[MyURLProtocol class]];
-    MyUIWebViewController *uiWebController = [MyUIWebViewController new];
-    _navigationViewController = [[UINavigationController alloc] initWithRootViewController:uiWebController];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:UIWEBVIEW_MODE]){
+        //如果是UIView
+        //注册自定义的URLProtocol
+//        [NSURLProtocol registerClass:[MyURLProtocol class]];
+        MyUIWebViewController *uiWebController = [MyUIWebViewController new];
+        _navigationViewController = [[UINavigationController alloc] initWithRootViewController:uiWebController];
+
+    }else{
+        //加载WKWebView
+        MyWKWebViewController *wkWebController = [MyWKWebViewController new];
+        _navigationViewController = [[UINavigationController alloc] initWithRootViewController:wkWebController];
+    }
 
     _window.rootViewController = _navigationViewController;
     [_window makeKeyAndVisible];
