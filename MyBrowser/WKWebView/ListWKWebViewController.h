@@ -1,5 +1,5 @@
 //
-//  ListWebViewController.h
+//  ListWKWebViewController.h
 //  MyBrowser
 //
 //  Created by luowei on 15/6/26.
@@ -10,7 +10,7 @@
 
 @class MyWKWebView;
 
-@interface ListWebViewController : UIViewController
+@interface ListWKWebViewController : UIViewController
 
 @property(nonatomic, copy) void (^updateWKDatasourceBlock)(MyWKWebView *);
 

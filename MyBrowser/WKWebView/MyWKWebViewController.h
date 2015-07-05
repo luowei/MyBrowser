@@ -10,12 +10,12 @@
 #import "BaseWebViewController.h"
 
 @class MyWKWebView;
-@class ListWebViewController;
+@class ListWKWebViewController;
 @class MyPopupView;
 
 @interface MyWKWebViewController : BaseWebViewController
 
 @property(nonatomic, strong) MyWKWebView *activeWindow;
-@property(nonatomic, strong) ListWebViewController *listWebViewController;
+@property(nonatomic, strong) ListWKWebViewController *listWebViewController;
 
 @end

@@ -11,11 +11,13 @@
 		BEF060FF42EAA70F848F451D /* pagefind.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0669C013311EF06E08172 /* pagefind.js */; };
 		BEF061B9FBC85AB4A3B28A06 /* elemhide.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06B7D4CFD4C391551D2AF /* elemhide.js */; };
 		BEF062F36B8B054B03FDFCC7 /* MyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06197AF5C959A88371C05 /* MyURLProtocol.m */; };
+		BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */; };
 		BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06EC5CA0425CA5D13DA1E /* ListUIWebViewController.m */; };
 		BEF0647C0A17B2F4F9923981 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BEF064F78547119C4E85DB8C /* index.html */; };
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
 		BEF0656E01B936C84D2AF62F /* WebViewJavascriptBridge.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */; };
 		BEF066B89A7E7B0381911DEA /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF064E92A4D0F9399CFEDD7 /* Favorite.m */; };
+		BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */; };
 		BEF0675846B2093BA142E53C /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E2E346DB38858A7D63 /* MyHelper.m */; };
 		BEF0684ECA0BAEF70E62AA2E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060A0A12F0C6316C3E7A6 /* ViewController.m */; };
 		BEF068AE83B258B73120F91E /* Clipper.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06C4F58A47C6637041166 /* Clipper.js */; };
@@ -28,7 +30,6 @@
 		BEF06A87BF053D11BA51B903 /* MyWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */; };
 		BEF06BB30E28D665CC3B571A /* MyUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060DCF8D93B3736EBDC4E /* MyUIWebView.m */; };
 		BEF06C9013631D9DA9532374 /* NativeBridge.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0687B09B05459D0497763 /* NativeBridge.js */; };
-		BEF06DA9131068A41567AF49 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0680FC7FBCA4C40074D8F /* FavoritesViewController.m */; };
 		BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061A96E71FD32252F30E8 /* MyUIWebViewController.m */; };
 		EA8ED5321B3D245F00168B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
 		EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5341B3D245F00168B69 /* AppDelegate.m */; };
@@ -42,7 +43,6 @@
 		EA8ED5A51B3D307300168B69 /* WKPagesCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED59F1B3D307300168B69 /* WKPagesCollectionView.m */; };
 		EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A11B3D307300168B69 /* WKPagesCollectionViewCell.m */; };
 		EA8ED5A71B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5A31B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m */; };
-		EA8ED5AD1B3D30B100168B69 /* ListWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */; };
 		EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
 		EA8ED5C21B3D60DD00168B69 /* alert.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5BE1B3D60DD00168B69 /* alert.html */; };
 		EA8ED5C31B3D60DD00168B69 /* confirm.html in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5BF1B3D60DD00168B69 /* confirm.html */; };
@@ -77,6 +77,7 @@
 		BEF060DCF8D93B3736EBDC4E /* MyUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUIWebView.m; sourceTree = "<group>"; };
 		BEF060E2E346DB38858A7D63 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
 		BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
+		BEF060F7850686EA6849C340 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		BEF06197AF5C959A88371C05 /* MyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyURLProtocol.m; sourceTree = "<group>"; };
 		BEF061A96E71FD32252F30E8 /* MyUIWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUIWebViewController.m; sourceTree = "<group>"; };
 		BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWKWebViewController.m; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		BEF063675C23711201AB9EC8 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		BEF0636D40026F4CE769428B /* WebViewJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WebViewJavascriptBridge.js; sourceTree = "<group>"; };
 		BEF063B422DBAC6B55D8D187 /* BaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
+		BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListWKWebViewController.m; sourceTree = "<group>"; };
 		BEF0645CE54CA502276F0A30 /* MyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyURLProtocol.h; sourceTree = "<group>"; };
 		BEF064C14FF2805D7E284C9A /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
 		BEF064E92A4D0F9399CFEDD7 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
@@ -96,14 +98,14 @@
 		BEF0661E64BE7748C7FB1E14 /* MyUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUIWebView.h; sourceTree = "<group>"; };
 		BEF0669C013311EF06E08172 /* pagefind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = pagefind.js; sourceTree = "<group>"; };
 		BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRViewController.h; sourceTree = "<group>"; };
-		BEF0680FC7FBCA4C40074D8F /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		BEF0686EDA1B97852047FE9C /* MyUIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUIWebViewController.h; sourceTree = "<group>"; };
 		BEF0687B09B05459D0497763 /* NativeBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NativeBridge.js; sourceTree = "<group>"; };
+		BEF068FEDC1A6D6B02F47FE2 /* ListWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListWKWebViewController.h; sourceTree = "<group>"; };
 		BEF0692623B46136B1C0FB9A /* TOTWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOTWebView.h; sourceTree = "<group>"; };
+		BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		BEF069FF6125BC432EFB1A06 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BEF06A2EE0472CF749ABD713 /* TOTWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOTWebView.m; sourceTree = "<group>"; };
 		BEF06AA1FCBA716AF5E59C26 /* GetElement.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = GetElement.js; sourceTree = "<group>"; };
-		BEF06B190BFCA8048C559BDF /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		BEF06B7D4CFD4C391551D2AF /* elemhide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = elemhide.js; sourceTree = "<group>"; };
 		BEF06C4F58A47C6637041166 /* Clipper.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Clipper.js; sourceTree = "<group>"; };
 		BEF06EC454D14594492CBCD0 /* ListUIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListUIWebViewController.h; sourceTree = "<group>"; };
@@ -137,8 +139,6 @@
 		EA8ED5A11B3D307300168B69 /* WKPagesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPagesCollectionViewCell.m; sourceTree = "<group>"; };
 		EA8ED5A21B3D307300168B69 /* WKPagesCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPagesCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		EA8ED5A31B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPagesCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		EA8ED5AB1B3D30B100168B69 /* ListWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListWebViewController.h; sourceTree = "<group>"; };
-		EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListWebViewController.m; sourceTree = "<group>"; };
 		EA8ED5AE1B3D30E400168B69 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		EA8ED5B11B3D313300168B69 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
@@ -182,11 +182,11 @@
 			isa = PBXGroup;
 			children = (
 				BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */,
-				BEF06B190BFCA8048C559BDF /* FavoritesViewController.h */,
 				BEF0604A7CB246CE8F65C5F3 /* MyWKWebViewController.h */,
-				BEF0680FC7FBCA4C40074D8F /* FavoritesViewController.m */,
 				BEF065D6BFB420DE9C4CD621 /* MyWKWebView.m */,
 				BEF0626E010BD436245F003A /* MyWKWebView.h */,
+				BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */,
+				BEF068FEDC1A6D6B02F47FE2 /* ListWKWebViewController.h */,
 			);
 			path = WKWebView;
 			sourceTree = "<group>";
@@ -311,8 +311,8 @@
 				EA8ED5341B3D245F00168B69 /* AppDelegate.m */,
 				BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */,
 				BEF063B422DBAC6B55D8D187 /* BaseWebViewController.h */,
-				EA8ED5AB1B3D30B100168B69 /* ListWebViewController.h */,
-				EA8ED5AC1B3D30B100168B69 /* ListWebViewController.m */,
+				BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */,
+				BEF060F7850686EA6849C340 /* FavoritesViewController.h */,
 				EA8ED5AE1B3D30E400168B69 /* SettingViewController.h */,
 				EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */,
 				BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */,
@@ -513,7 +513,6 @@
 				EA8ED5321B3D245F00168B69 /* main.m in Sources */,
 				EA8ED5A71B3D307300168B69 /* WKPagesCollectionViewFlowLayout.m in Sources */,
 				EA8ED5A61B3D307300168B69 /* WKPagesCollectionViewCell.m in Sources */,
-				EA8ED5AD1B3D30B100168B69 /* ListWebViewController.m in Sources */,
 				EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */,
 				BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */,
 				BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */,
@@ -530,13 +529,14 @@
 				BEF066B89A7E7B0381911DEA /* Favorite.m in Sources */,
 				BEF0684ECA0BAEF70E62AA2E /* ViewController.m in Sources */,
 				BEF06A87BF053D11BA51B903 /* MyWKWebViewController.m in Sources */,
-				BEF06DA9131068A41567AF49 /* FavoritesViewController.m in Sources */,
 				BEF060B642E9E8D71A6BFE5E /* MyWKWebView.m in Sources */,
 				BEF06BB30E28D665CC3B571A /* MyUIWebView.m in Sources */,
 				BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */,
 				BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */,
 				BEF069380BED7836056BE6E8 /* TOTWebView.m in Sources */,
 				BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */,
+				BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */,
+				BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

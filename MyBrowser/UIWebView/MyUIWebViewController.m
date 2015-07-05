@@ -9,7 +9,6 @@
 #import "MyHelper.h"
 #import "Favorite.h"
 #import "ScanQRViewController.h"
-#import "ListWebViewController.h"
 #import "MyPopupView.h"
 #import "ListUIWebViewController.h"
 #import "FavoritesViewController.h"

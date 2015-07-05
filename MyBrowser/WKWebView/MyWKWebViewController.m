@@ -8,7 +8,7 @@
 
 #import "MyWKWebViewController.h"
 #import "MyWKWebView.h"
-#import "ListWebViewController.h"
+#import "ListWKWebViewController.h"
 #import "Defines.h"
 #import "FavoritesViewController.h"
 #import "MyHelper.h"
@@ -126,7 +126,7 @@
 
     // Add to windows array and make active window
     if (!self.listWebViewController) {
-        self.listWebViewController = [[ListWebViewController alloc] initWithWKWebView:_activeWindow];
+        self.listWebViewController = [[ListWKWebViewController alloc] initWithWKWebView:_activeWindow];
 
         //设置添加webView的block
         self.listWebViewController.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {

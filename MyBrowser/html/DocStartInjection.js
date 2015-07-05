@@ -29,17 +29,17 @@ window.webkit.messageHandlers.myName.postMessage(message);
 //};
 
 
-(function(){
-    window.onload=function(){
-        var images = document.getElementsByTagName('img');
-        for (var i = 0; i < images.length; i++) {
-            var orgSrc = images[i].src;
-            images[i].removeAttribute('src');
-            alert('before:'+orgSrc)
-            alert('after:'+images[i].src)
-        }
-    };
-}())
+//(function(){
+//    window.onload=function(){
+//        var images = document.getElementsByTagName('img');
+//        for (var i = 0; i < images.length; i++) {
+//            var orgSrc = images[i].src;
+//            images[i].removeAttribute('src');
+//            alert('before:'+orgSrc)
+//            alert('after:'+images[i].src)
+//        }
+//    };
+//}())
 
 
 ////use jquery

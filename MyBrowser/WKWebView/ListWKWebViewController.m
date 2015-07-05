@@ -1,24 +1,24 @@
 //
-//  ListWebViewController.m
+//  ListWKWebViewController.m
 //  MyBrowser
 //
 //  Created by luowei on 15/6/26.
 //  Copyright (c) 2015年 wodedata. All rights reserved.
 //
 
-#import "ListWebViewController.h"
+#import "ListWKWebViewController.h"
 #import "MyWKWebView.h"
 #import "WKPagesCollectionView.h"
 #import "Defines.h"
 #import "MyHelper.h"
 
-@interface ListWebViewController ()<WKPagesCollectionViewDataSource,WKPagesCollectionViewDelegate>
+@interface ListWKWebViewController ()<WKPagesCollectionViewDataSource,WKPagesCollectionViewDelegate>
 
 @property(nonatomic, strong) WKPagesCollectionView *collectionView;
 
 @end
 
-@implementation ListWebViewController
+@implementation ListWKWebViewController
 
 - (instancetype)initWithWKWebView:(MyWKWebView *)webView {
     self = [super init];

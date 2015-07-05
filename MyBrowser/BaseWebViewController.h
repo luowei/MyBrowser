@@ -7,7 +7,6 @@
 
 @class MyPopupView;
 @class MyCollectionViewCell;
-@class ListWebViewController;
 
 
 @interface BaseWebViewController : UIViewController

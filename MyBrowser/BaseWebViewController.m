@@ -6,7 +6,6 @@
 #import "BaseWebViewController.h"
 #import "MyPopupView.h"
 #import "Defines.h"
-#import "ListWebViewController.h"
 
 @interface BaseWebViewController () <UISearchBarDelegate, MyPopupViewDelegate>
 
