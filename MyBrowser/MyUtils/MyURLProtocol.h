@@ -9,4 +9,8 @@
 @interface MyURLProtocol : NSURLProtocol
 
 @property(nonatomic, strong) NSURLConnection *connection;
+
+@property(nonatomic, strong) NSMutableData *mutableData;
+@property(nonatomic, strong) NSURLResponse *response;
+
 @end
