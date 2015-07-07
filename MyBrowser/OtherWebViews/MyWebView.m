@@ -3,10 +3,10 @@
 // Copyright (c) 2015 wodedata. All rights reserved.
 //
 
-#import "TOTWebView.h"
+#import "MyWebView.h"
 
 
-@interface TOTWebView() {
+@interface MyWebView () {
     WKWebView* _wkWebView;
     UIWebView* _uiWebView;
 }
@@ -14,7 +14,7 @@
 @end
 
 
-@implementation TOTWebView
+@implementation MyWebView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

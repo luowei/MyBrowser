@@ -48,13 +48,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    [self.navigationController.navigationBar addSubview:self.progressView];
     self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
+    [self.progressView removeFromSuperview];
     self.navigationController.toolbarHidden = YES;
 }
 
@@ -62,20 +63,9 @@
 - (void)addProgressBar {
     //进度条
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.progressView.trackTintColor = [UIColor whiteColor];
-    [self.view addSubview:self.progressView];
-//    self.progressView.frame = CGRectMake(0, 0, self.view.frame.size.width, 3);
-
-    //progressView进度条
-    self.progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[progressView]|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:@{@"progressView" : self.progressView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[progressView(2)]"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:@{@"progressView" : self.progressView}]];
+    [self.progressView setTrackTintColor:[UIColor colorWithWhite:1.0f alpha:0.0f]];
+    [self.progressView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-self.progressView.frame.size.height, self.view.frame.size.width, self.progressView.frame.size.height)];
+    [self.progressView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
 }
 
 //地址栏
@@ -127,17 +117,16 @@
 //webContainer作为webView的容器
 - (void)addWebContainer {
     self.webContainer = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.view insertSubview:self.webContainer belowSubview:self.progressView];
+    [self.view addSubview:self.webContainer];
     self.webContainer.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[webContainer]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:@{@"webContainer" : self.webContainer}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[progressView]-0-[webContainer]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[webContainer]|"
                                                                       options:0
                                                                       metrics:nil
-                                                                        views:@{@"webContainer" : self.webContainer,
-                                                                                @"progressView" : self.progressView}]];
+                                                                        views:@{@"webContainer" : self.webContainer}]];
 }
 
 //设置菜单
@@ -195,5 +184,16 @@
 - (void)popupViewItemTaped:(MyCollectionViewCell *)cell {
 }
 
+#pragma mark - UIScrollViewDelegate Implementation
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.lastOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    bool hide = (scrollView.contentOffset.y > self.lastOffsetY);
+    [[self navigationController] setNavigationBarHidden:hide animated:YES];
+
+}
 
 @end

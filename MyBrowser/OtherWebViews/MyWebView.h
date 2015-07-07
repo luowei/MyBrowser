@@ -15,7 +15,7 @@
 #import <WebKit/WebKit.h>
 
 
-@protocol TOTWebViewDelegate
+@protocol MyWebViewDelegate
 - (BOOL)shouldStartLoadWithURL:(NSURL*)url;
 - (void)didStartLoading;
 - (void)didFinishLoading;
@@ -23,9 +23,9 @@
 @end
 
 
-@interface TOTWebView : UIView <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate>
+@interface MyWebView : UIView <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate>
 
-@property (assign) id<TOTWebViewDelegate> delegate;
+@property (assign) id<MyWebViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)loadRequest:(NSURLRequest *)request;

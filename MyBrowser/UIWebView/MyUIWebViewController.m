@@ -12,6 +12,7 @@
 #import "MyPopupView.h"
 #import "ListUIWebViewController.h"
 #import "FavoritesViewController.h"
+#import "MyURLProtocol.h"
 
 
 @interface MyUIWebViewController ()
@@ -27,6 +28,7 @@
 
     //向webContainer中添加webview
     [self addWebView:HOME_URL];
+    self.activeWindow.scrollView.delegate = self;
 }
 
 - (void)viewDidLoad {
@@ -113,8 +115,7 @@
 
 //添加新webView窗口
 - (void)presentAddWebViewVC {
-
-//    [self.navigationController pushViewController:self.listWebViewController animated:YES];
+    [self.navigationController pushViewController:self.listWebViewController animated:YES];
 }
 
 //主页
@@ -128,12 +129,18 @@
     NSString *currentURL = [_activeWindow stringByEvaluatingJavaScriptFromString:@"window.location.href"];
     Favorite *fav = [[Favorite alloc] initWithDictionary:@{@"title" : title, @"URL" : [[NSURL alloc] initWithString:currentURL]}];
 
-    //方法一
+    //判断是否需要添加收藏记录
     BOOL containFav = NO;
     for(Favorite *obj in self.favoriteArray){
         if([fav isEqualToFavorite:obj]){
             containFav = YES;
         }
+    }
+    if (!containFav) {
+        [self.favoriteArray addObject:fav];
+    } else {
+        [MyHelper showToastAlert:NSLocalizedString(@"Has Been Favorited", nil)];
+        return;
     }
 
     //序列化存储
@@ -215,15 +222,6 @@
 
         //夜间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
-//        if (!self.webmaskLayer) {
-//            self.webmaskLayer = [CALayer layer];
-//            self.webmaskLayer.frame = self.activeWindow.layer.frame;
-//            self.webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
-//            self.webmaskLayer.opacity = 0.3;
-//
-//            //给webContain加上一层半透明的遮罩层
-//            [self.webContainer.layer addSublayer:self.webmaskLayer];
-//        }
         self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
         self.maskView.backgroundColor = [UIColor blackColor];
         self.maskView.alpha = 0.2;
@@ -235,17 +233,15 @@
 
         //日间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
-//        if (self.webmaskLayer) {
-//            //去掉遮罩层
-//            [self.webmaskLayer removeFromSuperlayer];
-//            self.webmaskLayer = nil;
-//        }
         [self.maskView removeFromSuperview];
         self.maskView = nil;
 
         //无图模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image", nil)]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
+        [NSURLProtocol registerClass:[MyURLProtocol class]];
 
+        //todo:切换核心
 
         //清除痕迹
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Clear All History", nil)]) {

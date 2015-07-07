@@ -15,6 +15,7 @@
 #import "MyPopupView.h"
 #import "ScanQRViewController.h"
 #import "Favorite.h"
+#import "MyURLProtocol.h"
 
 @interface MyWKWebViewController ()
 
@@ -33,6 +34,8 @@
 
     //向webContainer中添加webview
     [self addWebView:HOME_URL];
+
+    self.activeWindow.scrollView.delegate = self;
 
     //添加对webView的监听器
     [self.activeWindow addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
@@ -70,8 +73,17 @@
         self.forwardBtn.enabled = self.activeWindow.canGoForward;
     }
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        self.progressView.hidden = self.activeWindow.estimatedProgress == 1;
-        [self.progressView setProgress:(float) self.activeWindow.estimatedProgress animated:YES];
+        BOOL animated = self.activeWindow.estimatedProgress > self.progressView.progress;
+        [self.progressView setProgress:(float) self.activeWindow.estimatedProgress animated:animated];
+
+        //加载完成隐藏进度条
+        if (self.activeWindow.estimatedProgress >= 1.0f) {
+            [UIView animateWithDuration:0.3f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.progressView.hidden = YES;
+            }                completion:^(BOOL finished) {
+                [self.progressView setProgress:0.0f animated:NO];
+            }];
+        }
     }
     if ([keyPath isEqualToString:@"title"]) {
         self.title = self.activeWindow.title;
@@ -101,6 +113,7 @@
     //更新刷新进度条的block
     __weak __typeof(self) weakSelf = self;
     _activeWindow.finishNavigationProgressBlock = ^() {
+        weakSelf.progressView.hidden = NO;
         [weakSelf.progressView setProgress:0.0 animated:NO];
         weakSelf.progressView.trackTintColor = [UIColor whiteColor];
     };
@@ -151,9 +164,6 @@
 
 //添加新webView窗口
 - (void)presentAddWebViewVC {
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.listWebViewController];
-//    [self presentViewController:self.listWebViewController animated:YES completion:nil];
-
     [self.navigationController pushViewController:self.listWebViewController animated:YES];
 }
 
@@ -166,29 +176,10 @@
 - (void)favorite {
     Favorite *fav = [[Favorite alloc] initWithDictionary:@{@"title" : _activeWindow.title, @"URL" : _activeWindow.URL}];
 
-/*
-    //方法一
-    BOOL containFav = NO;
-    for(Favorite *obj in self.favoriteArray){
-        if([fav isEqualToFavorite:obj]){
-            containFav = YES;
-        }
-    }
-
-    //方法二
-    __block BOOL containFav = NO;
-    [self.favoriteArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if([fav isEqualToFavorite:obj]){
-            containFav = YES;
-        }
-    }];
-*/
-
-    //方法三
     BOOL containFav = [self.favoriteArray indexesOfObjectsWithOptions:NSEnumerationConcurrent
-                                                      passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                                                          return [fav isEqualToFavorite:obj];
-                                                      }].count > 0;
+                                                          passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                                                              return [fav isEqualToFavorite:obj];
+                                                          }].count > 0;
     if (!containFav) {
         [self.favoriteArray addObject:fav];
     } else {
@@ -202,7 +193,6 @@
 
     [MyHelper showToastAlert:NSLocalizedString(@"Add Favorite Success", nil)];
 }
-
 
 
 //刷新
@@ -220,19 +210,9 @@
     [self.activeWindow goForward];
 }
 
-
-/*- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    [self.searchBar resignFirstResponder];
-    NSString *text = self.searchBar.text;
-    if ([text compare:@"http://" options:NSLiteralSearch range:NSMakeRange(0, 7)] != NSOrderedSame) {
-        text = [NSString stringWithFormat:@"http://%@", text];
-    }
-    [self.activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:text]]];
-}*/
-
 #pragma mark UISearchBarDelegate Implementation
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     searchBar.text = _activeWindow.URL.absoluteString;
 }
 
@@ -240,14 +220,6 @@
     [self.searchBar resignFirstResponder];
     NSString *text = self.searchBar.text;
     NSString *urlStr = [NSString stringWithFormat:@"http://www.baidu.com/s?wd=%@", text];
-
-/*
-    NSString *urlRegex = @"((http|ftp|https|Http|Https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?";
-    NSPredicate *urlStrPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegex];
-    if ([urlStrPredicate evaluateWithObject:text]) {
-        urlStr = [NSString stringWithFormat:@"%@", text];
-    }
-*/
 
     if ([text isHttpURL]) {
         urlStr = [NSString stringWithFormat:@"%@", text];
@@ -259,14 +231,13 @@
     [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
-- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar{
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
     ScanQRViewController *viewController = [ScanQRViewController new];
     viewController.title = NSLocalizedString(@"Scan RQ Code", nil);
     viewController.view.backgroundColor = [UIColor whiteColor];
     viewController.openURLBlock = ^(NSURL *url) {
         [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
         self.searchBar.text = url.absoluteString;
-//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://luowei.github.com"]]];
     };
 
     [viewController setHidesBottomBarWhenPushed:YES];
@@ -288,43 +259,33 @@
         favoritesViewController.loadRequestBlock = ^(NSURL *url) {
             [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
             self.searchBar.text = _activeWindow.URL.absoluteString;
-//            [_activeWindow loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithString:@"http://luowei.github.com"]]];
         };
         [self.navigationController pushViewController:favoritesViewController animated:YES];
 
         //夜间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
-//        if (!self.webmaskLayer) {
-//            self.webmaskLayer = [CALayer layer];
-//            self.webmaskLayer.frame = self.activeWindow.layer.frame;
-//            self.webmaskLayer.backgroundColor = [UIColor blackColor].CGColor;
-//            self.webmaskLayer.opacity = 0.3;
-//
-//            //给webContain加上一层半透明的遮罩层
-//            [self.webContainer.layer addSublayer:self.webmaskLayer];
-//        }
         self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
         self.maskView.backgroundColor = [UIColor blackColor];
         self.maskView.alpha = 0.2;
         [self.view addSubview:self.maskView];
 
         self.maskView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView":self.maskView}]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView":self.maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
 
         //日间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
-//        if (self.webmaskLayer) {
-//            //去掉遮罩层
-//            [self.webmaskLayer removeFromSuperlayer];
-//            self.webmaskLayer = nil;
-//        }
         [self.maskView removeFromSuperview];
         self.maskView = nil;
 
         //无图模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image", nil)]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
+        [NSURLProtocol registerClass:[MyURLProtocol class]];
 
+        //todo:切换核心
+
+        [MyHelper showToastAlert:NSLocalizedString(@"Successfully Set NoImage Mode", nil)];
 
         //清除痕迹
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Clear All History", nil)]) {
@@ -339,7 +300,6 @@
 
     [self hiddenMenu];
 }
-
 
 
 //关闭当前webView

@@ -9,7 +9,7 @@
 @class MyCollectionViewCell;
 
 
-@interface BaseWebViewController : UIViewController
+@interface BaseWebViewController : UIViewController<UIScrollViewDelegate>
 
 @property(nonatomic, strong) NSMutableArray *favoriteArray;
 
@@ -29,6 +29,9 @@
 @property(nonatomic, strong) MyPopupView *popupView;
 //@property(nonatomic, strong) CALayer *webmaskLayer;
 @property(nonatomic, strong) UIView *maskView;
+
+
+@property(nonatomic) CGFloat lastOffsetY;
 
 
 //进度条

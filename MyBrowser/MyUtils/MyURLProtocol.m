@@ -9,7 +9,7 @@
 
 int requestCount = 0;
 
-@interface MyURLProtocol()<NSURLConnectionDataDelegate,NSURLConnectionDownloadDelegate>
+@interface MyURLProtocol () <NSURLConnectionDataDelegate>
 
 
 @end
@@ -19,7 +19,7 @@ int requestCount = 0;
 }
 
 //缓存服务端响应过来的数据
--(void)saveCachedResponse{
+- (void)saveCachedResponse {
     Log(@" Saving cached response");
 
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -33,25 +33,25 @@ int requestCount = 0;
     [cacheResponse setValue:self.response.textEncodingName forKey:@"encoding"];
 
     NSError *error;
-    if([context save:&error]){
-        Log(@"Could not cache the response");
+    if (![context save:&error]) {
+        Log(@"Could not cache the response:%@",error.description);
     }
 }
 
 //获取缓存数据
--(NSManagedObject *)cachedResponseForCurrentRequest{
+- (NSManagedObject *)cachedResponseForCurrentRequest {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context = delegate.managedObjectContext;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
     fetchRequest.entity = [NSEntityDescription entityForName:@"CachedURLResponse" inManagedObjectContext:context];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url == %@",self.request.URL.absoluteString];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url == %@", self.request.URL.absoluteString];
     fetchRequest.predicate = predicate;
 
     NSError *error;
     NSArray *possibleResult = [context executeFetchRequest:fetchRequest error:&error];
-    if(possibleResult && possibleResult.count > 0){
+    if (possibleResult && possibleResult.count > 0) {
         return possibleResult[0];
     }
 
@@ -62,9 +62,11 @@ int requestCount = 0;
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
     Log(@"request %i :URL = %@", requestCount++, request.URL.absoluteString);
 
-    return  (BOOL)[NSURLProtocol propertyForKey:@"MyURLProtocolHandledKey" inRequest:request] != nil;
-
-
+//    if ([request valueForHTTPHeaderField:@"MyURLProtocolHandledKey"] != nil) {
+    if ([NSURLProtocol propertyForKey:@"MyURLProtocolHandledKey" inRequest:request] != nil) {
+        return NO;
+    }
+    return YES;
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
@@ -77,7 +79,7 @@ int requestCount = 0;
 
 - (void)startLoading {
     NSManagedObject *cachedResponse = [self cachedResponseForCurrentRequest];
-    if(cachedResponse){
+    if (cachedResponse) {
         Log(@"Serving response from cache");
 
         NSData *data = [cachedResponse valueForKey:@"data"];
@@ -93,13 +95,13 @@ int requestCount = 0;
         [self.client URLProtocol:self didReceiveResponse:resp cacheStoragePolicy:NSURLCacheStorageNotAllowed];
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
-    }else{
+    } else {
         Log(@"Serving response from NSURLConnection");
 
         NSMutableURLRequest *newRequest = [self.request mutableCopy];
-        [NSURLProtocol setProperty:@YES forKey:@"MyURLProtocolHandledKey" inRequest:newRequest];
-
-        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+//        [newRequest setValue:@"MyCache" forHTTPHeaderField:@"MyURLProtocolHandledKey"];
+        [NSURLProtocol setProperty:@"MyCache" forKey:@"MyURLProtocolHandledKey" inRequest:newRequest];
+        self.connection = [NSURLConnection connectionWithRequest:newRequest delegate:self];
     }
 }
 
@@ -120,10 +122,6 @@ int requestCount = 0;
     return NO;
 }
 
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-
-}
-
 #pragma mark NSURLConnectionDataDelegate Implementation
 
 - (NSURLConnection *)connection {
@@ -135,10 +133,6 @@ int requestCount = 0;
 
     self.response = response;
     self.mutableData = [NSMutableData data];
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
-    return nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -158,29 +152,5 @@ int requestCount = 0;
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
     return nil;
 }
-
-- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-
-}
-
-- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
-    return nil;
-}
-
-
-#pragma mark NSURLConnectionDownloadDelegate Implementation
-
-- (void)connectionDidFinishDownloading:(NSURLConnection *)connection destinationURL:(NSURL *)destinationURL {
-
-}
-
-- (void)connection:(NSURLConnection *)connection didWriteData:(long long)bytesWritten totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
-
-}
-
-- (void)connectionDidResumeDownloading:(NSURLConnection *)connection totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
-
-}
-
 
 @end
