@@ -4,6 +4,7 @@
 ##参考:
 
 iOS WKWebView Tips:http://atmarkplant.com/ios-wkwebview-tips/
+Basic Multiple Window Support for iOS UIWebView:http://www.hesslerdesign.com/blog/ios/basic-multi-window-support-for-ios-uiwebview/
 iOS-Web-View-Multiwindow:https://github.com/hessler/iOS-Web-View-Multiwindow
 WKPagesCollectionView:https://github.com/adow/WKPagesCollectionView
 

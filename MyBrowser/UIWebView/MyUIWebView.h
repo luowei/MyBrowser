@@ -11,4 +11,6 @@
 @property(nonatomic, copy) void (^addUIWebViewBlock)(MyUIWebView **, NSURL *);
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
+@property(nonatomic, copy) void (^refreshToolbarBlock)();
+@property(nonatomic, strong) NSMutableString *jsScript;
 @end

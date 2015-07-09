@@ -484,3 +484,13 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+
+
+function getAllImageUrls() {
+    var ret = [];
+    var imgs = document.images;
+    for (var i = 0; i < imgs.length; i++) {
+        ret.push(imgs[i].src);
+    }
+    return JSON.stringify(ret);
+}

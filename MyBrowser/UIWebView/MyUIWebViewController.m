@@ -68,6 +68,9 @@
         [weakSelf.progressView setProgress:0.0 animated:NO];
         weakSelf.progressView.trackTintColor = [UIColor whiteColor];
     };
+    _activeWindow.refreshToolbarBlock = ^(){
+        [weakSelf refreshToolbar];
+    };
 
     //添加新webView的block
     _activeWindow.addUIWebViewBlock = ^(MyUIWebView **wb, NSURL *aurl) {
@@ -109,13 +112,19 @@
     } else {
         self.listWebViewController.updateUIDatasourceBlock(_activeWindow);
     }
-    
+
     return _activeWindow;
 }
 
 //添加新webView窗口
 - (void)presentAddWebViewVC {
     [self.navigationController pushViewController:self.listWebViewController animated:YES];
+}
+
+//更新工具栏
+- (void)refreshToolbar {
+    self.backBtn.enabled = [self.activeWindow canGoBack];
+    self.forwardBtn.enabled = [self.activeWindow canGoForward];
 }
 
 //主页
@@ -131,8 +140,8 @@
 
     //判断是否需要添加收藏记录
     BOOL containFav = NO;
-    for(Favorite *obj in self.favoriteArray){
-        if([fav isEqualToFavorite:obj]){
+    for (Favorite *obj in self.favoriteArray) {
+        if ([fav isEqualToFavorite:obj]) {
             containFav = YES;
         }
     }
@@ -169,7 +178,7 @@
 
 #pragma mark UISearchBarDelegate Implementation
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     NSString *currentURL = [_activeWindow stringByEvaluatingJavaScriptFromString:@"window.location.href"];
     searchBar.text = currentURL;
 }
@@ -189,7 +198,7 @@
     [_activeWindow loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
-- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar{
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
     ScanQRViewController *viewController = [ScanQRViewController new];
     viewController.title = NSLocalizedString(@"Scan RQ Code", nil);
     viewController.view.backgroundColor = [UIColor whiteColor];
@@ -228,8 +237,8 @@
         [self.view addSubview:self.maskView];
 
         self.maskView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView":self.maskView}]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView":self.maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
 
         //日间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
@@ -257,7 +266,6 @@
 }
 
 
-
 //关闭当前webView
 - (void)closeActiveWebView {
     // Grab and remove the top web view, remove its reference from the windows array,
@@ -273,7 +281,6 @@
     _activeWindow = self.listWebViewController.windows.lastObject;
     [self.webContainer bringSubviewToFront:_activeWindow];
 }
-
 
 
 @end

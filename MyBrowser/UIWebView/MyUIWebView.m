@@ -21,6 +21,18 @@
         self.scalesPageToFit = YES;
     }
 
+    NSError *error;
+    NSString *overridesPath = [[NSBundle mainBundle] pathForResource:@"MyUIWebViewInjection" ofType:@"js"];
+    NSString *overrideScript = [NSString stringWithContentsOfFile:overridesPath
+                                                   encoding:NSUTF8StringEncoding error:&error];
+
+    self.jsScript = [NSMutableString stringWithString:overrideScript];
+
+    NSString *getImagesUrlPath = [[NSBundle mainBundle] pathForResource:@"json2" ofType:@".js"];
+    NSString *getImagesUrlScript = [NSString stringWithContentsOfFile:getImagesUrlPath
+                                                         encoding:NSUTF8StringEncoding error:&error];
+    [self.jsScript appendString:getImagesUrlScript];
+
     return self;
 }
 
@@ -46,7 +58,8 @@
 
             NSLog(@"window.open caught");
             NSURL *url = [NSURL URLWithString:[NSString stringWithString:methodAsArray[1]]];
-            self.addUIWebViewBlock(nil,url);
+            MyUIWebView *wb;
+            self.addUIWebViewBlock(&wb,url);
 
         } else if ([method isEqualToString:@"jswindowcloseoverride"] || [method isEqualToString:@"jswindowopenerfocusoverride"]) {
 
@@ -68,6 +81,21 @@
 //        return NO;
 //    }
     return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    // Show the network activity indicator
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    // Refresh toolbar and hide network activity indicator
+    self.refreshToolbarBlock();
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    // Inject JS to override window prototype methods
+    
+    __unused NSString *jsOverrides = [webView stringByEvaluatingJavaScriptFromString:self.jsScript];
 }
 
 @end
