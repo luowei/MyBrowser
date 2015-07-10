@@ -5,12 +5,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class WebViewJavascriptBridge;
 
-@interface MyUIWebView : UIWebView
+
+@interface MyUIWebView : UIWebView<UIWebViewDelegate>
 @property(nonatomic, copy) void (^finishNavigationProgressBlock)();
 @property(nonatomic, copy) void (^addUIWebViewBlock)(MyUIWebView **, NSURL *);
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 @property(nonatomic, copy) void (^closeActiveWebViewBlock)();
 @property(nonatomic, copy) void (^refreshToolbarBlock)();
 @property(nonatomic, strong) NSMutableString *jsScript;
+@property(nonatomic, strong) WebViewJavascriptBridge *bridge;
+@property(nonatomic, strong) NSArray *allImgUrl;
 @end

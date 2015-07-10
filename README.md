@@ -34,6 +34,7 @@ Using NSURLProtocol with Swift:http://www.raywenderlich.com/76735/using-nsurlpro
 Including WebKit framework for iOS8 fails validation:http://stackoverflow.com/questions/25897123/including-webkit-framework-for-ios8-fails-validation
 Drop-in Offline Caching for UIWebView (and NSURLProtocol):http://robnapier.net/offline-uiwebview-nsurlprotocol
 
+NSURLProtocol Tutorial:http://www.raywenderlich.com/59982/nsurlprotocol-tutorial
 Simple offline caching for UIWebView and other NSURLConnection clients:https://github.com/rnapier/RNCachingURLProtocol
 
 KINWebBrowser:https://github.com/dfmuir/KINWebBrowser

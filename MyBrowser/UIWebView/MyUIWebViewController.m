@@ -13,6 +13,8 @@
 #import "ListUIWebViewController.h"
 #import "FavoritesViewController.h"
 #import "MyURLProtocol.h"
+#import "WebViewJavascriptBridge.h"
+#import "MyWebView.h"
 
 
 @interface MyUIWebViewController ()
@@ -41,6 +43,18 @@
     //从userDefault中加载收藏,给self.favoriteArray赋初值
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:MY_FAVORITES];
     self.favoriteArray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    
+    __weak MyUIWebView *wb = _activeWindow;
+    _activeWindow.bridge = [WebViewJavascriptBridge bridgeForWebView:_activeWindow webViewDelegate:_activeWindow handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"=====received message from JS: %@", data);
+        responseCallback(@"this is message from objc!!");
+    }];
+    [_activeWindow.bridge callHandler:@"testJavascriptHandler" data:nil responseCallback:^(id response) {
+        NSLog(@"=====All Image Urls:%@", response);
+//        NSError *error;
+//        wb.allImgUrl = [NSJSONSerialization JSONObjectWithData:response options:0 error:&error];
+    }];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -68,7 +82,7 @@
         [weakSelf.progressView setProgress:0.0 animated:NO];
         weakSelf.progressView.trackTintColor = [UIColor whiteColor];
     };
-    _activeWindow.refreshToolbarBlock = ^(){
+    _activeWindow.refreshToolbarBlock = ^() {
         [weakSelf refreshToolbar];
     };
 

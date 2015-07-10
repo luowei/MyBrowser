@@ -58,3 +58,35 @@
     }
 }());
 
+
+//获得所有图片的Urls
+function getAllImageUrls() {
+    var ret = [];
+    var imgs = document.images;
+    for (var i = 0; i < imgs.length; i++) {
+        ret.push(imgs[i].src);
+    }
+    return JSON.stringify(ret);
+}
+
+function connectWebViewJavascriptBridge(callback) {
+    if (window.WebViewJavascriptBridge) {
+        callback(WebViewJavascriptBridge)
+    } else {
+        document.addEventListener('WebViewJavascriptBridgeReady', function() {
+            callback(WebViewJavascriptBridge)
+        }, false)
+    }
+}
+
+connectWebViewJavascriptBridge(function(bridge) {
+    bridge.init(function(message, responseCallback) {
+        var data = { 'Javascript Responds':'Wee!' }
+        responseCallback(data)
+    })
+
+    bridge.registerHandler('testJavascriptHandler', function(data, responseCallback) {
+        var responseData = getAllImageUrls()
+        responseCallback(responseData)
+    })
+})

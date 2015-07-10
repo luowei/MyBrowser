@@ -7,8 +7,6 @@
 #import "Defines.h"
 #import "AppDelegate.h"
 
-int requestCount = 0;
-
 @interface MyURLProtocol () <NSURLConnectionDataDelegate>
 
 
@@ -60,6 +58,7 @@ int requestCount = 0;
 
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
+    static NSUInteger requestCount = 0;
     Log(@"request %i :URL = %@", requestCount++, request.URL.absoluteString);
 
 //    if ([request valueForHTTPHeaderField:@"MyURLProtocolHandledKey"] != nil) {
@@ -129,8 +128,14 @@ int requestCount = 0;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 
+    NSSet *imgContentTypes = [NSSet setWithArray:@[ @"image/png",@"image/jpg",@"image/jpeg",@"image/gif" ]];
+    if([imgContentTypes containsObject:response.MIMEType]){
+//        Log(@"=====MIMETYPE:%@",response.MIMEType);
+//        [self.connection cancel];
+
+    }
+    Log(@"=====MIMETYPE:%@",response.MIMEType);
     self.response = response;
     self.mutableData = [NSMutableData data];
 }

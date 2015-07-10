@@ -46,6 +46,9 @@
 		EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */; };
 		EACEC3E51B47E329003D3FE0 /* jquery-1.11.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E41B47E329003D3FE0 /* jquery-1.11.3.min.js */; };
 		EACEC3F81B49843A003D3FE0 /* MyURLProtocol.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EACEC3F61B49843A003D3FE0 /* MyURLProtocol.xcdatamodeld */; };
+		EAE99FC51B4F64C900E711CF /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = EAE99FC31B4F64C900E711CF /* WebViewJavascriptBridge.js.txt */; };
+		EAE99FC61B4F64C900E711CF /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */; };
+		EAE9A0061B4FC75800E711CF /* WebViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE9A0051B4FC75800E711CF /* WebViewProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +136,11 @@
 		EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
 		EACEC3E41B47E329003D3FE0 /* jquery-1.11.3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.11.3.min.js"; sourceTree = "<group>"; };
 		EACEC3F71B49843A003D3FE0 /* MyURLProtocol.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyURLProtocol.xcdatamodel; sourceTree = "<group>"; };
+		EAE99FC21B4F64C900E711CF /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		EAE99FC31B4F64C900E711CF /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
+		EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		EAE9A0041B4FC75800E711CF /* WebViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewProxy.h; sourceTree = "<group>"; };
+		EAE9A0051B4FC75800E711CF /* WebViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +229,9 @@
 		EA8ED5231B3D245F00168B69 = {
 			isa = PBXGroup;
 			children = (
+				EAE9A0031B4FC75800E711CF /* WebViewProxy */,
 				EA8ED5971B3D2FF700168B69 /* WebKit.framework */,
+				EAE99FC11B4F64C800E711CF /* WebViewJavascriptBridge */,
 				EA8ED59C1B3D307300168B69 /* WKPagesCollectionView */,
 				EA8ED52E1B3D245F00168B69 /* MyBrowser */,
 				EA8ED5481B3D245F00168B69 /* MyBrowserTests */,
@@ -330,6 +340,25 @@
 			path = html;
 			sourceTree = "<group>";
 		};
+		EAE99FC11B4F64C800E711CF /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				EAE99FC21B4F64C900E711CF /* WebViewJavascriptBridge.h */,
+				EAE99FC31B4F64C900E711CF /* WebViewJavascriptBridge.js.txt */,
+				EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */,
+			);
+			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
+		EAE9A0031B4FC75800E711CF /* WebViewProxy */ = {
+			isa = PBXGroup;
+			children = (
+				EAE9A0041B4FC75800E711CF /* WebViewProxy.h */,
+				EAE9A0051B4FC75800E711CF /* WebViewProxy.m */,
+			);
+			path = WebViewProxy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -415,6 +444,7 @@
 				EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */,
 				EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */,
 				EA8ED5C51B3D60DD00168B69 /* prompt.html in Resources */,
+				EAE99FC51B4F64C900E711CF /* WebViewJavascriptBridge.js.txt in Resources */,
 				EACEC3E51B47E329003D3FE0 /* jquery-1.11.3.min.js in Resources */,
 				EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */,
 				EA3A918C1B4EC58700F081A3 /* JSTools.js in Resources */,
@@ -455,6 +485,7 @@
 				BEF0675846B2093BA142E53C /* MyHelper.m in Sources */,
 				BEF062F36B8B054B03FDFCC7 /* MyURLProtocol.m in Sources */,
 				BEF066B89A7E7B0381911DEA /* Favorite.m in Sources */,
+				EAE99FC61B4F64C900E711CF /* WebViewJavascriptBridge.m in Sources */,
 				BEF0684ECA0BAEF70E62AA2E /* ViewController.m in Sources */,
 				BEF06A87BF053D11BA51B903 /* MyWKWebViewController.m in Sources */,
 				BEF060B642E9E8D71A6BFE5E /* MyWKWebView.m in Sources */,
@@ -462,6 +493,7 @@
 				BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */,
 				BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */,
 				BEF069380BED7836056BE6E8 /* MyWebView.m in Sources */,
+				EAE9A0061B4FC75800E711CF /* WebViewProxy.m in Sources */,
 				BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */,
 				BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */,
 				BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */,

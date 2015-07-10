@@ -5,8 +5,10 @@
 
 #import "MyUIWebView.h"
 #import "MyHelper.h"
+#import "WebViewJavascriptBridge.h"
+#import "Defines.h"
 
-@interface MyUIWebView()<UIWebViewDelegate>
+@interface MyUIWebView()
 
 @end
 
@@ -22,16 +24,18 @@
     }
 
     NSError *error;
-    NSString *overridesPath = [[NSBundle mainBundle] pathForResource:@"MyUIWebViewInjection" ofType:@"js"];
-    NSString *overrideScript = [NSString stringWithContentsOfFile:overridesPath
-                                                   encoding:NSUTF8StringEncoding error:&error];
 
-    self.jsScript = [NSMutableString stringWithString:overrideScript];
-
-    NSString *getImagesUrlPath = [[NSBundle mainBundle] pathForResource:@"json2" ofType:@".js"];
-    NSString *getImagesUrlScript = [NSString stringWithContentsOfFile:getImagesUrlPath
+    NSString *json2Path = [[NSBundle mainBundle] pathForResource:@"json2" ofType:@"js"];
+    NSString *json2Script = [NSString stringWithContentsOfFile:json2Path
                                                          encoding:NSUTF8StringEncoding error:&error];
-    [self.jsScript appendString:getImagesUrlScript];
+
+    self.jsScript = [NSMutableString stringWithString:json2Script];
+    
+    NSString *webViewInjectionPath = [[NSBundle mainBundle] pathForResource:@"MyUIWebViewInjection" ofType:@"js"];
+    NSString *webViewInjectionScript = [NSString stringWithContentsOfFile:webViewInjectionPath
+                                                         encoding:NSUTF8StringEncoding error:&error];
+
+    [self.jsScript appendString:webViewInjectionScript];
 
     return self;
 }
@@ -94,7 +98,6 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     // Inject JS to override window prototype methods
-    
     __unused NSString *jsOverrides = [webView stringByEvaluatingJavaScriptFromString:self.jsScript];
 }
 

@@ -17,8 +17,8 @@
 
 
 //#define HOME_URL [[NSURL alloc] initWithString:@"http://baidu.com"]
-//#define HOME_URL [[NSURL alloc] initWithString:@"http://wodedata.com/test/"]
-#define HOME_URL [[NSURL alloc] initWithString:@"http://www.hesslerdesign.com/tests/js_window_methods/"]
+#define HOME_URL [[NSURL alloc] initWithString:@"http://wodedata.com/test/"]
+//#define HOME_URL [[NSURL alloc] initWithString:@"http://www.hesslerdesign.com/tests/js_window_methods/"]
 //#define HOME_URL [[NSURL alloc] initWithString:@"http://wodedata.com/test/alert.html"]
 
 #define MY_FAVORITES @"MY_FAVORITES"
