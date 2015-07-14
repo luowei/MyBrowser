@@ -11,7 +11,6 @@
 #import "MyWKWebView.h"
 #import "MyHelper.h"
 #import "Favorite.h"
-#import "MyUIWebView.h"
 
 @interface FavoritesViewController () <UITableViewDataSource, UITableViewDelegate>
 

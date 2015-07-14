@@ -15,7 +15,6 @@
 #import "MyPopupView.h"
 #import "ScanQRViewController.h"
 #import "Favorite.h"
-#import "MyURLProtocol.h"
 
 @interface MyWKWebViewController ()
 
