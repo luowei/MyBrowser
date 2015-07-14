@@ -8,13 +8,17 @@
 
 #import "ListWKWebViewController.h"
 #import "MyWKWebView.h"
-#import "WKPagesCollectionView.h"
 #import "Defines.h"
 #import "MyHelper.h"
+#import "NFCollectionViewTabsLayout.h"
+#import "NFTabCollectionViewCell.h"
 
-@interface ListWKWebViewController ()<WKPagesCollectionViewDataSource,WKPagesCollectionViewDelegate>
+NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
 
-@property(nonatomic, strong) WKPagesCollectionView *collectionView;
+@interface ListWKWebViewController () <UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property(nonatomic, strong) NFCollectionViewTabsLayout *tabsLayout;
+@property(nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
@@ -24,10 +28,10 @@
     self = [super init];
     if (self) {
         __weak __typeof(self) weakSelf = self;
-        self.updateWKDatasourceBlock = ^(MyWKWebView *wb){
-            if(!weakSelf.windows){
+        self.updateWKDatasourceBlock = ^(MyWKWebView *wb) {
+            if (!weakSelf.windows) {
                 weakSelf.windows = @[wb].mutableCopy;
-            }else{
+            } else {
                 [weakSelf.windows addObject:wb];
             }
 
@@ -41,35 +45,77 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 
-    _collectionView= [[WKPagesCollectionView alloc] initWithFrame:self.view.frame];
-    _collectionView.dataSource=self;
-    _collectionView.delegate=self;
-    [_collectionView registerClass:[WKPagesCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    //构建CollectionView
+    _tabsLayout = [[NFCollectionViewTabsLayout alloc] init];
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_tabsLayout];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    [_collectionView registerClass:[NFTabCollectionViewCell class] forCellWithReuseIdentifier:CellReuseIdentifier];
+    _collectionView.backgroundColor = [UIColor darkGrayColor];
     [self.view addSubview:_collectionView];
-    _collectionView.maskShow=YES;
+
+    //添加约束
+    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSMutableArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[collectionView]|" options:0
+                                                                          metrics:nil views:@{@"collectionView":_collectionView}].mutableCopy;
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-0-[collectionView]-0-[bottomLayoutGuide]" options:0 metrics:nil
+                                                                               views:@{@"collectionView":_collectionView,@"topLayoutGuide":self.topLayoutGuide,@"bottomLayoutGuide":self.bottomLayoutGuide}]];
+    [NSLayoutConstraint activateConstraints:constraints];
+
+    //添加滑动手势
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+    panGestureRecognizer.minimumNumberOfTouches = 1;
+    panGestureRecognizer.maximumNumberOfTouches = 1;
+    panGestureRecognizer.delegate = self;
+    [_collectionView addGestureRecognizer:panGestureRecognizer];
 
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWebView:)];
     UIBarButtonItem *closeAllItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close All", nil) style:UIBarButtonItemStylePlain target:self action:@selector(closeAll)];
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
-    toolbar.items = @[addItem,flexibleSpace, closeAllItem];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    toolbar.items = @[addItem, flexibleSpace, closeAllItem];
     [self.view addSubview:toolbar];
 
     toolbar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[toolbar]|" options:0 metrics:nil views:@{@"toolbar":toolbar}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[toolbar(44)]|" options:0 metrics:nil views:@{@"toolbar":toolbar}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[toolbar]|" options:0 metrics:nil views:@{@"toolbar" : toolbar}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[toolbar(44)]|" options:0 metrics:nil views:@{@"toolbar" : toolbar}]];
 
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+#pragma mark -
 
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    //横屏
-    _collectionView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, screenSize.width, screenSize.height);
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer
+{
+    CGPoint point = [recognizer locationInView:self.collectionView];
 
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
+        self.tabsLayout.pannedItemIndexPath = indexPath;
+        self.tabsLayout.panStartPoint = point;
+
+    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        self.tabsLayout.panUpdatePoint = point;
+
+    } else {
+        self.tabsLayout.pannedItemIndexPath = nil;
+    }
+
+    [self.tabsLayout invalidateLayout];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.collectionView];
+    if (fabs(velocity.x) > fabs(velocity.y)) {
+        return YES;
+    }
+
+    return NO;
 }
 
 
@@ -80,7 +126,7 @@
 
 //添加一个webView
 - (void)addWebView:(id)sender {
-    [_collectionView appendItem];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -101,18 +147,22 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    MyWKWebView *webView = _windows[(NSUInteger) indexPath.row];
+    NFTabCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellReuseIdentifier forIndexPath:indexPath];
 
-    static NSString* identity=@"cell";
-    WKPagesCollectionViewCell* cell=(WKPagesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
-    cell.collectionView=collectionView;
+    MyWKWebView *webView = _windows[(NSUInteger) indexPath.row];
 
     //对wkwebView截图
     UIImage *image = [webView screenCapture:webView.bounds.size];
+    cell.imageView.image = image;
 
-    UIImageView* imageView= [[UIImageView alloc] initWithImage:image];
-    imageView.frame=self.view.bounds;
-    [cell.cellContentView addSubview:imageView];
+    cell.titleLabel.text = webView.title;
+    cell.titleLabel.textColor = [UIColor blueColor];
+
+    cell.contentView.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.contentView.layer.shadowOffset = CGSizeMake(0.0, (CGFloat) -40.0);
+    cell.contentView.layer.shadowOpacity = 0.2;
+    cell.contentView.layer.shadowRadius = 40.0;
+    cell.contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.contentView.bounds].CGPath;
 
     return cell;
 }
@@ -127,21 +177,6 @@
     [_collectionView deselectItemAtIndexPath:indexPath animated:NO];
 
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-
-#pragma mark WKPagesCollectionViewDataSource Implementation
-
-- (void)collectionView:(WKPagesCollectionView *)collectionView willRemoveCellAtIndexPath:(NSIndexPath *)indexPath {
-    [_windows removeObjectAtIndex:(NSUInteger) indexPath.row];
-}
-
-- (void)willAppendItemInCollectionView:(WKPagesCollectionView *)collectionView {
-
-    //添加一个webView,block会回调_windows addObject
-    MyWKWebView *webView = nil;
-    self.addWKWebViewBlock(&webView,HOME_URL);
 }
 
 @end
