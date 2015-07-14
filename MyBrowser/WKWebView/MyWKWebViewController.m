@@ -264,6 +264,7 @@
         //夜间模式
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
         self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+        self.maskView.userInteractionEnabled = NO;
         self.maskView.backgroundColor = [UIColor blackColor];
         self.maskView.alpha = 0.2;
         [self.view addSubview:self.maskView];

@@ -48,17 +48,13 @@
     [self.view addSubview:_collectionView];
     _collectionView.maskShow=YES;
 
-//    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[collectionView]|" options:0 metrics:nil views:@{@"collectionView":_collectionView}]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[collectionView]|" options:0 metrics:nil views:@{@"collectionView":_collectionView}]];
-
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWebView:)];
-    UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
+    UIBarButtonItem *closeAllItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close All", nil) style:UIBarButtonItemStylePlain target:self action:@selector(closeAll)];
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
-    toolbar.items = @[addItem,flexibleSpace,settingItem];
+    toolbar.items = @[addItem,flexibleSpace, closeAllItem];
     [self.view addSubview:toolbar];
 
     toolbar.translatesAutoresizingMaskIntoConstraints = NO;
@@ -78,7 +74,7 @@
 
 
 //设置
-- (void)setting {
+- (void)closeAll {
 
 }
 
@@ -113,15 +109,6 @@
 
     //对wkwebView截图
     UIImage *image = [webView screenCapture:webView.bounds.size];
-//    UIImage *image = [webView snapshotContent:webView.bounds withScale:1.0 completionHandler:nil];
-/*
-    //保存截图
-    NSString *imgPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, true)[0];
-    NSString *imgFilePath = [imgPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%i.png",indexPath.row]];
-    [UIImagePNGRepresentation(image) writeToFile:imgFilePath atomically:YES];
-    //读取截图
-    image = [UIImage imageWithContentsOfFile:imgFilePath];
-*/
 
     UIImageView* imageView= [[UIImageView alloc] initWithImage:image];
     imageView.frame=self.view.bounds;
@@ -140,13 +127,6 @@
     [_collectionView deselectItemAtIndexPath:indexPath animated:NO];
 
     [self.navigationController popViewControllerAnimated:YES];
-
-////    BSViewController *viewController = (BSViewController *)self.parentViewController;
-////    BSViewController *viewController = (BSViewController *)[self.view.superview nextResponder];
-//    [self dismissViewControllerAnimated:YES completion:^{
-////        [viewController.activeWindow reload];
-//    }];
-
 }
 
 

@@ -5,12 +5,13 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
-"My Browser" = "Thanks You Support My Browser\n http://luowei.github.com";
+"My Browser" = "Thanks For You Support For My Browser\n http://luowei.github.com";
 "OK" = "OK";
 "Cancel" = "Cancel";
 "Close" = "Close";
 "Error" = "Error";
 "Open" = "Open";
+"Close All" = "Close All";
 "Bookmarks" = "Bookmarks";
 "Nighttime" = "Nighttime";
 "Daytime" = "Daytime";
