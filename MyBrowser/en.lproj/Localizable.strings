@@ -5,6 +5,7 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
+"My Browser" = "Thanks You Support My Browser\n http://luowei.github.com";
 "OK" = "OK";
 "Cancel" = "Cancel";
 "Close" = "Close";
@@ -14,6 +15,7 @@
 "Nighttime" = "Nighttime";
 "Daytime" = "Daytime";
 "No Image" = "No Image";
+"About Me" = "About Me";
 "Keyword or Url" = "Keyword or Url";
 "Add Favorite Success" = "Add Favorite Success";
 "Update Favorite Success" = "Update Favorite Success";

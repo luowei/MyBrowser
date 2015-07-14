@@ -34,6 +34,10 @@
 @property(nonatomic) CGFloat lastOffsetY;
 
 
+@property(nonatomic, strong) UIView *popupContanierView;
+
+@property(nonatomic, strong) NSMutableArray *popupviewConstraints;
+
 //进度条
 - (void)addProgressBar;
 

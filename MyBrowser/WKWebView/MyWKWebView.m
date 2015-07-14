@@ -241,7 +241,7 @@ static WKProcessPool *_pool;
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 //    [userContentController addScriptMessageHandler:self name:@"myName"];
     if ([message.name isEqualToString:@"myName"]) {
-        [MyHelper showToastAlert:message.body];
+//        [MyHelper showToastAlert:message.body];
         //处理消息内容
 //        [[[UIAlertView alloc] initWithTitle:@"message" message:message.body delegate:self
 //                          cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

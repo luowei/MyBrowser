@@ -143,21 +143,57 @@
     CGRect frame = self.view.frame;
 //    NSString *timeMode = self.webmaskLayer == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
     NSString *timeMode = self.maskView == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
-    NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil), timeMode, NSLocalizedString(@"No Image", nil), NSLocalizedString(@"Clear All History", nil)];
+    NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil), timeMode, NSLocalizedString(@"Clear All History", nil),NSLocalizedString(@"About Me", nil)];
     self.popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height - self.bottomLayoutGuide.length - 100, frame.size.width, 100) dataSource:titleArray];
     self.popupView.delegate = self;
-    [self.view addSubview:self.popupView];
-
+    
+    self.popupContanierView = [[UIView alloc] initWithFrame:frame];
+    [self.view addSubview:self.popupContanierView];
+    self.popupContanierView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSMutableArray *popContanierConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[popupContanierView]|" options:0 metrics:nil views:@{@"popupContanierView":self.popupContanierView}].mutableCopy;
+    [popContanierConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide]-0-[popupContanierView]-0-[bottomLayoutGuide]" options:0 metrics:0 views:@{@"topLayoutGuide":self.topLayoutGuide,@"popupContanierView":self.popupContanierView,@"bottomLayoutGuide":self.bottomLayoutGuide}]];
+    [NSLayoutConstraint activateConstraints:popContanierConstraints];
+    
+    [self.popupContanierView addSubview:self.popupView];
     self.popupView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[popupView]|" options:0 metrics:nil views:@{@"popupView" : self.popupView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[popupView(100)]-0-[bottomLayoutGuide]" options:0 metrics:nil views:@{@"popupView" : self.popupView, @"bottomLayoutGuide" : self.bottomLayoutGuide}]];
+    self.popupviewConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[popupView]|" options:0 metrics:nil views:@{@"popupView" : self.popupView}].mutableCopy;
+    [self.popupviewConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[popupView(100)]|" options:0 metrics:nil views:@{@"popupView" : self.popupView}]];
+    [NSLayoutConstraint activateConstraints:self.popupviewConstraints];
 
     menuIsShow = YES;
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    [self hiddenMenu];
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [touches enumerateObjectsUsingBlock:^(UITouch *touch, BOOL *stop) {
+        CGPoint pointInside = [touch locationInView:self.popupContanierView];
+        if (!CGRectContainsPoint(self.popupView.frame, pointInside)){
+            [self hiddenMenu];
+            return;
+        }
+    }];
+
+//    UITouch *touch = [touches anyObject];
+//    CGPoint pointInside = [touch locationInView:self.popupContanierView];
+//
+//    if (CGRectContainsPoint(self.popupView.frame, pointInside)){
+//        [self hiddenMenu];
+//    }
+
+}
+
+
 //隐藏设置菜单
 - (void)hiddenMenu {
+    [self.popupContanierView removeFromSuperview];
     [self.popupView removeFromSuperview];
+    self.popupContanierView = nil;
     self.popupView = nil;
     menuIsShow = NO;
 }
@@ -192,7 +228,8 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     bool hide = (scrollView.contentOffset.y > self.lastOffsetY);
-    [[self navigationController] setNavigationBarHidden:hide animated:YES];
+    [self.navigationController setNavigationBarHidden:hide animated:YES];
+    [self.navigationController setToolbarHidden:hide animated:YES];
 
 }
 

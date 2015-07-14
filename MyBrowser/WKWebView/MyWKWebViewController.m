@@ -278,15 +278,6 @@
         [self.maskView removeFromSuperview];
         self.maskView = nil;
 
-        //无图模式
-    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image", nil)]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
-        [NSURLProtocol registerClass:[MyURLProtocol class]];
-
-        //todo:切换核心
-
-        [MyHelper showToastAlert:NSLocalizedString(@"Successfully Set NoImage Mode", nil)];
-
         //清除痕迹
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Clear All History", nil)]) {
         [self.webContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -296,6 +287,22 @@
             }
         }];
         [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
+
+    }else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"About Me", nil)]) {
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
+//        [NSURLProtocol registerClass:[MyURLProtocol class]];
+//
+//        //todo:切换核心
+//
+//        [MyHelper showToastAlert:NSLocalizedString(@"Successfully Set NoImage Mode", nil)];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"About Me", nil)
+                                                                                 message:NSLocalizedString(@"My Browser", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+
     }
 
     [self hiddenMenu];

@@ -114,17 +114,16 @@
 - (instancetype)initWithFrame:(CGRect)frame dataSource:(NSArray *)array {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = [UIColor clearColor];
 
         _dataList = array;
-        _imgDic = @{NSLocalizedString(@"Bookmarks", nil) : @"bookmark", NSLocalizedString(@"Nighttime", nil) : @"night", NSLocalizedString(@"Daytime", nil) : @"day",
-                NSLocalizedString(@"No Image", nil) : @"noimage", NSLocalizedString(@"Clear All History", nil) : @"clearAllHistory"};
+        _imgDic = @{NSLocalizedString(@"Bookmarks", nil) : @"bookmark", NSLocalizedString(@"Nighttime", nil) : @"night", NSLocalizedString(@"Daytime", nil) : @"day",NSLocalizedString(@"Clear All History", nil) : @"clearAllHistory",
+                NSLocalizedString(@"About Me", nil) : @"about"};
 
         MyCollectionViewFlowLayout *flowLayout = [[MyCollectionViewFlowLayout alloc] init];
         _collectionView = [[MyCollectionView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height) collectionViewLayout:flowLayout];
         [_collectionView registerClass:[MyCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
 
-        _collectionView.backgroundColor = [UIColor lightGrayColor];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [self addSubview:_collectionView];
@@ -135,6 +134,9 @@
 
         _collectionView.scrollEnabled = YES;
         _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.layer.borderWidth = 0.5;
+        _collectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _collectionView.layer.cornerRadius = 10;
         _collectionView.clipsToBounds = YES;
     }
