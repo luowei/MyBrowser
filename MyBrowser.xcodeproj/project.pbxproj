@@ -48,7 +48,6 @@
 		EACEC3F81B49843A003D3FE0 /* MyURLProtocol.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EACEC3F61B49843A003D3FE0 /* MyURLProtocol.xcdatamodeld */; };
 		EAE99FC51B4F64C900E711CF /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = EAE99FC31B4F64C900E711CF /* WebViewJavascriptBridge.js.txt */; };
 		EAE99FC61B4F64C900E711CF /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */; };
-		EAE9A0061B4FC75800E711CF /* WebViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE9A0051B4FC75800E711CF /* WebViewProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,8 +138,6 @@
 		EAE99FC21B4F64C900E711CF /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		EAE99FC31B4F64C900E711CF /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
 		EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		EAE9A0041B4FC75800E711CF /* WebViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewProxy.h; sourceTree = "<group>"; };
-		EAE9A0051B4FC75800E711CF /* WebViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,7 +226,6 @@
 		EA8ED5231B3D245F00168B69 = {
 			isa = PBXGroup;
 			children = (
-				EAE9A0031B4FC75800E711CF /* WebViewProxy */,
 				EA8ED5971B3D2FF700168B69 /* WebKit.framework */,
 				EAE99FC11B4F64C800E711CF /* WebViewJavascriptBridge */,
 				EA8ED59C1B3D307300168B69 /* WKPagesCollectionView */,
@@ -348,15 +344,6 @@
 				EAE99FC41B4F64C900E711CF /* WebViewJavascriptBridge.m */,
 			);
 			path = WebViewJavascriptBridge;
-			sourceTree = "<group>";
-		};
-		EAE9A0031B4FC75800E711CF /* WebViewProxy */ = {
-			isa = PBXGroup;
-			children = (
-				EAE9A0041B4FC75800E711CF /* WebViewProxy.h */,
-				EAE9A0051B4FC75800E711CF /* WebViewProxy.m */,
-			);
-			path = WebViewProxy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,7 +480,6 @@
 				BEF06EE88A5C976CDAA4FE1E /* MyUIWebViewController.m in Sources */,
 				BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */,
 				BEF069380BED7836056BE6E8 /* MyWebView.m in Sources */,
-				EAE9A0061B4FC75800E711CF /* WebViewProxy.m in Sources */,
 				BEF063B25BBE1E7C93B641D4 /* ListUIWebViewController.m in Sources */,
 				BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */,
 				BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */,
