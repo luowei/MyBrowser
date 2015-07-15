@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"My Browser" = "Merci pour votre soutien à mon navigateur\n http://luowei.github.com";
+"OK" = "OK";
+"Cancel" = "annuler";
+"Close" = "fermer";
+"Error" = "erreur";
+"Open" = "ouvert";
+"Close All" = "Ferme Tout";
+"Bookmarks" = "signets";
+"Nighttime" = "modo nuit";
+"Daytime" = "Mode jour";
+"No Image" = "Mode NoImage";
+"About Me" = "Sur Moi";
+"Keyword or Url" = "Mot-clé ou URL";
+"Add Favorite Success" = "Ajouter Succès Favorite";
+"Update Favorite Success" = "Mise à jour succès Favorite";
+"Favorites" = "favoris";
+"History" = "histoire";
+"Has Been Favorited" = "Vous a été en favoris";
+"Clear History" = "clair";
+"Clear All History" = "Tout Effacer l'historique";
+"Clear History Success" = "Effacer l'historique de réussite";
+"Successfully cleared Footprint" = "Succès dégagé Footprint";
+"Successfully Set NoImage Mode" = "Mode de NoImage succès Set";
+"Add Favorite" = "Ajouter Favorite";
+"Update Favorite" = "Mise à jour favorite";
+"Editing isn't Saved" = "L'édition est pas enregistré";
+"Title" = "titre";
+"Url Address" = "Url Adresse";
+"Is Empty" = "est Vide";
+"Scan RQ Code" = "Code Scan RQ";
+"Url Saved,Open Now ?" = "Url Enregistré dans carton, Ouvert maintenant?";
+"Not Url Saved in Pasteboard" = "Non Url, Saved en carton";
+"RQ Code" = "code de RQ";
+"ReScan" = "ReScan";

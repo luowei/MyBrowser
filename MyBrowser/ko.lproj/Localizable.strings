@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"My Browser" = "덕분에 사용자는 브라우저에 대한 지원을 위해\n http://luowei.github.com";
+"OK" = "그래";
+"Cancel" = "취소";
+"Close" = "닫기";
+"Error" = "오류";
+"Open" = "열린";
+"Close All" = "모두 닫기";
+"Bookmarks" = "즐겨 찾기";
+"Nighttime" = "야간 모드";
+"Daytime" = "주간 모드";
+"No Image" = "NoImage 모드";
+"About Me" = "나에 대해서";
+"Keyword or Url" = "키워드 나 URL";
+"Add Favorite Success" = "즐겨 찾기 성공을 추가";
+"Update Favorite Success" = "업데이트 즐겨 찾기 성공";
+"Favorites" = "즐겨 찾기";
+"History" = "역사";
+"Has Been Favorited" = "당신은 즐겨 찾기되었습니다";
+"Clear History" = "명확한";
+"Clear All History" = "모두 지우기 역사";
+"Clear History Success" = "지우기 성공";
+"Successfully cleared Footprint" = "성공적으로 발자국을 지워";
+"Successfully Set NoImage Mode" = "성공적으로 설정 NoImage 모드";
+"Add Favorite" = "즐겨 찾기 추가";
+"Update Favorite" = "업데이트 즐겨 찾기";
+"Editing isn't Saved" = "편집이 저장되지 않습니다";
+"Title" = "이름";
+"Url Address" = "URL 주소";
+"Is Empty" = "빈인가";
+"Scan RQ Code" = "스캔 RQ 코드";
+"Url Saved,Open Now ?" = "판지에 저장 URL, 지금 열기?";
+"Not Url Saved in Pasteboard" = "URL, 판지에 저장되지";
+"RQ Code" = "RQ 코드";
+"ReScan" = "다시 검색";

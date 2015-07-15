@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"My Browser" = "謝謝支持我的瀏覽器\n http://luowei.github.com";
+"OK" = "確定";
+"Cancel" = "取消";
+"Close" = "關閉";
+"Error" = "錯誤";
+"Open" = "打開";
+"Close All" = "全部關閉";
+"Bookmarks" = "收藏管理";
+"Nighttime" = "夜間模式";
+"Daytime" = "日間模式";
+"No Image" = "無圖模式";
+"About Me" = "關於";
+"Keyword or Url" = "搜索或輸入地址";
+"Add Favorite Success" = "添加收藏成功";
+"Update Favorite Success" = "更新收藏成功";
+"Favorites" = "收藏";
+"History" = "歷史";
+"Has Been Favorited" = "你已經收藏過了";
+"Clear History" = "清除";
+"Clear All History" = "清除痕跡";
+"Clear History Success" = "清除歷史成功";
+"Successfully cleared Footprint" = "已成功清除痕跡;
+"Successfully Set NoImage Mode" = "成功設置文本模式";
+"Add Favorite" = "添加收藏";
+"Update Favorite" = "修改收藏";
+"Editing isn't Saved" = "修改沒有保存";
+"Title" = "標題";
+"Url Address" = "網址";
+"Is Empty" = "為空";
+"Scan RQ Code" = "掃描二維碼";
+"Url Saved,Open Now ?" = "已保存到剪粘板,是否立即打開?";
+"Not Url Saved in Pasteboard" = "非Url,已保存到剪粘板";
+"RQ Code" = "二維碼";
+"ReScan" = "重新掃碼";

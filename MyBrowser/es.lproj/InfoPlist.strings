@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"CFBundleDisplayName" = "Mi navegador";

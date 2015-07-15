@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"My Browser" = "あなたは私のブラウザをサポートしていただきありがとうございます\n http://luowei.github.com";
+"OK" = "決定します";
+"Cancel" = "キャンセル";
+"Close" = "シャットダウン";
+"Error" = "間違いました";
+"Open" = "オンにします";
+"Close All" = "すべて閉じます";
+"Bookmarks" = "蔵書管理";
+"Nighttime" = "ナイトモード";
+"Daytime" = "デイモード";
+"No Image" = "テキストモード";
+"About Me" = "約";
+"Keyword or Url" = "検索またはアドレスを入力してください";
+"Add Favorite Success" = "ブックマークしを追加";
+"Update Favorite Success" = "アップデートブックマークし";
+"Favorites" = "収集します";
+"History" = "歴史";
+"Has Been Favorited" = "あなたはの収集してきました";
+"Clear History" = "削除します";
+"Clear All History" = "クリアトレース";
+"Clear History Success" = "成功の履歴をクリア";
+"Successfully cleared Footprint" = "正常にトレースをクリア";
+"Successfully Set NoImage Mode" = "正常テキストモードを設定します";
+"Add Favorite" = "お気に入りに追加";
+"Update Favorite" = "お気に入りを修正";
+"Editing isn't Saved" = "変更は保存されません";
+"Title" = "タイトル";
+"Url Address" = "サイト";
+"Is Empty" = "空です";
+"Scan RQ Code" = "スキャン二次元コード";
+"Url Saved,Open Now ?" = "すぐに開くかどうか、粘着板を切断するために保存されていますか？";
+"Not Url Saved in Pasteboard" = "非URLは、粘着板を切断するために保存されています";
+"RQ Code" = "QRコード;
+"ReScan" = "再スキャンコード";

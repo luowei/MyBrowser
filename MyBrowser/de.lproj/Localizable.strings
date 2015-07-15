@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  MyBrowser
+
+  Created by luowei on 15/6/26.
+  Copyright (c) 2015年 wodedata. All rights reserved.
+*/
+"My Browser" = "Danke für deine Unterstützung für meinen Browser\n http://luowei.github.com";
+"OK" = "OK";
+"Cancel" = "stornieren";
+"Close" = "schließen";
+"Error" = "Fehler";
+"Open" = "geöffnet";
+"Close All" = "Alle schließen";
+"Bookmarks" = "Lesezeichen";
+"Nighttime" = "Nachtmodus";
+"Daytime" = "Daytime-Modus";
+"No Image" = "NoImage Modus";
+"About Me" = "Über Mich";
+"Keyword or Url" = "Suchbegriff oder URL";
+"Add Favorite Success" = "Add Favorite Success";
+"Update Favorite Success" = "Update Favorit Success";
+"Favorites" = "Favoriten";
+"History" = "Geschichte";
+"Has Been Favorited" = "Euch ist Favorisiert";
+"Clear History" = "klar";
+"Clear All History" = "Clear All History";
+"Clear History Success" = "Clear History Success";
+"Successfully cleared Footprint" = "Erfolgreich gelöscht Fußabdruck";
+"Successfully Set NoImage Mode" = "Erfolgreich gesetzt NoImage Modus";
+"Add Favorite" = "Favorit hinzufügen";
+"Update Favorite" = "Update Favorit";
+"Editing isn't Saved" = "Bearbeiten nicht gespeichert";
+"Title" = "Titel";
+"Url Address" = "URL-Adresse";
+"Is Empty" = "ist Leer";
+"Scan RQ Code" = "Scan RQ-Code";
+"Url Saved,Open Now ?" = "Url in Pasteboard gespeichert, Open Now?";
+"Not Url Saved in Pasteboard" = "Nicht Url, in Pappe Gespeichert";
+"RQ Code" = "RQ-Code";
+"ReScan" = "ReScan";
