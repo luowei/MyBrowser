@@ -5,6 +5,8 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
+"HomeURL" = "http://google.com";
+
 "My Browser" = "Merci pour votre soutien à mon navigateur\n http://luowei.github.com";
 "OK" = "OK";
 "Cancel" = "annuler";
@@ -24,7 +26,7 @@
 "History" = "histoire";
 "Has Been Favorited" = "Vous a été en favoris";
 "Clear History" = "clair";
-"Clear All History" = "Tout Effacer l'historique";
+"Clear All History" = "Tout Effacer";
 "Clear History Success" = "Effacer l'historique de réussite";
 "Successfully cleared Footprint" = "Succès dégagé Footprint";
 "Successfully Set NoImage Mode" = "Mode de NoImage succès Set";

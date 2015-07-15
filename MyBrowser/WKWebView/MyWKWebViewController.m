@@ -34,8 +34,6 @@
     //向webContainer中添加webview
     [self addWebView:HOME_URL];
 
-    self.activeWindow.scrollView.delegate = self;
-
     //添加对webView的监听器
     [self.activeWindow addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     [self.activeWindow addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
@@ -45,6 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
 }
 
@@ -104,6 +104,8 @@
     _activeWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.webContainer addSubview:_activeWindow];
     [self.webContainer bringSubviewToFront:_activeWindow];
+
+    _activeWindow.scrollView.delegate = self;
 
     //更新刷新进度条的block
     __weak __typeof(self) weakSelf = self;
@@ -289,10 +291,11 @@
         [self.webContainer.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([obj isMemberOfClass:[MyWKWebView class]]) {
                 MyWKWebView *wb = (MyWKWebView *) obj;
-                [wb.backForwardList performSelector:@selector(_clear)];
+//                [wb.backForwardList performSelector:@selector(_clear)];
             }
         }];
-        [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
+//        [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
+//        [MyHelper showToastAlert:@"Sorry,Temporarily can not be cleared !"];
 
     }else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"About Me", nil)]) {
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];

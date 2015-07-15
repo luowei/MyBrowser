@@ -58,10 +58,10 @@
 @end
 
 
-#pragma mark Priavte API Define
-
-@interface WKBackForwardList (WKPrivate)
-
-- (void)_clear;
-
-@end
+//#pragma mark Priavte API Define
+//
+//@interface WKBackForwardList (WKPrivate)
+//
+//- (void)_clear;
+//
+//@end

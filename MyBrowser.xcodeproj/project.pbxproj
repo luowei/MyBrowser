@@ -68,6 +68,10 @@
 		BEF06A6E9F621D9CC926595A /* NFCollectionViewTabsLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCollectionViewTabsLayout.h; sourceTree = "<group>"; };
 		BEF06C703A68A6CE2781F881 /* NFTabCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFTabCollectionViewCell.h; sourceTree = "<group>"; };
 		BEF06E140863363BEF3AD42F /* NFTabCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFTabCollectionViewCell.m; sourceTree = "<group>"; };
+		EA1AFCA01B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		EA1AFCA11B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EA1AFCA21B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA1AFCA31B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EA8ED52C1B3D245F00168B69 /* MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8ED5301B3D245F00168B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8ED5311B3D245F00168B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 				"pt-PT",
 				ru,
 				"ar-IL",
+				ar,
 			);
 			mainGroup = EA8ED5231B3D245F00168B69;
 			productRefGroup = EA8ED52D1B3D245F00168B69 /* Products */;
@@ -469,6 +474,7 @@
 				EAFE63651B5635E000AFEB14 /* pt-PT */,
 				EAFE63691B5635EB00AFEB14 /* ru */,
 				EAFE636D1B56365100AFEB14 /* ar-IL */,
+				EA1AFCA21B56A09600530DCB /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -490,6 +496,7 @@
 				EAFE63661B5635E000AFEB14 /* pt-PT */,
 				EAFE636A1B5635EB00AFEB14 /* ru */,
 				EAFE636E1B56365100AFEB14 /* ar-IL */,
+				EA1AFCA31B56A09600530DCB /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -511,6 +518,7 @@
 				EAFE63641B5635E000AFEB14 /* pt-PT */,
 				EAFE63681B5635EB00AFEB14 /* ru */,
 				EAFE636C1B56365100AFEB14 /* ar-IL */,
+				EA1AFCA11B56A09600530DCB /* ar */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -532,6 +540,7 @@
 				EAFE63631B5635E000AFEB14 /* pt-PT */,
 				EAFE63671B5635EB00AFEB14 /* ru */,
 				EAFE636B1B56365100AFEB14 /* ar-IL */,
+				EA1AFCA01B56A09600530DCB /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -626,6 +635,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -636,6 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyBrowser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

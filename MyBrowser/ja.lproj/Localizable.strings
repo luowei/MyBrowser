@@ -5,6 +5,8 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
+"HomeURL" = "http://google.com";
+
 "My Browser" = "あなたは私のブラウザをサポートしていただきありがとうございます\n http://luowei.github.com";
 "OK" = "決定します";
 "Cancel" = "キャンセル";
@@ -37,5 +39,5 @@
 "Scan RQ Code" = "スキャン二次元コード";
 "Url Saved,Open Now ?" = "すぐに開くかどうか、粘着板を切断するために保存されていますか？";
 "Not Url Saved in Pasteboard" = "非URLは、粘着板を切断するために保存されています";
-"RQ Code" = "QRコード;
+"RQ Code" = "QRコード";
 "ReScan" = "再スキャンコード";

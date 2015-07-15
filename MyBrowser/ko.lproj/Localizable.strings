@@ -5,6 +5,8 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
+"HomeURL" = "http://google.com";
+
 "My Browser" = "덕분에 사용자는 브라우저에 대한 지원을 위해\n http://luowei.github.com";
 "OK" = "그래";
 "Cancel" = "취소";
@@ -24,7 +26,7 @@
 "History" = "역사";
 "Has Been Favorited" = "당신은 즐겨 찾기되었습니다";
 "Clear History" = "명확한";
-"Clear All History" = "모두 지우기 역사";
+"Clear All History" = "모두 지우기";
 "Clear History Success" = "지우기 성공";
 "Successfully cleared Footprint" = "성공적으로 발자국을 지워";
 "Successfully Set NoImage Mode" = "성공적으로 설정 NoImage 모드";

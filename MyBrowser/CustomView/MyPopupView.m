@@ -183,13 +183,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     MyCollectionViewCell *cell = (MyCollectionViewCell *) [collectionView cellForItemAtIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor lightGrayColor];
-    cell.titleLabel.textColor = [UIColor whiteColor];
+//    cell.contentView.backgroundColor = [UIColor lightGrayColor];
+    cell.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    cell.contentView.layer.borderWidth = 4.0;
+    cell.contentView.layer.opacity = 0.5;
+    cell.titleLabel.textColor = [UIColor darkGrayColor];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     MyCollectionViewCell *cell = (MyCollectionViewCell *) [collectionView cellForItemAtIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor clearColor];
+//    cell.contentView.backgroundColor = [UIColor clearColor];
+    cell.contentView.layer.borderColor = [UIColor clearColor].CGColor;
+    cell.contentView.layer.opacity = 1.0;
     cell.titleLabel.textColor = [UIColor blackColor];
 }
 

@@ -116,9 +116,10 @@
         }
         case 1: {
             self.navigationController.toolbarHidden = YES;
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear History", nil)
-                                                                                      style:UIBarButtonItemStylePlain
-                                                                                     target:self action:@selector(clearHistory)];
+            self.navigationItem.rightBarButtonItem = nil;
+//            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear History", nil)
+//                                                                                      style:UIBarButtonItemStylePlain
+//                                                                                     target:self action:@selector(clearHistory)];
 
             //历史数据从webView中加载
             _favoriteList = @[].mutableCopy;
@@ -401,7 +402,7 @@
     }else{
         MyWKWebView *wkwebView;
         self.getCurrentWKWebViewBlock(&wkwebView);
-        [wkwebView.backForwardList performSelector:@selector(_clear)];
+//        [wkwebView.backForwardList performSelector:@selector(_clear)];
     }
 
     [MyHelper showToastAlert:NSLocalizedString(@"Clear History Success", nil)];
