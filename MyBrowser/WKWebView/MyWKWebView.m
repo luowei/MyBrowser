@@ -129,6 +129,11 @@ static WKProcessPool *_pool;
 
     //set user-agent
 //    [mutableURLRequest setValue:@"YourUserAgent/1.0" forHTTPHeaderField:@"User-Agent"];
+    NSString *urlText = nil;
+    if(request && request.URL){
+        urlText = request.URL.absoluteString;
+    }
+    self.updateSearchBarTextBlock(urlText);
 
     return [super loadRequest:request];
 }

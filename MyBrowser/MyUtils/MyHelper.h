@@ -49,6 +49,14 @@
 
 @end
 
+@interface UIImage(Color)
+
++ (UIImage *)imageWithColor:(UIColor *)color;
+//获得图片的alpha通道值
+- (CGFloat)getImageAlphaValue;
+
+@end
+
 
 #pragma mark Priavte API Define
 

@@ -14,4 +14,5 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
+@property(nonatomic, strong) UIButton *closeBtn;
 @end

@@ -137,7 +137,7 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.layer.borderWidth = 0.5;
         _collectionView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        _collectionView.layer.cornerRadius = 10;
+//        _collectionView.layer.cornerRadius = 10;
         _collectionView.clipsToBounds = YES;
     }
 
@@ -183,7 +183,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     MyCollectionViewCell *cell = (MyCollectionViewCell *) [collectionView cellForItemAtIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor grayColor];
+    cell.contentView.backgroundColor = [UIColor lightGrayColor];
     cell.titleLabel.textColor = [UIColor whiteColor];
 }
 

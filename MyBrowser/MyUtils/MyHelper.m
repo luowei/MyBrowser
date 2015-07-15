@@ -114,3 +114,33 @@
 }
 
 @end
+
+@implementation UIImage(Color)
+
++ (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
+//获得图片的alpha通道值
+- (CGFloat)getImageAlphaValue{
+    unsigned char pixel[1] = {0};
+    CGContextRef context = CGBitmapContextCreate(pixel,1, 1, 8, 1, NULL,kCGImageAlphaOnly);
+    UIGraphicsPushContext(context);
+    [self drawAtPoint:CGPointMake(-1, -1)];
+    UIGraphicsPopContext();
+    CGContextRelease(context);
+    CGFloat alpha = pixel[0]/255.0;
+    return alpha;
+}
+
+@end

@@ -89,15 +89,25 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
 - (void)panGestureRecognized:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint point = [recognizer locationInView:self.collectionView];
+    NSIndexPath *indexPath = nil;
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
 
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
+        indexPath = [self.collectionView indexPathForItemAtPoint:point];
         self.tabsLayout.pannedItemIndexPath = indexPath;
         self.tabsLayout.panStartPoint = point;
 
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.tabsLayout.panUpdatePoint = point;
+
+        CGPoint offset = [recognizer translationInView:self.view];
+        if(offset.x < -200){
+            if(_windows.count <= 1){
+                return;
+            }
+            [_windows removeObjectAtIndex:(NSUInteger) indexPath.row];
+            [_collectionView reloadData];
+        }
 
     } else {
         self.tabsLayout.pannedItemIndexPath = nil;
@@ -118,16 +128,36 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
     return NO;
 }
 
-
-//设置
-- (void)closeAll {
-
-}
-
 //添加一个webView
 - (void)addWebView:(id)sender {
+    //添加一个webView,block会回调_windows addObject
+    MyWKWebView *webView;
+    self.addWKWebViewBlock(&webView,HOME_URL);
 
+    [_collectionView reloadData];
 }
+
+//关闭一个窗口
+- (void)closeWebView:(UIButton *)closeBtn{
+    if(_windows.count <= 1){
+        return;
+    }
+    [_windows removeObjectAtIndex:(NSUInteger) closeBtn.tag];
+
+    [_collectionView reloadData];
+}
+
+//全部关闭
+- (void)closeAll {
+    [_windows removeAllObjects];
+
+    //添加一个webView,block会回调_windows addObject
+    MyWKWebView *webView = nil;
+    self.addWKWebViewBlock(&webView,HOME_URL);
+
+    [_collectionView reloadData];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -153,7 +183,16 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
 
     //对wkwebView截图
     UIImage *image = [webView screenCapture:webView.bounds.size];
-    cell.imageView.image = image;
+
+    BOOL transparent = [image getImageAlphaValue] < 0.01;
+    if(transparent){
+        if(!cell.imageView.image){
+            //设置一张空白图片
+            cell.imageView.image = [UIImage imageWithColor:[UIColor whiteColor]];
+        }
+    }else{
+        cell.imageView.image = image;
+    }
 
     cell.titleLabel.text = webView.title;
     cell.titleLabel.textColor = [UIColor blueColor];
@@ -163,6 +202,9 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
     cell.contentView.layer.shadowOpacity = 0.2;
     cell.contentView.layer.shadowRadius = 40.0;
     cell.contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.contentView.bounds].CGPath;
+
+    [cell.closeBtn addTarget:self action:@selector(closeWebView:) forControlEvents:UIControlEventTouchUpInside];
+    cell.closeBtn.tag = indexPath.row;
 
     return cell;
 }

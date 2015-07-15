@@ -29,6 +29,8 @@
 @property(nonatomic, copy) void (^presentViewControllerBlock)(UIViewController *);
 
 
+@property(nonatomic, copy) void (^updateSearchBarTextBlock)(NSString *);
+
 //Sync JavaScript in WKWebView
 //evaluateJavaScript is callback type. result should be handled by callback so, it is async.
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript;

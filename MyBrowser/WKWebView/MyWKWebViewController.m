@@ -105,16 +105,18 @@
     [self.webContainer addSubview:_activeWindow];
     [self.webContainer bringSubviewToFront:_activeWindow];
 
-    //加载页面
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [_activeWindow loadRequest:request];
-
     //更新刷新进度条的block
     __weak __typeof(self) weakSelf = self;
     _activeWindow.finishNavigationProgressBlock = ^() {
         weakSelf.progressView.hidden = NO;
         [weakSelf.progressView setProgress:0.0 animated:NO];
         weakSelf.progressView.trackTintColor = [UIColor whiteColor];
+    };
+
+    _activeWindow.updateSearchBarTextBlock = ^(NSString *urlText){
+        if(weakSelf.searchBar && urlText){
+            weakSelf.searchBar.text = urlText;
+        }
     };
 
     //添加新webView的block
@@ -136,13 +138,17 @@
         [weakSelf closeActiveWebView];
     };
 
+    //加载页面
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [_activeWindow loadRequest:request];
+
     // Add to windows array and make active window
     if (!self.listWebViewController) {
         self.listWebViewController = [[ListWKWebViewController alloc] initWithWKWebView:_activeWindow];
 
         //设置添加webView的block
         self.listWebViewController.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
-            if (*wb) {
+            if (!*wb) {
                 *wb = [weakSelf addWebView:aurl];
             } else {
                 [weakSelf addWebView:aurl];
