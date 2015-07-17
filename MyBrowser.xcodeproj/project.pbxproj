@@ -72,6 +72,7 @@
 		EA1AFCA11B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EA1AFCA21B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EA1AFCA31B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EA3495781B58C3D0005746BF /* doc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = doc; sourceTree = "<group>"; };
 		EA8ED52C1B3D245F00168B69 /* MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8ED5301B3D245F00168B69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8ED5311B3D245F00168B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 				EA8ED52D1B3D245F00168B69 /* Products */,
 				EA8ED5C61B3D61BA00168B69 /* README.md */,
 				BEF06054E22A8B1E979B7101 /* NFCollectionView */,
+				EA3495781B58C3D0005746BF /* doc */,
 			);
 			sourceTree = "<group>";
 		};

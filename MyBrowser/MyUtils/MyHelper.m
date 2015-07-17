@@ -47,14 +47,14 @@
 + (NSString *)base64Encoding:(NSString *)string {
     NSData *encodeData = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64String = [encodeData base64EncodedStringWithOptions:0];
-    NSLog(@"Encode String Value: %@", base64String);
+//    NSLog(@"Encode String Value: %@", base64String);
     return base64String;
 }
 
 + (NSString *)base64Decoding:(NSString *)base64String {
     NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
     NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-    NSLog(@"Decode String Value: %@", decodedString);
+//    NSLog(@"Decode String Value: %@", decodedString);
     return decodedString;
 }
 
