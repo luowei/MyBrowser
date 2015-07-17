@@ -42,14 +42,15 @@ FLWebView:https://github.com/floatlearning/FLWebView
 
 
 ##MyWKWebView核心浏览器1.0版本:
-** 文案: ** [AppStore线上1.0版文案](./doc/Version1.0_README.md)
+**文案:** [AppStore线上1.0版文案](./doc/Version1.0_README.md)
 
 
-** 截图: **
-![a](./doc/Version1.0_Images/a.png)
-![b](./doc/Version1.0_Images/b.png)
-![c](./doc/Version1.0_Images/c.png)
-![d](./doc/Version1.0_Images/d.png)
-![e](./doc/Version1.0_Images/e.png)
+
+**截图:**
+![a](./doc/Version1.0_Images/simplified_cn/a.png)
+![b](./doc/Version1.0_Images/simplified_cn/b.png)
+![c](./doc/Version1.0_Images/simplified_cn/c.png)
+![d](./doc/Version1.0_Images/simplified_cn/d.png)
+![e](./doc/Version1.0_Images/simplified_cn/e.png)
 
 
