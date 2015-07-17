@@ -26,6 +26,10 @@
 
 + (NSString *)encodedString:(NSString *)string;
 
++ (NSString *)base64Encoding:(NSString *)string;
+
++ (NSString *)base64Decoding:(NSString *)base64String;
+
 @end
 
 @interface NSString(Match)

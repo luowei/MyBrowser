@@ -31,6 +31,10 @@
 
 @property(nonatomic, copy) void (^updateSearchBarTextBlock)(NSString *);
 
+@property(nonatomic, copy) void (^removeProgressObserverBlock)();
+
+@property(nonatomic, strong) UIImage *screenImage;
+
 //Sync JavaScript in WKWebView
 //evaluateJavaScript is callback type. result should be handled by callback so, it is async.
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript;

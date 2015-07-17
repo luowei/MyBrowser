@@ -57,6 +57,10 @@ static WKProcessPool *_pool;
     return self;
 }
 
+- (void)dealloc {
+    self.removeProgressObserverBlock();
+}
+
 //加载用户js文件
 - (void)addUserScriptsToWeb {
 

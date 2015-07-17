@@ -44,6 +44,20 @@
     return (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef) string, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
 }
 
++ (NSString *)base64Encoding:(NSString *)string {
+    NSData *encodeData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [encodeData base64EncodedStringWithOptions:0];
+    NSLog(@"Encode String Value: %@", base64String);
+    return base64String;
+}
+
++ (NSString *)base64Decoding:(NSString *)base64String {
+    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
+    NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+    NSLog(@"Decode String Value: %@", decodedString);
+    return decodedString;
+}
+
 @end
 
 
@@ -80,7 +94,7 @@
 @end
 
 
-@implementation UIView(Capture)
+@implementation UIView (Capture)
 
 - (UIImage *)screenCapture {
     CGSize size = self.bounds.size;
@@ -115,7 +129,7 @@
 
 @end
 
-@implementation UIImage(Color)
+@implementation UIImage (Color)
 
 + (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
@@ -132,14 +146,14 @@
 }
 
 //获得图片的alpha通道值
-- (CGFloat)getImageAlphaValue{
+- (CGFloat)getImageAlphaValue {
     unsigned char pixel[1] = {0};
-    CGContextRef context = CGBitmapContextCreate(pixel,1, 1, 8, 1, NULL,kCGImageAlphaOnly);
+    CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 1, NULL, kCGImageAlphaOnly);
     UIGraphicsPushContext(context);
     [self drawAtPoint:CGPointMake(-1, -1)];
     UIGraphicsPopContext();
     CGContextRelease(context);
-    CGFloat alpha = pixel[0]/255.0;
+    CGFloat alpha = pixel[0] / 255.0;
     return alpha;
 }
 

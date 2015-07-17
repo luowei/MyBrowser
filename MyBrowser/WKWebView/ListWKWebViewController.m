@@ -142,6 +142,10 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
     if(_windows.count <= 1){
         return;
     }
+
+    NFTabCollectionViewCell *cell = (NFTabCollectionViewCell *) [_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:closeBtn.tag inSection:0]];
+    cell.titleLabel.text = nil;
+    cell.imageView.image = nil;
     [_windows removeObjectAtIndex:(NSUInteger) closeBtn.tag];
 
     [_collectionView reloadData];
@@ -149,6 +153,13 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
 
 //全部关闭
 - (void)closeAll {
+
+    [_windows enumerateObjectsUsingBlock:^(MyWKWebView *wb, NSUInteger idx, BOOL *stop) {
+        NFTabCollectionViewCell *cell = (NFTabCollectionViewCell *) [_collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
+        cell.titleLabel.text = nil;
+        cell.imageView.image = nil;
+    }];
+
     [_windows removeAllObjects];
 
     //添加一个webView,block会回调_windows addObject
@@ -182,16 +193,18 @@ NSString *const CellReuseIdentifier = @"CellReuseIdentifier";
     MyWKWebView *webView = _windows[(NSUInteger) indexPath.row];
 
     //对wkwebView截图
-    UIImage *image = [webView screenCapture:webView.bounds.size];
+    if(!webView.screenImage){
+        webView.screenImage = [webView screenCapture:webView.bounds.size];
+    }
 
-    BOOL transparent = [image getImageAlphaValue] < 0.01;
+    BOOL transparent = [webView.screenImage getImageAlphaValue] < 0.01;
     if(transparent){
         if(!cell.imageView.image){
             //设置一张空白图片
             cell.imageView.image = [UIImage imageWithColor:[UIColor whiteColor]];
         }
     }else{
-        cell.imageView.image = image;
+        cell.imageView.image = webView.screenImage;
     }
 
     cell.titleLabel.text = webView.title;

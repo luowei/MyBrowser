@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "MyHelper.h"
 
 @interface MyBrowserTests : XCTestCase
 
@@ -27,6 +28,9 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
+    NSString *base64String = [NSString base64Encoding:@"_clear"];
+    NSLog(@"=====base64String:%@",base64String);
+
     XCTAssert(YES, @"Pass");
 }
 

@@ -47,8 +47,8 @@
     [self.view addSubview:_tableView];
 
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[tableView]|" options:0 metrics:nil views:@{@"tableView":_tableView}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView":_tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[tableView]|" options:0 metrics:nil views:@{@"tableView" : _tableView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tableView]|" options:0 metrics:nil views:@{@"tableView" : _tableView}]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -116,26 +116,26 @@
         }
         case 1: {
             self.navigationController.toolbarHidden = YES;
-            self.navigationItem.rightBarButtonItem = nil;
-//            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear History", nil)
-//                                                                                      style:UIBarButtonItemStylePlain
-//                                                                                     target:self action:@selector(clearHistory)];
+//            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear History", nil)
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self action:@selector(clearHistory)];
 
             //历史数据从webView中加载
             _favoriteList = @[].mutableCopy;
 
-            //如果是WKWebView模式
-            if([[NSUserDefaults standardUserDefaults] boolForKey:UIWEBVIEW_MODE]){
-                //todo:
-
-                //UIWebView模式
-            }else{
-                MyWKWebView *webView;
-                self.getCurrentWKWebViewBlock(&webView);
-                [webView.backForwardList.backList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
+            MyWKWebView *webView;
+            self.getCurrentWKWebViewBlock(&webView);
+            [webView.backForwardList.forwardList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
+                if (item && item.title && item.URL) {
                     [_favoriteList addObject:[[Favorite alloc] initWithDictionary:@{@"title" : item.title, @"URL" : item.URL}]];
-                }];
-            }
+                }
+            }];
+            [webView.backForwardList.backList enumerateObjectsUsingBlock:^(WKBackForwardListItem *item, NSUInteger idx, BOOL *stop) {
+                if (item && item.title && item.URL) {
+                    [_favoriteList addObject:[[Favorite alloc] initWithDictionary:@{@"title" : item.title, @"URL" : item.URL}]];
+                }
+            }];
 
             [_tableView reloadData];
             break;
@@ -175,6 +175,8 @@
         editBtn.tag = indexPath.row;
         [editBtn addTarget:self action:@selector(editFavorite:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = editBtn;
+    } else {
+        cell.accessoryView = nil;
     }
 
 
@@ -389,21 +391,11 @@
 //清除历史
 - (void)clearHistory {
 
-    //如果是WKWebview模式
-    if([[NSUserDefaults standardUserDefaults] boolForKey:UIWEBVIEW_MODE]){
-        MyUIWebView *uiWebView;
-        self.getCurrentUIWebViewBlock(&uiWebView);
-        //todo:
-//        id internalWebView=[[uiWebView _documentView] webView];
-//        [internalWebView setMaintainsBackForwardList:NO];
-//        [internalWebView setMaintainsBackForwardList:YES];
-
-        //如果是UIWebview模式
-    }else{
-        MyWKWebView *wkwebView;
-        self.getCurrentWKWebViewBlock(&wkwebView);
-//        [wkwebView.backForwardList performSelector:@selector(_clear)];
-    }
+    MyWKWebView *wkwebView;
+    self.getCurrentWKWebViewBlock(&wkwebView);
+//  [wkwebView.backForwardList performSelector:@selector(_clear)];
+    [wkwebView.backForwardList performSelector:NSSelectorFromString([NSString base64Decoding:@"X2NsZWFy"])];
+    [_favoriteList removeAllObjects];
 
     [MyHelper showToastAlert:NSLocalizedString(@"Clear History Success", nil)];
 

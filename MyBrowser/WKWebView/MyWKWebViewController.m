@@ -34,10 +34,10 @@
     //向webContainer中添加webview
     [self addWebView:HOME_URL];
 
-    //添加对webView的监听器
-    [self.activeWindow addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
-    [self.activeWindow addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    [self.activeWindow addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
+//    //添加对webView的监听器
+//    [self.activeWindow addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
+//    [self.activeWindow addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+//    [self.activeWindow addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewDidLoad {
@@ -99,30 +99,40 @@
 
 - (MyWKWebView *)addWebView:(NSURL *)url {
     //添加webview
-    _activeWindow = [[MyWKWebView alloc] initWithFrame:self.webContainer.frame configuration:[[WKWebViewConfiguration alloc] init]];
-    _activeWindow.backgroundColor = [UIColor whiteColor];
-    _activeWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.webContainer addSubview:_activeWindow];
-    [self.webContainer bringSubviewToFront:_activeWindow];
+    MyWKWebView *wkWB = [[MyWKWebView alloc] initWithFrame:self.webContainer.frame configuration:[[WKWebViewConfiguration alloc] init]];
+    wkWB.backgroundColor = [UIColor whiteColor];
+    wkWB.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.webContainer addSubview:wkWB];
+    [self.webContainer bringSubviewToFront:wkWB];
 
-    _activeWindow.scrollView.delegate = self;
+    wkWB.scrollView.delegate = self;
+    //添加对webView的监听器
+    [wkWB addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
+    [wkWB addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    [wkWB addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
 
     //更新刷新进度条的block
     __weak __typeof(self) weakSelf = self;
-    _activeWindow.finishNavigationProgressBlock = ^() {
+    wkWB.finishNavigationProgressBlock = ^() {
         weakSelf.progressView.hidden = NO;
         [weakSelf.progressView setProgress:0.0 animated:NO];
         weakSelf.progressView.trackTintColor = [UIColor whiteColor];
     };
+    
+    wkWB.removeProgressObserverBlock = ^(){
+        [self.activeWindow removeObserver:self forKeyPath:@"loading"];
+        [self.activeWindow removeObserver:self forKeyPath:@"estimatedProgress"];
+        [self.activeWindow removeObserver:self forKeyPath:@"title"];
+    };
 
-    _activeWindow.updateSearchBarTextBlock = ^(NSString *urlText){
+    wkWB.updateSearchBarTextBlock = ^(NSString *urlText){
         if(weakSelf.searchBar && urlText){
             weakSelf.searchBar.text = urlText;
         }
     };
 
     //添加新webView的block
-    _activeWindow.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
+    wkWB.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
         if (*wb) {
             *wb = [weakSelf addWebView:aurl];
         } else {
@@ -131,22 +141,22 @@
     };
 
     //presentViewController block
-    _activeWindow.presentViewControllerBlock = ^(UIViewController *viewController) {
+    wkWB.presentViewControllerBlock = ^(UIViewController *viewController) {
         [weakSelf presentViewController:viewController animated:YES completion:nil];
     };
 
     //关闭激活的webView的block
-    _activeWindow.closeActiveWebViewBlock = ^() {
+    wkWB.closeActiveWebViewBlock = ^() {
         [weakSelf closeActiveWebView];
     };
 
     //加载页面
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [_activeWindow loadRequest:request];
+    [wkWB loadRequest:request];
 
     // Add to windows array and make active window
     if (!self.listWebViewController) {
-        self.listWebViewController = [[ListWKWebViewController alloc] initWithWKWebView:_activeWindow];
+        self.listWebViewController = [[ListWKWebViewController alloc] initWithWKWebView:wkWB];
 
         //设置添加webView的block
         self.listWebViewController.addWKWebViewBlock = ^(MyWKWebView **wb, NSURL *aurl) {
@@ -163,14 +173,17 @@
         };
 
     } else {
-        self.listWebViewController.updateWKDatasourceBlock(_activeWindow);
+        self.listWebViewController.updateWKDatasourceBlock(wkWB);
     }
 
+    _activeWindow = wkWB;
     return _activeWindow;
 }
 
 //添加新webView窗口
 - (void)presentAddWebViewVC {
+    //跳转前截张图
+    _activeWindow.screenImage = [_activeWindow screenCapture:_activeWindow.bounds.size];
     [self.navigationController pushViewController:self.listWebViewController animated:YES];
 }
 
@@ -292,9 +305,10 @@
             if ([obj isMemberOfClass:[MyWKWebView class]]) {
                 MyWKWebView *wb = (MyWKWebView *) obj;
 //                [wb.backForwardList performSelector:@selector(_clear)];
+                [wb.backForwardList performSelector:NSSelectorFromString([NSString base64Decoding:@"X2NsZWFy"])];
             }
         }];
-//        [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
+        [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
 //        [MyHelper showToastAlert:@"Sorry,Temporarily can not be cleared !"];
 
     }else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"About Me", nil)]) {
