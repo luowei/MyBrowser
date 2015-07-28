@@ -41,3 +41,4 @@
 "Not Url Saved in Pasteboard" = "非URLは、粘着板を切断するために保存されています";
 "RQ Code" = "QRコード";
 "ReScan" = "再スキャンコード";
+"Unable Open Web Page With NetWork Disconnected" = "ページを開くには、ネットワーク設定を確認していません";

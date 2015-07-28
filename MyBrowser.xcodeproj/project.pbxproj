@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BEF060B642E9E8D71A6BFE5E /* MyWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF065D6BFB420DE9C4CD621 /* MyWKWebView.m */; };
 		BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */; };
+		BEF063AB8D4F9556A0087AE5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06E331696BB80A58DE761 /* Reachability.m */; };
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
 		BEF066B89A7E7B0381911DEA /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF064E92A4D0F9399CFEDD7 /* Favorite.m */; };
 		BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */; };
@@ -31,6 +32,7 @@
 		EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
 		EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */; };
 		EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */; };
+		EAEA848A1B67308E00EE4667 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +69,9 @@
 		BEF069FF6125BC432EFB1A06 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BEF06A6E9F621D9CC926595A /* NFCollectionViewTabsLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCollectionViewTabsLayout.h; sourceTree = "<group>"; };
 		BEF06C703A68A6CE2781F881 /* NFTabCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFTabCollectionViewCell.h; sourceTree = "<group>"; };
+		BEF06C9DF1225784C91C06C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BEF06E140863363BEF3AD42F /* NFTabCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFTabCollectionViewCell.m; sourceTree = "<group>"; };
+		BEF06E331696BB80A58DE761 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		EA1AFCA01B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		EA1AFCA11B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EA1AFCA21B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocEndInjection.js; sourceTree = "<group>"; };
 		EA8ED5C61B3D61BA00168B69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
+		EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EAFE63431B56354100AFEB14 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAFE63441B56354100AFEB14 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EAFE63451B56354100AFEB14 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
@@ -152,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEA848A1B67308E00EE4667 /* SystemConfiguration.framework in Frameworks */,
 				EA8ED5981B3D2FF700168B69 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +201,8 @@
 			children = (
 				BEF060E2E346DB38858A7D63 /* MyHelper.m */,
 				BEF0623B2ABEE7C278808969 /* MyHelper.h */,
+				BEF06E331696BB80A58DE761 /* Reachability.m */,
+				BEF06C9DF1225784C91C06C3 /* Reachability.h */,
 			);
 			path = MyUtils;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 		EA8ED5231B3D245F00168B69 = {
 			isa = PBXGroup;
 			children = (
+				EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */,
 				EA8ED5971B3D2FF700168B69 /* WebKit.framework */,
 				EA8ED52E1B3D245F00168B69 /* MyBrowser */,
 				EA8ED5481B3D245F00168B69 /* MyBrowserTests */,
@@ -437,6 +446,7 @@
 				BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */,
 				BEF06A4A6E170BA3329A4E49 /* NFTabCollectionViewCell.m in Sources */,
 				BEF06B6DB0CE04F179EA8BC3 /* NFCollectionViewTabsLayout.m in Sources */,
+				BEF063AB8D4F9556A0087AE5 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

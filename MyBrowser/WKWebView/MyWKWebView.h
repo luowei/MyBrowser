@@ -35,9 +35,14 @@
 
 @property(nonatomic, strong) UIImage *screenImage;
 
+@property(nonatomic, strong) UILabel *netStatusLabel;
+
 //Sync JavaScript in WKWebView
 //evaluateJavaScript is callback type. result should be handled by callback so, it is async.
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript;
+
+//判断网络连接状态
+- (BOOL)connected;
 
 @end
 

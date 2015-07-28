@@ -9,6 +9,7 @@
 #import "MyWKWebView.h"
 #import "MyWKWebViewController.h"
 #import "MyHelper.h"
+#import "Reachability.h"
 
 @interface MyWKWebView (){
 
@@ -52,10 +53,29 @@ static WKProcessPool *_pool;
         //无图模式
 //        self.getSettings().setLoadsImagesAutomatically(false);
 //        self.getSettings().setBlockNetworkLoads (true);
+
+        //网络连接状态标示
+        _netStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
+        _netStatusLabel.font = [UIFont systemFontOfSize:20.0];
+        _netStatusLabel.textColor = [UIColor grayColor];
+        [_netStatusLabel sizeToFit];
+        _netStatusLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        [self addSubview:_netStatusLabel];
+        _netStatusLabel.hidden = YES;
     }
 
     return self;
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    _netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
+    [_netStatusLabel sizeToFit];
+    _netStatusLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+}
+
 
 - (void)dealloc {
     self.removeProgressObserverBlock();
@@ -138,6 +158,8 @@ static WKProcessPool *_pool;
         urlText = request.URL.absoluteString;
     }
     self.updateSearchBarTextBlock(urlText);
+    
+    _netStatusLabel.hidden = [self connected];
 
     return [super loadRequest:request];
 }
@@ -316,6 +338,14 @@ static WKProcessPool *_pool;
         completionHandler(nil);
     }]];
     self.presentViewControllerBlock(alertController);
+}
+
+
+//判断网络连接状态
+- (BOOL)connected {
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
 }
 
 

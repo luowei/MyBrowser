@@ -6,6 +6,7 @@
 #import "BaseWebViewController.h"
 #import "MyPopupView.h"
 #import "Defines.h"
+#import "MyHelper.h"
 
 @interface BaseWebViewController () <UISearchBarDelegate, MyPopupViewDelegate>
 
@@ -230,6 +231,7 @@
     bool hide = (scrollView.contentOffset.y > self.lastOffsetY);
     [self.navigationController setNavigationBarHidden:hide animated:YES];
     [self.navigationController setToolbarHidden:hide animated:YES];
+    [UIApplication sharedApplication].statusBarHidden = hide;
 
 }
 
