@@ -239,7 +239,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
     NSString *text = self.searchBar.text;
-    NSString *urlStr = [NSString stringWithFormat:@"http://www.baidu.com/s?wd=%@", text];
+    NSString *urlStr = [NSString stringWithFormat:Search_URL, text];
 
     if ([text isHttpURL]) {
         urlStr = [NSString stringWithFormat:@"%@", text];

@@ -11,7 +11,7 @@
 #import "MyHelper.h"
 #import "Reachability.h"
 
-@interface MyWKWebView (){
+@interface MyWKWebView () {
 
 }
 
@@ -60,7 +60,7 @@ static WKProcessPool *_pool;
         _netStatusLabel.font = [UIFont systemFontOfSize:20.0];
         _netStatusLabel.textColor = [UIColor grayColor];
         [_netStatusLabel sizeToFit];
-        _netStatusLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        _netStatusLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         [self addSubview:_netStatusLabel];
         _netStatusLabel.hidden = YES;
     }
@@ -73,7 +73,7 @@ static WKProcessPool *_pool;
 
     _netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
     [_netStatusLabel sizeToFit];
-    _netStatusLabel.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    _netStatusLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 }
 
 
@@ -104,11 +104,11 @@ static WKProcessPool *_pool;
 
 
     NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
-                                                       encoding:NSUTF8StringEncoding error:NULL];
+                                                              encoding:NSUTF8StringEncoding error:NULL];
 
     //在document加载前执行注入js脚本
     WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                   forMainFrameOnly:YES];
+                                                       forMainFrameOnly:YES];
     [_webViewConfiguration.userContentController addUserScript:docStartScript];
 
 
@@ -117,7 +117,7 @@ static WKProcessPool *_pool;
 
     //在document加载完成后执行注入js脚本
     WKUserScript *docEndScript = [[WKUserScript alloc] initWithSource:docEndInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                                                   forMainFrameOnly:YES];
+                                                     forMainFrameOnly:YES];
     [_webViewConfiguration.userContentController addUserScript:docEndScript];
 
     //添加js脚本到处理器中
@@ -130,12 +130,12 @@ static WKProcessPool *_pool;
 - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)javascript {
     __block NSString *res = nil;
     __block BOOL finish = NO;
-    [self evaluateJavaScript:javascript completionHandler:^(NSString *result, NSError *error){
+    [self evaluateJavaScript:javascript completionHandler:^(NSString *result, NSError *error) {
         res = result;
         finish = YES;
     }];
 
-    while(!finish) {
+    while (!finish) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     return res;
@@ -154,7 +154,7 @@ static WKProcessPool *_pool;
     //set user-agent
 //    [mutableURLRequest setValue:@"YourUserAgent/1.0" forHTTPHeaderField:@"User-Agent"];
     NSString *urlText = nil;
-    if(request && request.URL){
+    if (request && request.URL) {
         urlText = request.URL.absoluteString;
     }
     self.updateSearchBarTextBlock(urlText);
@@ -172,16 +172,16 @@ static WKProcessPool *_pool;
 
     NSURL *url = navigationAction.request.URL;
     //处理App一类的特殊网址
-    if(![url.absoluteString isHttpURL] && ![url.absoluteString isDomain]){
+    if (![url.absoluteString isHttpURL] && ![url.absoluteString isDomain]) {
         [[UIApplication sharedApplication] openURL:url];
         decisionHandler(WKNavigationActionPolicyCancel);
-    }else {
+    } else {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
 /*
     NSHTTPURLResponse *response = (NSHTTPURLResponse *)navigationResponse.response;
     NSArray *cookies =[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:response.URL];
@@ -201,14 +201,13 @@ static WKProcessPool *_pool;
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
 }
 
 
-
 //处理当接收到验证窗口时
-- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-        completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
+- (void)  webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
     NSString *hostName = webView.URL.host;
 
     NSString *authenticationMethod = [[challenge protectionSpace] authenticationMethod];
@@ -229,8 +228,8 @@ static WKProcessPool *_pool;
         }];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 
-            NSString *userName = ((UITextField *)alertController.textFields[0]).text;
-            NSString *password = ((UITextField *)alertController.textFields[1]).text;
+            NSString *userName = ((UITextField *) alertController.textFields[0]).text;
+            NSString *password = ((UITextField *) alertController.textFields[1]).text;
 
             NSURLCredential *credential = [[NSURLCredential alloc] initWithUser:userName password:password persistence:NSURLCredentialPersistenceNone];
 
@@ -280,7 +279,6 @@ static WKProcessPool *_pool;
 }
 
 
-
 #pragma mark WKUIDelegate Implementation
 
 //let link has arget=”_blank” work
@@ -288,12 +286,21 @@ static WKProcessPool *_pool;
    forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
 
     //
-    if (!navigationAction.targetFrame.isMainFrame) {
+//    if (!navigationAction.targetFrame.isMainFrame) {
+////        NSURL *url = navigationAction.request.URL;
+////        UIApplication *app = [UIApplication sharedApplication];
+////        if ([app canOpenURL:url]) {
+////            [app openURL:url];
+////        }
+//        MyWKWebView *wb = nil;
+//        self.addWKWebViewBlock(&wb,navigationAction.request.mainDocumentURL);
 //        [webView loadRequest:navigationAction.request];
-        MyWKWebView *wb = nil;
-        self.addWKWebViewBlock(&wb,navigationAction.request.mainDocumentURL);
-        return wb;
+//        return wb;
+//    }
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
     }
+
     return nil;
 }
 
@@ -330,7 +337,7 @@ static WKProcessPool *_pool;
     }];
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSString *input = ((UITextField *)alertController.textFields.firstObject).text;
+        NSString *input = ((UITextField *) alertController.textFields.firstObject).text;
         completionHandler(input);
     }]];
 

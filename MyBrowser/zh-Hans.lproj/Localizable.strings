@@ -5,7 +5,8 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
-"HomeURL" = "http://baidu.com";
+"HomeURL" = "http://mybrowser.wodedata.com";
+"SearchURL" = "http://www.baidu.com/s?wd=%@";
 
 "My Browser" = "谢谢支持我的浏览器\n http://luowei.github.com";
 "OK" = "确定";

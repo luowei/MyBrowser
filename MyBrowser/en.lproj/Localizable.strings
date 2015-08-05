@@ -6,6 +6,7 @@
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
 "HomeURL" = "http://google.com";
+"SearchURL" = "https://www.google.com/search?q=%@";
 
 
 "My Browser" = "Thanks For You Support For My Browser\n http://luowei.github.com";

@@ -80,7 +80,7 @@ function postMyMessage() {
     var logoDiv = document.getElementById('logo');
     var logoImg = logoDiv != null ? logoDiv.firstElementChild : null;
     if (logoImg!=null && logoImg.tagName.toLowerCase() == 'img') {
-        logoImg.src = "http://a.hiphotos.baidu.com/image/pic/item/9f2f070828381f30714ac493af014c086e06f0bd.jpg"
+        logoImg.src = "http://img.wodedata.com/mybrowser.jpg"
         //logoImg.src = "http://tp1.sinaimg.cn/1745746500/180/39999543554/1"
         return "{'msg':'OK!'}"
     }
