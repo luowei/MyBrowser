@@ -5,8 +5,8 @@
   Created by luowei on 15/6/26.
   Copyright (c) 2015年 wodedata. All rights reserved.
 */
-"HomeURL" = "http://google.com";
-"SearchURL" = "https://www.google.com/search?q=%@";
+"HomeURL" = "http://mybrowser.wodedata.com";
+"SearchURL" = "http://www.baidu.com/s?wd=%@";
 
 "My Browser" = "덕분에 사용자는 브라우저에 대한 지원을 위해\n http://luowei.github.com";
 "OK" = "그래";
