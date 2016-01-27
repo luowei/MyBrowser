@@ -14,6 +14,7 @@
 "Close" = "关闭";
 "Error" = "错误";
 "Open" = "打开";
+"Call" = "拨打";
 "Close All" = "全部关闭";
 "Bookmarks" = "收藏管理";
 "Nighttime" = "夜间模式";
@@ -43,3 +44,4 @@
 "RQ Code" = "二维码";
 "ReScan" = "重新扫码";
 "Unable Open Web Page With NetWork Disconnected" = "无法打开网页,请检查网络设置";
+"HTTPS Certifcate Not Trust" = "无法验证服务器身份\n浏览器无法验证%@的身份。您仍要继续吗?";

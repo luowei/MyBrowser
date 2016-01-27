@@ -14,6 +14,7 @@
 "Close" = "fermer";
 "Error" = "erreur";
 "Open" = "ouvert";
+"Call" = "Dial";
 "Close All" = "Ferme Tout";
 "Bookmarks" = "signets";
 "Nighttime" = "modo nuit";
@@ -43,3 +44,4 @@
 "RQ Code" = "code de RQ";
 "ReScan" = "ReScan";
 "Unable Open Web Page With NetWork Disconnected" = "Pas ouvrir la page, vérifier les paramètres réseau";
+"HTTPS Certifcate Not Trust" = "Impossible de vérifier le certificat du serveur\n mon navigateur incapable de vérifier %@ 'une certification. Est-ce que vous continuez?";

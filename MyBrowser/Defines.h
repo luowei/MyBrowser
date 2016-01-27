@@ -26,4 +26,7 @@
 #define MY_FAVORITES @"MY_FAVORITES"
 #define UIWEBVIEW_MODE @"UIWebview_Mode"
 
+static NSString *const EasyList_Url = @"https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt";
+static NSString *const EasyList_FileName = @"/Adblock_EasyListCN.txt";
+
 #endif

@@ -21,6 +21,16 @@
 
 @end
 
+@interface NSString(IO)
+
+//把self写入文件,fileName以'/'开头,可带路径
++(void) writeString:(NSString *)text ToFile:(NSString *)fileName;
+
+//读取文件,fileName以'/'开头,可带路径
++(NSString *)readStringFromFile:(NSString *)fileName;
+
+@end
+
 
 @interface NSString (BSEncoding)
 
@@ -34,7 +44,7 @@
 
 @interface NSString(Match)
 
-- (BOOL)isMatch:(NSString *)pattern;
+- (BOOL)isMatchString:(NSString *)pattern;
 
 - (BOOL)isiTunesURL;
 

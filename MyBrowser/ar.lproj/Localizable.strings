@@ -14,6 +14,7 @@
 "Close" = "قريب";
 "Error" = "خطأ";
 "Open" = "فتح";
+"Call" = "الطلب";
 "Close All" = "إغلاق كافة";
 "Bookmarks" = "العناوين";
 "Nighttime" = "الليل";
@@ -43,3 +44,4 @@
 "RQ Code" = "RQ مدونة";
 "ReScan" = "إعادة تفحص";
 "Unable Open Web Page With NetWork Disconnected" = "يتم فتح الصفحة، تحقق من إعدادات الشبكة";
+"HTTPS Certifcate Not Trust" = "غير قادرة على التحقق من شهادة الخادم \ على متصفحي غير قادرة على التحقق٪ @ شهادة. هل تستمر؟";

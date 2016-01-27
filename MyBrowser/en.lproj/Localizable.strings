@@ -15,6 +15,7 @@
 "Close" = "Close";
 "Error" = "Error";
 "Open" = "Open";
+"Call" = "Call";
 "Close All" = "Close All";
 "Bookmarks" = "Bookmarks";
 "Nighttime" = "Nighttime";
@@ -44,3 +45,4 @@
 "RQ Code" = "RQ Code";
 "ReScan" = "Rescan";
 "Unable Open Web Page With NetWork Disconnected" = "Cann't open the page, check the network settings";
+"HTTPS Certifcate Not Trust" = "Unable to verify the server Certifcate\n MyBrowser unable to verify%@'s certification. Are you continue?";

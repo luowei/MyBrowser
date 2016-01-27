@@ -21,7 +21,7 @@
 
 @end
 
-@interface MyWKWebView : WKWebView<WKNavigationDelegate, WKScriptMessageHandler,WKUIDelegate>
+@interface MyWKWebView : WKWebView<WKNavigationDelegate, WKScriptMessageHandler,WKUIDelegate,UIActionSheetDelegate>
 
 @property(nonatomic, copy) void (^finishNavigationProgressBlock)();
 @property(nonatomic, copy) void (^addWKWebViewBlock)(MyWKWebView **wb, NSURL *);
@@ -43,6 +43,13 @@
 
 //判断网络连接状态
 - (BOOL)connected;
+
+
+//允许HTTPS验证钥匙中证书
+- (void)setAllowsHTTPSCertifcateWithCertChain:(NSArray *)certChain ForHost:(NSString *)host;
+
+//切换用户代理模式
+- (void)switchUAMode:(NSNumber *)modeNumber;
 
 @end
 

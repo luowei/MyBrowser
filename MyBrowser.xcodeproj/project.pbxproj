@@ -7,19 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEF06014D30BDDBBB9435D68 /* adElemHide.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0643C4E5127A9D6393D3C /* adElemHide.js */; };
+		BEF0603E7798D2800D7E1752 /* adBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06DF3061087532B2C3B7A /* adBlocker.js */; };
 		BEF060B642E9E8D71A6BFE5E /* MyWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF065D6BFB420DE9C4CD621 /* MyWKWebView.m */; };
+		BEF0610BA9CB281BD20B4091 /* failedPage.htm in Resources */ = {isa = PBXBuildFile; fileRef = BEF0626975F3F99574A0BFF9 /* failedPage.htm */; };
+		BEF0622E806F232605BB351F /* imageBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06685A865E4F7B6CD1DB6 /* imageBlocker.js */; };
+		BEF062AE2D13DDC7D0693F47 /* DocEndInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF060AF743D46CA273902E4 /* DocEndInjection.js */; };
+		BEF06301D1492CA168007FA7 /* failedPage.htm in Resources */ = {isa = PBXBuildFile; fileRef = BEF0626975F3F99574A0BFF9 /* failedPage.htm */; };
 		BEF063194BEB8E33FF7DE0B9 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */; };
+		BEF06391C8F8E1BFF39F935B /* adElemHide.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF0643C4E5127A9D6393D3C /* adElemHide.js */; };
 		BEF063AB8D4F9556A0087AE5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06E331696BB80A58DE761 /* Reachability.m */; };
+		BEF063AC76D00566EA83EA94 /* JSTool.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06F557593AC84C6F7BF96 /* JSTool.js */; };
+		BEF064086D81D19BC6E813B9 /* abp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D67570EDBD171567451 /* abp.bundle */; };
+		BEF0640D5C83EC6505ADF629 /* imageBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06685A865E4F7B6CD1DB6 /* imageBlocker.js */; };
+		BEF06414824B0DDBA0FE91B6 /* adRequestBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BD68778E6A4AA0AA658 /* adRequestBlocker.js */; };
+		BEF064B15BBAE39B760A7FDF /* UserSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0616513C97E4110547C49 /* UserSetting.m */; };
 		BEF0651048BE2708D6A0CD01 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
+		BEF065DABF0236308B7A8B98 /* webFontjs.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BCE193FFB54BC64746D /* webFontjs.js */; };
 		BEF066B89A7E7B0381911DEA /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF064E92A4D0F9399CFEDD7 /* Favorite.m */; };
 		BEF067080564FFE835507A75 /* ListWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */; };
 		BEF0675846B2093BA142E53C /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E2E346DB38858A7D63 /* MyHelper.m */; };
 		BEF0684ECA0BAEF70E62AA2E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060A0A12F0C6316C3E7A6 /* ViewController.m */; };
+		BEF0686875563E6618762008 /* abp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BEF06D67570EDBD171567451 /* abp.bundle */; };
 		BEF0692127DD039DD0BFB93B /* ScanQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */; };
 		BEF069A5732CC7282F98DEF5 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */; };
 		BEF06A4A6E170BA3329A4E49 /* NFTabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06E140863363BEF3AD42F /* NFTabCollectionViewCell.m */; };
 		BEF06A87BF053D11BA51B903 /* MyWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */; };
 		BEF06B6DB0CE04F179EA8BC3 /* NFCollectionViewTabsLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF068C7C1586AB550546E08 /* NFCollectionViewTabsLayout.m */; };
+		BEF06B72A5289EA63B62B593 /* DocStartInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06F6C7FCF58DC2F823918 /* DocStartInjection.js */; };
+		BEF06B94B97A94BE7DF7B0DA /* DocStartInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06F6C7FCF58DC2F823918 /* DocStartInjection.js */; };
+		BEF06CA43901615565E04611 /* webFontjs.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BCE193FFB54BC64746D /* webFontjs.js */; };
+		BEF06CC54307AA88825F5AF1 /* DocEndInjection.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF060AF743D46CA273902E4 /* DocEndInjection.js */; };
+		BEF06CF5DCDF48B64B07D9AB /* adBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06DF3061087532B2C3B7A /* adBlocker.js */; };
+		BEF06D71236E97F4A8BF5A50 /* UserSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0616513C97E4110547C49 /* UserSetting.m */; };
+		BEF06F0FA22542F8BCF2A8AC /* adRequestBlocker.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06BD68778E6A4AA0AA658 /* adRequestBlocker.js */; };
+		BEF06F2330E06B9B5C84EECD /* JSTool.js in Sources */ = {isa = PBXBuildFile; fileRef = BEF06F557593AC84C6F7BF96 /* JSTool.js */; };
 		EA8ED5321B3D245F00168B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
 		EA8ED5351B3D245F00168B69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5341B3D245F00168B69 /* AppDelegate.m */; };
 		EA8ED53D1B3D245F00168B69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED53C1B3D245F00168B69 /* Images.xcassets */; };
@@ -30,8 +52,31 @@
 		EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5851B3D2CA100168B69 /* Main.storyboard */; };
 		EA8ED5981B3D2FF700168B69 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8ED5971B3D2FF700168B69 /* WebKit.framework */; };
 		EA8ED5B01B3D30E400168B69 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
-		EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */; };
-		EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */; };
+		EA9D5B011C589B3700551AC8 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9D5B001C589B3700551AC8 /* RegExCategories.m */; };
+		EA9D5B021C589B3700551AC8 /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9D5B001C589B3700551AC8 /* RegExCategories.m */; };
+		EAC039681BB1316500A2E617 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5341B3D245F00168B69 /* AppDelegate.m */; };
+		EAC039691BB1316500A2E617 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5311B3D245F00168B69 /* main.m */; };
+		EAC0396A1BB1316500A2E617 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */; };
+		EAC0396B1BB1316500A2E617 /* MyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062D35449BEC134E42141 /* MyPopupView.m */; };
+		EAC0396C1BB1316500A2E617 /* ScanQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */; };
+		EAC0396D1BB1316500A2E617 /* MyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E2E346DB38858A7D63 /* MyHelper.m */; };
+		EAC0396E1BB1316500A2E617 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF064E92A4D0F9399CFEDD7 /* Favorite.m */; };
+		EAC0396F1BB1316500A2E617 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060A0A12F0C6316C3E7A6 /* ViewController.m */; };
+		EAC039701BB1316500A2E617 /* MyWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */; };
+		EAC039711BB1316500A2E617 /* MyWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF065D6BFB420DE9C4CD621 /* MyWKWebView.m */; };
+		EAC039721BB1316500A2E617 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */; };
+		EAC039731BB1316500A2E617 /* ListWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */; };
+		EAC039741BB1316500A2E617 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */; };
+		EAC039751BB1316500A2E617 /* NFTabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06E140863363BEF3AD42F /* NFTabCollectionViewCell.m */; };
+		EAC039761BB1316500A2E617 /* NFCollectionViewTabsLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF068C7C1586AB550546E08 /* NFCollectionViewTabsLayout.m */; };
+		EAC039771BB1316500A2E617 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF06E331696BB80A58DE761 /* Reachability.m */; };
+		EAC039791BB1316500A2E617 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */; };
+		EAC0397A1BB1316500A2E617 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8ED5971B3D2FF700168B69 /* WebKit.framework */; };
+		EAC0397C1BB1316500A2E617 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED57E1B3D2C0A00168B69 /* LaunchScreen.xib */; };
+		EAC0397D1BB1316500A2E617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5851B3D2CA100168B69 /* Main.storyboard */; };
+		EAC039801BB1316500A2E617 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED55E1B3D24DE00168B69 /* Localizable.strings */; };
+		EAC039811BB1316500A2E617 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED5591B3D24B500168B69 /* InfoPlist.strings */; };
+		EAC039821BB1316500A2E617 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8ED53C1B3D245F00168B69 /* Images.xcassets */; };
 		EAEA848A1B67308E00EE4667 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,30 +93,42 @@
 /* Begin PBXFileReference section */
 		BEF0604A7CB246CE8F65C5F3 /* MyWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWKWebViewController.h; sourceTree = "<group>"; };
 		BEF060A0A12F0C6316C3E7A6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BEF060AF743D46CA273902E4 /* DocEndInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocEndInjection.js; sourceTree = "<group>"; };
 		BEF060BA618069CAA9C55A7B /* MyPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPopupView.h; sourceTree = "<group>"; };
 		BEF060E2E346DB38858A7D63 /* MyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelper.m; sourceTree = "<group>"; };
 		BEF060E9FBB6F021FF570C00 /* BaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		BEF060F7850686EA6849C340 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		BEF0616513C97E4110547C49 /* UserSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSetting.m; sourceTree = "<group>"; };
+		BEF061C96FB924BE424B9E41 /* UserSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSetting.h; sourceTree = "<group>"; };
 		BEF061E5D605EA174A0E3AD8 /* MyWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWKWebViewController.m; sourceTree = "<group>"; };
 		BEF0623B2ABEE7C278808969 /* MyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelper.h; sourceTree = "<group>"; };
+		BEF0626975F3F99574A0BFF9 /* failedPage.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = failedPage.htm; sourceTree = "<group>"; };
 		BEF0626E010BD436245F003A /* MyWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWKWebView.h; sourceTree = "<group>"; };
 		BEF062CD3444ABE7D1CA4743 /* ScanQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanQRViewController.m; sourceTree = "<group>"; };
 		BEF062D35449BEC134E42141 /* MyPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPopupView.m; sourceTree = "<group>"; };
 		BEF063B422DBAC6B55D8D187 /* BaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		BEF063F0C0DD225A449FF06B /* ListWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListWKWebViewController.m; sourceTree = "<group>"; };
+		BEF0643C4E5127A9D6393D3C /* adElemHide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = adElemHide.js; sourceTree = "<group>"; };
 		BEF064C14FF2805D7E284C9A /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
 		BEF064E92A4D0F9399CFEDD7 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
 		BEF065D6BFB420DE9C4CD621 /* MyWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWKWebView.m; sourceTree = "<group>"; };
+		BEF06685A865E4F7B6CD1DB6 /* imageBlocker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = imageBlocker.js; sourceTree = "<group>"; };
 		BEF0674FECC07FC2D6D9E025 /* ScanQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRViewController.h; sourceTree = "<group>"; };
 		BEF068C7C1586AB550546E08 /* NFCollectionViewTabsLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFCollectionViewTabsLayout.m; sourceTree = "<group>"; };
 		BEF068FEDC1A6D6B02F47FE2 /* ListWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListWKWebViewController.h; sourceTree = "<group>"; };
 		BEF0695AEB0567D330C25A97 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		BEF069FF6125BC432EFB1A06 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BEF06A6E9F621D9CC926595A /* NFCollectionViewTabsLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCollectionViewTabsLayout.h; sourceTree = "<group>"; };
+		BEF06BCE193FFB54BC64746D /* webFontjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = webFontjs.js; sourceTree = "<group>"; };
+		BEF06BD68778E6A4AA0AA658 /* adRequestBlocker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = adRequestBlocker.js; sourceTree = "<group>"; };
 		BEF06C703A68A6CE2781F881 /* NFTabCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFTabCollectionViewCell.h; sourceTree = "<group>"; };
 		BEF06C9DF1225784C91C06C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		BEF06D67570EDBD171567451 /* abp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = abp.bundle; sourceTree = "<group>"; };
+		BEF06DF3061087532B2C3B7A /* adBlocker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = adBlocker.js; sourceTree = "<group>"; };
 		BEF06E140863363BEF3AD42F /* NFTabCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFTabCollectionViewCell.m; sourceTree = "<group>"; };
 		BEF06E331696BB80A58DE761 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BEF06F557593AC84C6F7BF96 /* JSTool.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSTool.js; sourceTree = "<group>"; };
+		BEF06F6C7FCF58DC2F823918 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
 		EA1AFCA01B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		EA1AFCA11B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EA1AFCA21B56A09600530DCB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -102,9 +159,11 @@
 		EA8ED5AE1B3D30E400168B69 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		EA8ED5AF1B3D30E400168B69 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		EA8ED5B11B3D313300168B69 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
-		EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocEndInjection.js; sourceTree = "<group>"; };
 		EA8ED5C61B3D61BA00168B69 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocStartInjection.js; sourceTree = "<group>"; };
+		EA9D5AFF1C589B3700551AC8 /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
+		EA9D5B001C589B3700551AC8 /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
+		EAC039861BB1316500A2E617 /* E_MyBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E_MyBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAC039871BB1316500A2E617 /* E_MyBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "E_MyBrowser-Info.plist"; path = "/Users/luowei/Documents/projects/MyBrowser/E_MyBrowser-Info.plist"; sourceTree = "<absolute>"; };
 		EAEA84891B67308E00EE4667 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EAFE63431B56354100AFEB14 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAFE63441B56354100AFEB14 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -169,6 +228,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EAC039781BB1316500A2E617 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAC039791BB1316500A2E617 /* SystemConfiguration.framework in Frameworks */,
+				EAC0397A1BB1316500A2E617 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -196,6 +264,39 @@
 			path = WKWebView;
 			sourceTree = "<group>";
 		};
+		BEF063BE8B216928DF943324 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0626975F3F99574A0BFF9 /* failedPage.htm */,
+			);
+			path = html;
+			sourceTree = "<group>";
+		};
+		BEF063FF2103674D01D5954D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0642F9C6E3FC25930440A /* javascript */,
+				BEF063BE8B216928DF943324 /* html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BEF0642F9C6E3FC25930440A /* javascript */ = {
+			isa = PBXGroup;
+			children = (
+				BEF06DF3061087532B2C3B7A /* adBlocker.js */,
+				BEF060AF743D46CA273902E4 /* DocEndInjection.js */,
+				BEF06F6C7FCF58DC2F823918 /* DocStartInjection.js */,
+				BEF0643C4E5127A9D6393D3C /* adElemHide.js */,
+				BEF06D67570EDBD171567451 /* abp.bundle */,
+				BEF06F557593AC84C6F7BF96 /* JSTool.js */,
+				BEF06BCE193FFB54BC64746D /* webFontjs.js */,
+				BEF06685A865E4F7B6CD1DB6 /* imageBlocker.js */,
+				BEF06BD68778E6A4AA0AA658 /* adRequestBlocker.js */,
+			);
+			path = javascript;
+			sourceTree = "<group>";
+		};
 		BEF064ACDA730F1175F8873A /* MyUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +304,8 @@
 				BEF0623B2ABEE7C278808969 /* MyHelper.h */,
 				BEF06E331696BB80A58DE761 /* Reachability.m */,
 				BEF06C9DF1225784C91C06C3 /* Reachability.h */,
+				EA9D5AFF1C589B3700551AC8 /* RegExCategories.h */,
+				EA9D5B001C589B3700551AC8 /* RegExCategories.m */,
 			);
 			path = MyUtils;
 			sourceTree = "<group>";
@@ -221,6 +324,8 @@
 			children = (
 				BEF064E92A4D0F9399CFEDD7 /* Favorite.m */,
 				BEF064C14FF2805D7E284C9A /* Favorite.h */,
+				BEF0616513C97E4110547C49 /* UserSetting.m */,
+				BEF061C96FB924BE424B9E41 /* UserSetting.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,6 +341,7 @@
 				EA8ED5C61B3D61BA00168B69 /* README.md */,
 				BEF06054E22A8B1E979B7101 /* NFCollectionView */,
 				EA3495781B58C3D0005746BF /* doc */,
+				EAC039871BB1316500A2E617 /* E_MyBrowser-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,6 +350,7 @@
 			children = (
 				EA8ED52C1B3D245F00168B69 /* MyBrowser.app */,
 				EA8ED5451B3D245F00168B69 /* MyBrowserTests.xctest */,
+				EAC039861BB1316500A2E617 /* E_MyBrowser.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -272,7 +379,7 @@
 				EA8ED57E1B3D2C0A00168B69 /* LaunchScreen.xib */,
 				EA8ED53C1B3D245F00168B69 /* Images.xcassets */,
 				EA8ED52F1B3D245F00168B69 /* Supporting Files */,
-				EA8ED5BD1B3D60DD00168B69 /* html */,
+				BEF063FF2103674D01D5954D /* Resources */,
 			);
 			path = MyBrowser;
 			sourceTree = "<group>";
@@ -303,15 +410,6 @@
 				EA8ED54A1B3D245F00168B69 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		EA8ED5BD1B3D60DD00168B69 /* html */ = {
-			isa = PBXGroup;
-			children = (
-				EACEC3E21B47C3A1003D3FE0 /* DocStartInjection.js */,
-				EA8ED5C01B3D60DD00168B69 /* DocEndInjection.js */,
-			);
-			path = html;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +450,23 @@
 			productReference = EA8ED5451B3D245F00168B69 /* MyBrowserTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EAC039661BB1316500A2E617 /* E_MyBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAC039831BB1316500A2E617 /* Build configuration list for PBXNativeTarget "E_MyBrowser" */;
+			buildPhases = (
+				EAC039671BB1316500A2E617 /* Sources */,
+				EAC039781BB1316500A2E617 /* Frameworks */,
+				EAC0397B1BB1316500A2E617 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = E_MyBrowser;
+			productName = MyBrowser;
+			productReference = EAC039861BB1316500A2E617 /* E_MyBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -368,6 +483,9 @@
 					EA8ED5441B3D245F00168B69 = {
 						CreatedOnToolsVersion = 6.3;
 						TestTargetID = EA8ED52B1B3D245F00168B69;
+					};
+					EAC039661BB1316500A2E617 = {
+						DevelopmentTeam = G3A2KYKYBU;
 					};
 				};
 			};
@@ -399,6 +517,7 @@
 			targets = (
 				EA8ED52B1B3D245F00168B69 /* MyBrowser */,
 				EA8ED5441B3D245F00168B69 /* MyBrowserTests */,
+				EAC039661BB1316500A2E617 /* E_MyBrowser */,
 			);
 		};
 /* End PBXProject section */
@@ -410,11 +529,11 @@
 			files = (
 				EA8ED57C1B3D2C0A00168B69 /* LaunchScreen.xib in Resources */,
 				EA8ED5871B3D2CA100168B69 /* Main.storyboard in Resources */,
-				EA8ED5C41B3D60DD00168B69 /* DocEndInjection.js in Resources */,
-				EACEC3E31B47C3A1003D3FE0 /* DocStartInjection.js in Resources */,
 				EA8ED55C1B3D24DE00168B69 /* Localizable.strings in Resources */,
 				EA8ED5571B3D24B500168B69 /* InfoPlist.strings in Resources */,
 				EA8ED53D1B3D245F00168B69 /* Images.xcassets in Resources */,
+				BEF0686875563E6618762008 /* abp.bundle in Resources */,
+				BEF0610BA9CB281BD20B4091 /* failedPage.htm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +541,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAC0397B1BB1316500A2E617 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAC0397C1BB1316500A2E617 /* LaunchScreen.xib in Resources */,
+				EAC0397D1BB1316500A2E617 /* Main.storyboard in Resources */,
+				EAC039801BB1316500A2E617 /* Localizable.strings in Resources */,
+				EAC039811BB1316500A2E617 /* InfoPlist.strings in Resources */,
+				EAC039821BB1316500A2E617 /* Images.xcassets in Resources */,
+				BEF064086D81D19BC6E813B9 /* abp.bundle in Resources */,
+				BEF06301D1492CA168007FA7 /* failedPage.htm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +581,16 @@
 				BEF06A4A6E170BA3329A4E49 /* NFTabCollectionViewCell.m in Sources */,
 				BEF06B6DB0CE04F179EA8BC3 /* NFCollectionViewTabsLayout.m in Sources */,
 				BEF063AB8D4F9556A0087AE5 /* Reachability.m in Sources */,
+				BEF064B15BBAE39B760A7FDF /* UserSetting.m in Sources */,
+				BEF0603E7798D2800D7E1752 /* adBlocker.js in Sources */,
+				BEF062AE2D13DDC7D0693F47 /* DocEndInjection.js in Sources */,
+				BEF06B94B97A94BE7DF7B0DA /* DocStartInjection.js in Sources */,
+				BEF06014D30BDDBBB9435D68 /* adElemHide.js in Sources */,
+				EA9D5B011C589B3700551AC8 /* RegExCategories.m in Sources */,
+				BEF063AC76D00566EA83EA94 /* JSTool.js in Sources */,
+				BEF06CA43901615565E04611 /* webFontjs.js in Sources */,
+				BEF0622E806F232605BB351F /* imageBlocker.js in Sources */,
+				BEF06F0FA22542F8BCF2A8AC /* adRequestBlocker.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +599,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8ED54C1B3D245F00168B69 /* MyBrowserTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAC039671BB1316500A2E617 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAC039681BB1316500A2E617 /* AppDelegate.m in Sources */,
+				EAC039691BB1316500A2E617 /* main.m in Sources */,
+				EAC0396A1BB1316500A2E617 /* SettingViewController.m in Sources */,
+				EAC0396B1BB1316500A2E617 /* MyPopupView.m in Sources */,
+				EAC0396C1BB1316500A2E617 /* ScanQRViewController.m in Sources */,
+				EAC0396D1BB1316500A2E617 /* MyHelper.m in Sources */,
+				EAC0396E1BB1316500A2E617 /* Favorite.m in Sources */,
+				EAC0396F1BB1316500A2E617 /* ViewController.m in Sources */,
+				EAC039701BB1316500A2E617 /* MyWKWebViewController.m in Sources */,
+				EAC039711BB1316500A2E617 /* MyWKWebView.m in Sources */,
+				EAC039721BB1316500A2E617 /* BaseWebViewController.m in Sources */,
+				EAC039731BB1316500A2E617 /* ListWKWebViewController.m in Sources */,
+				EAC039741BB1316500A2E617 /* FavoritesViewController.m in Sources */,
+				EAC039751BB1316500A2E617 /* NFTabCollectionViewCell.m in Sources */,
+				EAC039761BB1316500A2E617 /* NFCollectionViewTabsLayout.m in Sources */,
+				EAC039771BB1316500A2E617 /* Reachability.m in Sources */,
+				BEF06D71236E97F4A8BF5A50 /* UserSetting.m in Sources */,
+				BEF06CF5DCDF48B64B07D9AB /* adBlocker.js in Sources */,
+				BEF06CC54307AA88825F5AF1 /* DocEndInjection.js in Sources */,
+				BEF06B72A5289EA63B62B593 /* DocStartInjection.js in Sources */,
+				BEF06391C8F8E1BFF39F935B /* adElemHide.js in Sources */,
+				EA9D5B021C589B3700551AC8 /* RegExCategories.m in Sources */,
+				BEF06F2330E06B9B5C84EECD /* JSTool.js in Sources */,
+				BEF065DABF0236308B7A8B98 /* webFontjs.js in Sources */,
+				BEF0640D5C83EC6505ADF629 /* imageBlocker.js in Sources */,
+				BEF06414824B0DDBA0FE91B6 /* adRequestBlocker.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +877,32 @@
 			};
 			name = Release;
 		};
+		EAC039841BB1316500A2E617 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "E_MyBrowser-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.MyBrowser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EAC039851BB1316500A2E617 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "E_MyBrowser-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.MyBrowser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -727,6 +929,15 @@
 			buildConfigurations = (
 				EA8ED5531B3D245F00168B69 /* Debug */,
 				EA8ED5541B3D245F00168B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAC039831BB1316500A2E617 /* Build configuration list for PBXNativeTarget "E_MyBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAC039841BB1316500A2E617 /* Debug */,
+				EAC039851BB1316500A2E617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

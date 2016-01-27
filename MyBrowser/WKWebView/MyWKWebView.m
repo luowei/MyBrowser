@@ -10,6 +10,10 @@
 #import "MyWKWebViewController.h"
 #import "MyHelper.h"
 #import "Reachability.h"
+#import "Defines.h"
+#import "UserSetting.h"
+#import "RegExCategories.h"
+#import <objc/message.h>
 
 @interface MyWKWebView () {
 
@@ -17,6 +21,7 @@
 
 @property(nonatomic, strong) WKWebViewConfiguration *webViewConfiguration;
 
+@property(nonatomic, strong) NSError *error;
 @end
 
 @implementation MyWKWebView
@@ -34,7 +39,7 @@ static WKProcessPool *_pool;
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
 
     //设置多窗口cookie共享
-    configuration.processPool = [MyWKWebView pool];
+    _webViewConfiguration.processPool = [MyWKWebView pool];
 //    self.backForwardList
 
     self = [super initWithFrame:frame configuration:configuration];
@@ -50,13 +55,18 @@ static WKProcessPool *_pool;
         //加载用户js文件,修改加载网页内容
         [self addUserScriptsToWeb];
 
-        //无图模式
-//        self.getSettings().setLoadsImagesAutomatically(false);
-//        self.getSettings().setBlockNetworkLoads (true);
+//        //js注入，用于改变网页字体的大小
+//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"webFontjs" ofType:@"js"];
+//        NSString *jsString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+//        [self evaluateJavaScript:jsString completionHandler:nil];
+
+        //添加ScriptMessageHandler
+        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"getBeans"];
+        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"webViewBack"];
 
         //网络连接状态标示
         _netStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
+        //_netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
         _netStatusLabel.font = [UIFont systemFontOfSize:20.0];
         _netStatusLabel.textColor = [UIColor grayColor];
         [_netStatusLabel sizeToFit];
@@ -84,34 +94,40 @@ static WKProcessPool *_pool;
 //加载用户js文件
 - (void)addUserScriptsToWeb {
 
-//    NSString *path = [[NSBundle mainBundle] pathsForResourcesOfType:@"js" inDirectory:@"Resource"][0];
-//    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+/*
+    NSString *path = [[NSBundle mainBundle] pathsForResourcesOfType:@"js" inDirectory:@"Resource"][0];
+    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
 
-//    //Add cookies by javascript to be accessible through AJAX
-//    WKUserScript * cookieScript = [[WKUserScript alloc]
-//            initWithSource: @"document.cookie = 'TeskCookieKey1=TeskCookieValue1';document.cookie = 'TeskCookieKey2=TeskCookieValue2';"
-//             injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-//    // again, use stringWithFormat: in the above line to inject your values programmatically
-//    [_webViewConfiguration.userContentController addUserScript:cookieScript];
+    //Add cookies by javascript to be accessible through AJAX
+    WKUserScript * cookieScript = [[WKUserScript alloc]
+            initWithSource: @"document.cookie = 'TeskCookieKey1=TeskCookieValue1';document.cookie = 'TeskCookieKey2=TeskCookieValue2';"
+             injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    // again, use stringWithFormat: in the above line to inject your values programmatically
+    [_webViewConfiguration.userContentController addUserScript:cookieScript];
 
-//    NSString *jqueryInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"jquery-1.11.3.min" ofType:@"js"]
-//                                                              encoding:NSUTF8StringEncoding error:NULL];
-//
-//    //在document加载前执行注入js脚本
-//    WKUserScript *jqueryScript = [[WKUserScript alloc] initWithSource:jqueryInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-//                                                       forMainFrameOnly:YES];
-//    [_webViewConfiguration.userContentController addUserScript:jqueryScript];
+    NSString *jqueryInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"jquery-1.11.3.min" ofType:@"js"]
+                                                              encoding:NSUTF8StringEncoding error:NULL];
+
+    //在document加载前执行注入js脚本
+    WKUserScript *jqueryScript = [[WKUserScript alloc] initWithSource:jqueryInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                       forMainFrameOnly:YES];
+    [_webViewConfiguration.userContentController addUserScript:jqueryScript];
+*/
 
 
+    //-----修改百度logo图片------
+
+    //文档开始加载时
     NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
                                                               encoding:NSUTF8StringEncoding error:NULL];
 
     //在document加载前执行注入js脚本
     WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                       forMainFrameOnly:YES];
+                                                       forMainFrameOnly:NO];
     [_webViewConfiguration.userContentController addUserScript:docStartScript];
 
 
+    //文档完成加载时
     NSString *docEndInjectionJS = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"DocEndInjection" withExtension:@"js"]
                                                            encoding:NSUTF8StringEncoding error:NULL];
 
@@ -122,6 +138,76 @@ static WKProcessPool *_pool;
 
     //添加js脚本到处理器中
     [self.webViewConfiguration.userContentController addScriptMessageHandler:self name:@"myName"];
+
+
+    //-------无图模式--------
+
+    //无图模式注入js
+    NSString *jsPath = [[NSBundle mainBundle] pathForResource:@"imageBlocker" ofType:@"js"];
+    NSString *source = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *blockImageUserScript = [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:blockImageUserScript];
+
+    WKUserScript *blockBackgroundImageUserScript = [[WKUserScript alloc] initWithSource:@"ImageBlocker.removeBackgroundImages();" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:blockBackgroundImageUserScript];
+
+    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"decideImageBlockStatus"];
+
+
+    //-------广告拦截-------
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"abp" ofType:@ "bundle"];
+    NSBundle *abpBundle = [NSBundle bundleWithPath:bundlePath];
+
+    NSString *publicSuffixListSource = [[NSString stringWithContentsOfFile:[abpBundle pathForResource:@"publicSuffixList" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    WKUserScript *publicSuffixListUserScript = [[WKUserScript alloc] initWithSource:publicSuffixListSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:publicSuffixListUserScript];
+
+    NSString *basedomainSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"basedomain" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *basedomainUserScript = [[WKUserScript alloc] initWithSource:basedomainSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:basedomainUserScript];
+
+    NSString *filterClassesSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"filterClasses" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *filterClassesUserScript = [[WKUserScript alloc] initWithSource:filterClassesSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:filterClassesUserScript];
+
+    NSString *matcherSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"matcher" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *matcherUserScript = [[WKUserScript alloc] initWithSource:matcherSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:matcherUserScript];
+
+    NSString *elemHidePath = [abpBundle pathForResource:@"elemHide" ofType:@"js"];
+    WKUserScript *elemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:elemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:elemHideUserScript];
+
+    NSString *adBlockerPath = [[NSBundle mainBundle] pathForResource:@"adBlocker" ofType:@"js"];
+    WKUserScript *adBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:adBlockerUserScript];
+
+    NSString *adElemHidePath = [[NSBundle mainBundle] pathForResource:@"adElemHide" ofType:@"js"];
+    WKUserScript *adElemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adElemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:adElemHideUserScript];
+
+    NSString *adRequestBlockerPath = [[NSBundle mainBundle] pathForResource:@"adRequestBlocker" ofType:@"js"];
+    WKUserScript *adRequestBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adRequestBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:adRequestBlockerUserScript];
+
+    NSString *blockRules = [UserSetting getEasyListText];
+    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+
+//    NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileWhiteList('%@');"
+//                                                                        "AdBlocker.compileABPRules('%@\');"
+//                                                                        "AdBlocker.compileElemHideList('%@');"
+//                                                                        "AdBlocker.enable=%@;",
+//                    whiteList, blockRules, exRules, RCAdBlockStatus()?@"true":@"false"];
+    NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileABPRules('%@');AdBlocker.enable=%@;", blockRules, @"true"];
+
+    WKUserScript *compileFiltersUserScript = [[WKUserScript alloc] initWithSource:compileFiltersSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [_webViewConfiguration.userContentController addUserScript:compileFiltersUserScript];
+
+    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"decideAdBlockStatus"];
+    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"increaseAdBlockCount"];
 }
 
 
@@ -170,6 +256,7 @@ static WKProcessPool *_pool;
 //决定是否请允许打开
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
+/*
     NSURL *url = navigationAction.request.URL;
     //处理App一类的特殊网址
     if (![url.absoluteString isHttpURL] && ![url.absoluteString isDomain]) {
@@ -178,7 +265,45 @@ static WKProcessPool *_pool;
     } else {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
+*/
 
+    NSURL *url = navigationAction.request.URL;
+    NSString *urlString = (url) ? url.absoluteString : @"";
+    // iTunes: App Store link跳转不了问题
+    if ([urlString isMatch:RX(@"\\/\\/itunes\\.apple\\.com\\/")]) {
+        [[UIApplication sharedApplication] openURL:url];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+    //蒲公英安装不了问题
+    if ([urlString hasPrefix:@"itms-services://?action=download-manifest"]) {
+        [[UIApplication sharedApplication] openURL:url];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+    if ([url.scheme isEqualToString:@"tel"]) {
+        NSString *phoneNumber = url.resourceSpecifier.stringByRemovingPercentEncoding;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:phoneNumber message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Call",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[UIApplication sharedApplication] openURL:url];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+
+        }]];
+        self.presentViewControllerBlock(alertController);
+    }
+    //决定是否新窗口打开
+    if (!navigationAction.targetFrame) {
+        if ([urlString hasSuffix:@".apk"]) {
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+        [webView loadRequest:navigationAction.request];
+    }
+
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
@@ -244,7 +369,93 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         });
 
     } else {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+    }
+
+}
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    if ([UserSetting UASignIsChanged]) {
+        [self switchUAMode:@([UserSetting UASign])];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UASignIsChanged"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    //修改浏览器UA设置
+    if ([UserSetting UserAgent] == nil) {
+        __weak typeof(self) weadSelf = self;
+        [self evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+            NSString *userAgent = result;
+            if (userAgent && userAgent.length > 0) {
+                [UserSetting SetUserAgent:userAgent];
+                [weadSelf switchUAMode:@([UserSetting UASign])];
+            }
+        }];
+    }
+
+    //todo:清除当前广告拦截数据记录
+    //[AdblockManager cleanCurrentBlockCount];
+
+    //todo:更新返回按钮及进度条(didStartLoadingWebView)
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"error = %@", error);
+    self.error = error;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    //todo:更新进度条(didFailLoadWebView)
+
+    switch ([error code]) {
+        case kCFURLErrorServerCertificateUntrusted: {
+            //解决12306不能买票问题
+            NSRange range = [[webView.URL host] rangeOfString:@"12306.cn"];
+            
+            if (range.location != NSNotFound && range.location) {
+                NSArray *chain = error.userInfo[@"NSErrorPeerCertificateChainKey"];
+                NSURL *failingURL = error.userInfo[@"NSErrorFailingURLKey"];
+                [self setAllowsHTTPSCertifcateWithCertChain:chain ForHost:[failingURL host]];
+                [webView loadRequest:[NSURLRequest requestWithURL:failingURL]];
+            } else {
+                // 网站证书不被信任，给出提示
+                UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:
+                                [NSString stringWithFormat:NSLocalizedString(@"HTTPS Certifcate Not Trust", nil), webView.URL.host]
+                                                                   delegate:self
+                                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                     destructiveButtonTitle:NSLocalizedString(@"OK", nil)
+                                                          otherButtonTitles:nil, nil];
+                [sheet showInView:self];
+            }
+            break;
+        }
+        case kCFURLErrorBadServerResponse:
+        case kCFURLErrorNotConnectedToInternet:
+        case kCFSOCKS5ErrorNoAcceptableMethod:
+        case kCFErrorHTTPBadCredentials:
+        case kCFErrorHTTPConnectionLost:
+        case kCFErrorHTTPBadURL:
+        case kCFErrorHTTPBadProxyCredentials:
+        case kCFURLErrorBadURL:
+        case kCFURLErrorTimedOut:
+        case kCFURLErrorCannotFindHost:
+        case kCFURLErrorCannotConnectToHost:
+        case kCFURLErrorNetworkConnectionLost:
+        case kCFNetServiceErrorTimeout:
+        case kCFNetServiceErrorNotFound:
+//            NSLog(@"errorCode:%ld",(long)[error code]);
+            //error webView
+            if (self.estimatedProgress < 0.3) {
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"failedPage" ofType:@"htm"];
+                NSError *error2;
+                NSString *htmlString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error2];
+                NSURL *failingURL = error.userInfo[@"NSErrorFailingURLKey"];
+                [webView loadHTMLString:htmlString baseURL:failingURL];
+            }
+            break;
+        default: {
+            break;
+        }
     }
 }
 
@@ -257,11 +468,99 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
 //    [alertViewController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
 //    self.presentViewControllerBlock(alertViewController);
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    //todo:更新进度条(didFailLoadWebView)
+
+    switch ([error code]) {
+        case kCFURLErrorServerCertificateUntrusted: {
+            //解决12306不能买票问题
+            NSRange range = [[webView.URL host] rangeOfString:@"12306.cn"];
+            if (range.location != NSNotFound) {
+                NSArray *chain = error.userInfo[@"NSErrorPeerCertificateChainKey"];
+                NSURL *failingURL = error.userInfo[@"NSErrorFailingURLKey"];
+                [self setAllowsHTTPSCertifcateWithCertChain:chain ForHost:[failingURL host]];
+                [webView loadRequest:[NSURLRequest requestWithURL:failingURL]];
+            }
+            break;
+        }
+        case kCFURLErrorBadServerResponse:
+        case kCFURLErrorNotConnectedToInternet:
+        case kCFSOCKS5ErrorNoAcceptableMethod:
+        case kCFErrorHTTPBadCredentials:
+        case kCFErrorHTTPConnectionLost:
+        case kCFErrorHTTPBadURL:
+        case kCFErrorHTTPBadProxyCredentials:
+        case kCFURLErrorBadURL:
+        case kCFURLErrorTimedOut:
+        case kCFURLErrorCannotFindHost:
+        case kCFURLErrorCannotConnectToHost:
+        case kCFURLErrorNetworkConnectionLost:
+        case kCFNetServiceErrorTimeout:
+        case kCFNetServiceErrorNotFound:
+            NSLog(@"errorCode:%ld", (long) [error code]);
+            //error webView
+            if (self.estimatedProgress < 0.3) {
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"failedPage" ofType:@"htm"];
+                NSError *error2;
+                NSString *htmlString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error2];
+                NSURL *failingURL = error.userInfo[@"NSErrorFailingURLKey"];
+                [webView loadHTMLString:htmlString baseURL:failingURL];
+            }
+            break;
+        default: {
+            break;
+        }
+    }
+
 }
 
 //当页面加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.finishNavigationProgressBlock();
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+//    //获得网站的icon
+//    [self evaluateJavaScript:[self JSToolCode] completionHandler:nil];
+//    __weak typeof(self) weadSelf = self;
+//    [self evaluateJavaScript:@"getAppIcon();" completionHandler:^(NSString *result, NSError *error) {
+//        [self.delegate mainView:weadSelf updateFavIcon:result];
+//    }];
+
+}
+
+//允许HTTPS验证钥匙中证书
+- (void)setAllowsHTTPSCertifcateWithCertChain:(NSArray *)certChain ForHost:(NSString *)host {
+    ((void (*)(id, SEL, id, id)) objc_msgSend)(self.configuration.processPool,
+            //- (void)_setAllowsSpecificHTTPSCertificate:(id)arg1 forHost:(id)arg2;
+            NSSelectorFromString([NSString base64Decoding:@"X3NldEFsbG93c1NwZWNpZmljSFRUUFNDZXJ0aWZpY2F0ZTpmb3JIb3N0Og=="]),
+            certChain, host);
+}
+
+//切换用户代理模式
+- (void)switchUAMode:(NSNumber *)modeNumber {
+    if ([UserSetting UserAgent] != nil) {
+        NSString *appVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+        NSString *UAString = nil;
+        switch ([modeNumber intValue]) {
+            case 0:
+                if ([UserSetting UserAgent] != nil) {
+                    UAString = [NSString stringWithFormat:@"%@ Mb2345Browser/%@", [UserSetting UserAgent], appVersion];
+                }
+                break;
+            case 1:
+                if ([UserSetting UserAgent] != nil) {
+                    UAString = [NSString stringWithFormat:@"%@ Mb2345Browser Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18", [UserSetting UserAgent]];
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        //- (void)_setCustomUserAgent:(id)arg1;
+        ((void (*)(id, SEL, id)) objc_msgSend)(self, NSSelectorFromString([NSString base64Decoding:@"X3NldEN1c3RvbVVzZXJBZ2VudDo="]), UAString);
+    }
 }
 
 
@@ -275,6 +574,34 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         //处理消息内容
 //        [[[UIAlertView alloc] initWithTitle:@"message" message:message.body delegate:self
 //                          cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+        //返回
+    } else if ([message.name isEqualToString:@"webViewBack"]) {
+        [self goBack];
+
+        //重新加载
+    } else if ([message.name isEqualToString:@"webViewReload"]) {
+        [self reload];
+
+        //开启广告拦截
+    } else if ([message.name isEqualToString:@"decideAdBlockStatus"]) {
+        if ([UserSetting adblockerStatus]) {
+            [self evaluateJavaScript:@"AdBlocker.enable=true;" completionHandler:nil];
+        } else {
+            [self evaluateJavaScript:@"AdBlocker.enable=false;" completionHandler:nil];
+        }
+
+        //记录拦截数
+    } else if ([message.name isEqualToString:@"increaseAdBlockCount"]) {
+        //记录拦截了多少条广告
+
+        //开启无图模式
+    } else if ([message.name isEqualToString:@"decideImageBlockStatus"]) {
+        if ([UserSetting imageBlockerStatus]) {
+            [self evaluateJavaScript:@"ImageBlocker.enable=true;" completionHandler:nil];
+        } else {
+            [self evaluateJavaScript:@"ImageBlocker.enable=false;" completionHandler:nil];
+        }
     }
 }
 
@@ -345,6 +672,24 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         completionHandler(nil);
     }]];
     self.presentViewControllerBlock(alertController);
+}
+
+
+#pragma mark - UIActionSheetDelegate
+
+// 网站证书不被信任的情况
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: {
+            NSArray *chain = _error.userInfo[@"NSErrorPeerCertificateChainKey"];
+            NSURL *failingURL = _error.userInfo[@"NSErrorFailingURLKey"];
+            [self setAllowsHTTPSCertifcateWithCertChain:chain ForHost:[failingURL host]];
+            [self loadRequest:[NSURLRequest requestWithURL:failingURL]];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 

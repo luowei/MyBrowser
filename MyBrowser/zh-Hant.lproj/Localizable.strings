@@ -14,6 +14,7 @@
 "Close" = "關閉";
 "Error" = "錯誤";
 "Open" = "打開";
+"Call" = "撥打";
 "Close All" = "全部關閉";
 "Bookmarks" = "收藏管理";
 "Nighttime" = "夜間模式";
@@ -43,3 +44,4 @@
 "RQ Code" = "二維碼";
 "ReScan" = "重新掃碼";
 "Unable Open Web Page With NetWork Disconnected" = "無法打開網頁,請檢查網絡設置";
+"HTTPS Certifcate Not Trust" = "無法驗證服務器身份\n 瀏覽器無法驗證％@的身份。您仍要繼續嗎？";
