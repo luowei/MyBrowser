@@ -99,7 +99,10 @@
 
 - (MyWKWebView *)addWebView:(NSURL *)url {
     //添加webview
-    MyWKWebView *wkWB = [[MyWKWebView alloc] initWithFrame:self.webContainer.frame configuration:[[WKWebViewConfiguration alloc] init]];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.userContentController = [MyWKUserContentController shareInstance];
+    MyWKWebView *wkWB = [[MyWKWebView alloc] initWithFrame:self.webContainer.frame configuration:configuration];
+
     wkWB.backgroundColor = [UIColor whiteColor];
     wkWB.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.webContainer addSubview:wkWB];

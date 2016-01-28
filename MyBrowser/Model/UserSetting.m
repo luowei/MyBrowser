@@ -58,14 +58,28 @@ static NSString *const NoImageMode = @"NoImageMode";
 + (NSString *)getEasyListText {
 //- (NSArray *)easyListLines {
     NSError *error;
-    //从文件/网络中读取EasyList规则
-    NSString *fileContents = [NSString readStringFromFile:EasyList_FileName];
+    //读取EasyList规则
+
+    //从应用沙盒目录读取
+    NSString *fileContents = [NSString readStringFromFile:EasyList_NamePath];
     if (!fileContents) {
-        fileContents = [NSString stringWithContentsOfURL:[NSURL URLWithString:EasyList_Url]
-                                                encoding:NSASCIIStringEncoding error:&error];
-        if (fileContents) {
-            [NSString writeString:fileContents ToFile:EasyList_FileName];
+
+        //从应用的bundle中读取
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:EasyList_FileName ofType:@"txt"];
+        fileContents =[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+        if(!fileContents){
+
+            //从网页读取
+            fileContents = [NSString stringWithContentsOfURL:[NSURL URLWithString:EasyList_Url]
+                                                    encoding:NSUTF8StringEncoding error:&error];
+            if (fileContents) { //写入本地
+                [NSString writeString:fileContents ToFile:EasyList_NamePath];
+            }
+        }else{
+            //写入本地
+            [NSString writeString:fileContents ToFile:EasyList_NamePath];
         }
+
     }
 //    NSArray *allLinedStrings = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 //    return allLinedStrings;

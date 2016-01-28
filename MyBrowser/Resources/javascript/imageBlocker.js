@@ -24,7 +24,7 @@ ImageBlocker.blockImages = function() {
 //
 /*替换background-image*/
 ImageBlocker.removeBackgroundImages = function() {
-    alert('removeBackgroundImages')
+    //alert('=====removeBackgroundImages')
     if (ImageBlocker.enable) {
         var bgImgs = document.body.querySelectorAll('*[style^=\"background-image:\"]');
         for (var j = 0; j < bgImgs.length; j++) {

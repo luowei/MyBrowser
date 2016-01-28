@@ -121,7 +121,7 @@ AdBlocker.onBeforeLoad = function(e) {
 };
 
 AdBlocker.compileABPRules = function(filterString) {
-    alert('compileABPRules');
+    //alert("======compileABPRules");
     var lines = filterString.split(/[\r\n]+/);
     for (var i = 0; i < lines.length; i++) {
         var filter = AdBlocker.getFilterFromText(lines[i]);
@@ -130,4 +130,3 @@ AdBlocker.compileABPRules = function(filterString) {
 };
 
 window.webkit.messageHandlers.decideAdBlockStatus.postMessage("");
-

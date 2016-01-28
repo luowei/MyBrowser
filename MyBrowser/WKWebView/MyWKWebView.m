@@ -15,11 +15,117 @@
 #import "RegExCategories.h"
 #import <objc/message.h>
 
+
+@implementation MyWKUserContentController
+
+//获得MyWKUserContentController单例
++ (instancetype)shareInstance {
+    static MyWKUserContentController *myContentController = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        myContentController = [[self alloc] init];
+    });
+
+    return myContentController;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+
+        //-----修改百度logo图片------
+
+        //文档开始加载时
+        NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
+                                                                  encoding:NSUTF8StringEncoding error:NULL];
+
+        //在document加载前执行注入js脚本
+        WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                           forMainFrameOnly:NO];
+        [self addUserScript:docStartScript];
+
+
+        //文档完成加载时
+        NSString *docEndInjectionJS = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"DocEndInjection" withExtension:@"js"]
+                                                               encoding:NSUTF8StringEncoding error:NULL];
+
+        //在document加载完成后执行注入js脚本
+        WKUserScript *docEndScript = [[WKUserScript alloc] initWithSource:docEndInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                         forMainFrameOnly:YES];
+        [self addUserScript:docEndScript];
+
+
+        //-------无图模式--------
+
+        //无图模式注入js
+        NSString *jsPath = [[NSBundle mainBundle] pathForResource:@"imageBlocker" ofType:@"js"];
+        NSString *source = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
+        WKUserScript *blockImageUserScript = [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:blockImageUserScript];
+
+        WKUserScript *blockBackgroundImageUserScript = [[WKUserScript alloc] initWithSource:@"ImageBlocker.removeBackgroundImages();" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
+        [self addUserScript:blockBackgroundImageUserScript];
+
+
+        //-------广告拦截-------
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"abp" ofType:@ "bundle"];
+        NSBundle *abpBundle = [NSBundle bundleWithPath:bundlePath];
+
+        NSString *publicSuffixListSource = [[NSString stringWithContentsOfFile:[abpBundle pathForResource:@"publicSuffixList" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        WKUserScript *publicSuffixListUserScript = [[WKUserScript alloc] initWithSource:publicSuffixListSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:publicSuffixListUserScript];
+
+        NSString *basedomainSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"basedomain" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+        WKUserScript *basedomainUserScript = [[WKUserScript alloc] initWithSource:basedomainSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:basedomainUserScript];
+
+        NSString *filterClassesSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"filterClasses" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+        WKUserScript *filterClassesUserScript = [[WKUserScript alloc] initWithSource:filterClassesSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:filterClassesUserScript];
+
+        NSString *matcherSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"matcher" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+        WKUserScript *matcherUserScript = [[WKUserScript alloc] initWithSource:matcherSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:matcherUserScript];
+
+        NSString *elemHidePath = [abpBundle pathForResource:@"elemHide" ofType:@"js"];
+        WKUserScript *elemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:elemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:elemHideUserScript];
+
+        NSString *adBlockerPath = [[NSBundle mainBundle] pathForResource:@"adBlocker" ofType:@"js"];
+        WKUserScript *adBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:adBlockerUserScript];
+
+        NSString *adElemHidePath = [[NSBundle mainBundle] pathForResource:@"adElemHide" ofType:@"js"];
+        WKUserScript *adElemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adElemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:adElemHideUserScript];
+
+        NSString *adRequestBlockerPath = [[NSBundle mainBundle] pathForResource:@"adRequestBlocker" ofType:@"js"];
+        WKUserScript *adRequestBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adRequestBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:adRequestBlockerUserScript];
+
+        NSString *blockRules = [UserSetting getEasyListText];
+        blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+        blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+
+        NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileABPRules('%@');AdBlocker.enable=%@;", blockRules, @"true"];
+
+        WKUserScript *compileFiltersUserScript = [[WKUserScript alloc] initWithSource:compileFiltersSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self addUserScript:compileFiltersUserScript];
+
+    }
+
+    return self;
+}
+
+
+@end
+
+
 @interface MyWKWebView () {
 
 }
-
-@property(nonatomic, strong) WKWebViewConfiguration *webViewConfiguration;
 
 @property(nonatomic, strong) NSError *error;
 @end
@@ -36,10 +142,11 @@ static WKProcessPool *_pool;
     return _pool;
 }
 
+
 - (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
 
     //设置多窗口cookie共享
-    _webViewConfiguration.processPool = [MyWKWebView pool];
+    configuration.processPool = [MyWKWebView pool];
 //    self.backForwardList
 
     self = [super initWithFrame:frame configuration:configuration];
@@ -49,20 +156,8 @@ static WKProcessPool *_pool;
         self.allowsBackForwardNavigationGestures = YES;
 //        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-        //webview configuration
-        self.webViewConfiguration = configuration;
-
         //加载用户js文件,修改加载网页内容
-        [self addUserScriptsToWeb];
-
-//        //js注入，用于改变网页字体的大小
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"webFontjs" ofType:@"js"];
-//        NSString *jsString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-//        [self evaluateJavaScript:jsString completionHandler:nil];
-
-        //添加ScriptMessageHandler
-        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"getBeans"];
-        [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"webViewBack"];
+        [self addUserScriptsToWeb:configuration.userContentController];
 
         //网络连接状态标示
         _netStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -92,122 +187,24 @@ static WKProcessPool *_pool;
 }
 
 //加载用户js文件
-- (void)addUserScriptsToWeb {
+- (void)addUserScriptsToWeb:(WKUserContentController *)userContentController {
 
-/*
-    NSString *path = [[NSBundle mainBundle] pathsForResourcesOfType:@"js" inDirectory:@"Resource"][0];
-    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+    //添加脚本消息处理器根据消息名称
+    [userContentController addScriptMessageHandler:self name:@"docStartInjection"];
+    [userContentController addScriptMessageHandler:self name:@"docEndInjection"];
 
-    //Add cookies by javascript to be accessible through AJAX
-    WKUserScript * cookieScript = [[WKUserScript alloc]
-            initWithSource: @"document.cookie = 'TeskCookieKey1=TeskCookieValue1';document.cookie = 'TeskCookieKey2=TeskCookieValue2';"
-             injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    // again, use stringWithFormat: in the above line to inject your values programmatically
-    [_webViewConfiguration.userContentController addUserScript:cookieScript];
+//    [userContentController addScriptMessageHandler:self name:@"decideImageBlockStatus"];
+//    [userContentController addScriptMessageHandler:self name:@"decideAdBlockStatus"];
+//    [userContentController addScriptMessageHandler:self name:@"increaseAdBlockCount"];
 
-    NSString *jqueryInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"jquery-1.11.3.min" ofType:@"js"]
-                                                              encoding:NSUTF8StringEncoding error:NULL];
+//        //js注入，用于改变网页字体的大小
+//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"webFontjs" ofType:@"js"];
+//        NSString *jsString = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+//        [self evaluateJavaScript:jsString completionHandler:nil];
 
-    //在document加载前执行注入js脚本
-    WKUserScript *jqueryScript = [[WKUserScript alloc] initWithSource:jqueryInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                       forMainFrameOnly:YES];
-    [_webViewConfiguration.userContentController addUserScript:jqueryScript];
-*/
-
-
-    //-----修改百度logo图片------
-
-    //文档开始加载时
-    NSString *docStartInjectionJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DocStartInjection" ofType:@"js"]
-                                                              encoding:NSUTF8StringEncoding error:NULL];
-
-    //在document加载前执行注入js脚本
-    WKUserScript *docStartScript = [[WKUserScript alloc] initWithSource:docStartInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                       forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:docStartScript];
-
-
-    //文档完成加载时
-    NSString *docEndInjectionJS = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"DocEndInjection" withExtension:@"js"]
-                                                           encoding:NSUTF8StringEncoding error:NULL];
-
-    //在document加载完成后执行注入js脚本
-    WKUserScript *docEndScript = [[WKUserScript alloc] initWithSource:docEndInjectionJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                                                     forMainFrameOnly:YES];
-    [_webViewConfiguration.userContentController addUserScript:docEndScript];
-
-    //添加js脚本到处理器中
-    [self.webViewConfiguration.userContentController addScriptMessageHandler:self name:@"myName"];
-
-
-    //-------无图模式--------
-
-    //无图模式注入js
-    NSString *jsPath = [[NSBundle mainBundle] pathForResource:@"imageBlocker" ofType:@"js"];
-    NSString *source = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *blockImageUserScript = [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:blockImageUserScript];
-
-    WKUserScript *blockBackgroundImageUserScript = [[WKUserScript alloc] initWithSource:@"ImageBlocker.removeBackgroundImages();" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:blockBackgroundImageUserScript];
-
-    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"decideImageBlockStatus"];
-
-
-    //-------广告拦截-------
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"abp" ofType:@ "bundle"];
-    NSBundle *abpBundle = [NSBundle bundleWithPath:bundlePath];
-
-    NSString *publicSuffixListSource = [[NSString stringWithContentsOfFile:[abpBundle pathForResource:@"publicSuffixList" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    WKUserScript *publicSuffixListUserScript = [[WKUserScript alloc] initWithSource:publicSuffixListSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:publicSuffixListUserScript];
-
-    NSString *basedomainSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"basedomain" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *basedomainUserScript = [[WKUserScript alloc] initWithSource:basedomainSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:basedomainUserScript];
-
-    NSString *filterClassesSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"filterClasses" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *filterClassesUserScript = [[WKUserScript alloc] initWithSource:filterClassesSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:filterClassesUserScript];
-
-    NSString *matcherSource = [NSString stringWithContentsOfFile:[abpBundle pathForResource:@"matcher" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *matcherUserScript = [[WKUserScript alloc] initWithSource:matcherSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:matcherUserScript];
-
-    NSString *elemHidePath = [abpBundle pathForResource:@"elemHide" ofType:@"js"];
-    WKUserScript *elemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:elemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:elemHideUserScript];
-
-    NSString *adBlockerPath = [[NSBundle mainBundle] pathForResource:@"adBlocker" ofType:@"js"];
-    WKUserScript *adBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:adBlockerUserScript];
-
-    NSString *adElemHidePath = [[NSBundle mainBundle] pathForResource:@"adElemHide" ofType:@"js"];
-    WKUserScript *adElemHideUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adElemHidePath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:adElemHideUserScript];
-
-    NSString *adRequestBlockerPath = [[NSBundle mainBundle] pathForResource:@"adRequestBlocker" ofType:@"js"];
-    WKUserScript *adRequestBlockerUserScript = [[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:adRequestBlockerPath encoding:NSUTF8StringEncoding error:nil] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:adRequestBlockerUserScript];
-
-    NSString *blockRules = [UserSetting getEasyListText];
-    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
-    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-    blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-
-//    NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileWhiteList('%@');"
-//                                                                        "AdBlocker.compileABPRules('%@\');"
-//                                                                        "AdBlocker.compileElemHideList('%@');"
-//                                                                        "AdBlocker.enable=%@;",
-//                    whiteList, blockRules, exRules, RCAdBlockStatus()?@"true":@"false"];
-    NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileABPRules('%@');AdBlocker.enable=%@;", blockRules, @"true"];
-
-    WKUserScript *compileFiltersUserScript = [[WKUserScript alloc] initWithSource:compileFiltersSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-    [_webViewConfiguration.userContentController addUserScript:compileFiltersUserScript];
-
-    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"decideAdBlockStatus"];
-    [_webViewConfiguration.userContentController addScriptMessageHandler:self name:@"increaseAdBlockCount"];
+    //添加ScriptMessageHandler
+//    [userContentController addScriptMessageHandler:self name:@"getBeans"];
+//    [userContentController addScriptMessageHandler:self name:@"webViewBack"];
 }
 
 
@@ -284,12 +281,12 @@ static WKProcessPool *_pool;
     if ([url.scheme isEqualToString:@"tel"]) {
         NSString *phoneNumber = url.resourceSpecifier.stringByRemovingPercentEncoding;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:phoneNumber message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Call",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Call", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [[UIApplication sharedApplication] openURL:url];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 
         }]];
         self.presentViewControllerBlock(alertController);
@@ -545,12 +542,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
         switch ([modeNumber intValue]) {
             case 0:
                 if ([UserSetting UserAgent] != nil) {
-                    UAString = [NSString stringWithFormat:@"%@ Mb2345Browser/%@", [UserSetting UserAgent], appVersion];
+                    UAString = [NSString stringWithFormat:@"%@ MyBrowser/%@", [UserSetting UserAgent], appVersion];
                 }
                 break;
             case 1:
                 if ([UserSetting UserAgent] != nil) {
-                    UAString = [NSString stringWithFormat:@"%@ Mb2345Browser Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18", [UserSetting UserAgent]];
+                    UAString = [NSString stringWithFormat:@"%@ MyBrowser Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18", [UserSetting UserAgent]];
                 }
                 break;
 
@@ -568,15 +565,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
 
 //处理当接收到html页面脚本发来的消息
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-//    [userContentController addScriptMessageHandler:self name:@"myName"];
-    if ([message.name isEqualToString:@"myName"]) {
-//        [MyHelper showToastAlert:message.body];
-        //处理消息内容
-//        [[[UIAlertView alloc] initWithTitle:@"message" message:message.body delegate:self
-//                          cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-
-        //返回
-    } else if ([message.name isEqualToString:@"webViewBack"]) {
+    //返回
+    if ([message.name isEqualToString:@"webViewBack"]) {
         [self goBack];
 
         //重新加载
@@ -698,6 +688,46 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     return networkStatus != NotReachable;
+}
+
+
+//显示类的私有方法
+- (void)showAllPrivateMethod:(Class)clazz {
+    u_int count;
+    Method *methods = class_copyMethodList(clazz, &count);
+    NSLog(@"----------------显示类的私有方法-----------");
+    for (int i = 0; i < count; i++) {
+        SEL name = method_getName(methods[i]);
+        NSString *strName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", strName);
+    }
+}
+
+#pragma mark - snapshot(快照截图)
+
+//截图快照
+- (void)snapshot {
+    __weak typeof(self) weakSelf = self;
+    [self snapshotWithHandler:^(CGImageRef imgRef) {
+        UIImage *image = [UIImage imageWithCGImage:imgRef];
+        UIImageWriteToSavedPhotosAlbum(image, weakSelf, NULL, NULL);
+    }];
+}
+
+//快照截图Handler
+- (void)snapshotWithHandler:(void (^)(CGImageRef imgRef))completionHandler {
+
+    CGRect bounds = self.bounds;
+    CGFloat imageWidth = self.frame.size.width * [UIScreen mainScreen].scale;
+
+    //- (void)_snapshotRect:(CGRect)rectInViewCoordinates intoImageOfWidth:(CGFloat)imageWidth completionHandler:(void(^)(CGImageRef))completionHandler;
+    SEL snapShotSel = NSSelectorFromString([NSString base64Decoding:@"X3NuYXBzaG90UmVjdDppbnRvSW1hZ2VPZldpZHRoOmNvbXBsZXRpb25IYW5kbGVyOg=="]);
+
+    if ([self respondsToSelector:snapShotSel]) {
+        ((void (*)(id, SEL, CGRect, CGFloat, id)) objc_msgSend)(self, snapShotSel, bounds, imageWidth, completionHandler);
+
+    }
+
 }
 
 
