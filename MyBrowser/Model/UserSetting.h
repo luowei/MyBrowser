@@ -8,6 +8,9 @@
 
 @interface UserSetting : NSObject
 
+//显示类的私有方法
++ (void)showAllPrivateMethod:(Class)clazz;
+
 + (void)setAdblockerStatus:(id)status;
 + (BOOL)adblockerStatus;
 
@@ -24,5 +27,9 @@
 +(void)SetUASign:(NSInteger)sign;
 +(NSString *)UserAgent;
 +(void)SetUserAgent:(NSString *)userAgent;
+
++ (void)setNighttime:(BOOL)isNightMode;
+
++ (BOOL)nighttime;
 
 @end

@@ -20,7 +20,10 @@
 "Nighttime" = "ナイトモード";
 "Daytime" = "デイモード";
 "No Image" = "テキストモード";
-"About Me" = "約";
+"Ad Block" = "広告のブロッカー";
+"Image Mode" = "そこグラフパターン";
+"No AdBlock" = "広告の";
+"About Me" = "について";
 "Keyword or Url" = "検索またはアドレスを入力してください";
 "Add Favorite Success" = "ブックマークしを追加";
 "Update Favorite Success" = "アップデートブックマークし";

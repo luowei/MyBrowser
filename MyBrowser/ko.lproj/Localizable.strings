@@ -20,6 +20,9 @@
 "Nighttime" = "야간 모드";
 "Daytime" = "주간 모드";
 "No Image" = "NoImage 모드";
+"Ad Block" = "광고 차단제";
+"Image Mode" = "패턴이 그래프";
+"No AdBlock" = "보존 광고";
 "About Me" = "나에 대해서";
 "Keyword or Url" = "키워드 나 URL";
 "Add Favorite Success" = "즐겨 찾기 성공을 추가";

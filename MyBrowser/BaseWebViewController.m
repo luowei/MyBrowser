@@ -7,6 +7,7 @@
 #import "MyPopupView.h"
 #import "Defines.h"
 #import "MyHelper.h"
+#import "UserSetting.h"
 
 @interface BaseWebViewController () <UISearchBarDelegate, MyPopupViewDelegate>
 
@@ -142,10 +143,8 @@
 //显示设置菜单
 - (void)showMenu {
     CGRect frame = self.view.frame;
-//    NSString *timeMode = self.webmaskLayer == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
-    NSString *timeMode = self.maskView == nil ? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil);
-    NSArray *titleArray = @[NSLocalizedString(@"Bookmarks", nil), timeMode, NSLocalizedString(@"Clear All History", nil),NSLocalizedString(@"About Me", nil)];
-    self.popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height - self.bottomLayoutGuide.length - 100, frame.size.width, 100) dataSource:titleArray];
+
+    self.popupView = [[MyPopupView alloc] initWithFrame:CGRectMake(0, frame.size.height - self.bottomLayoutGuide.length - 100, frame.size.width, 100)];
     self.popupView.delegate = self;
     
     self.popupContanierView = [[UIView alloc] initWithFrame:frame];

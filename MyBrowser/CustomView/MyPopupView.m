@@ -7,6 +7,7 @@
 //
 
 #import "MyPopupView.h"
+#import "UserSetting.h"
 
 @interface MyPopupView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -31,6 +32,14 @@
 //
 //    return intrinsicContentSize;
 //}
+
+- (void)reloadData {
+    [super reloadData];
+
+    if([self.dataSource isMemberOfClass:[MyPopupView class]]){
+        [((MyPopupView *) self.dataSource) reloadDataList];
+    }
+}
 
 
 @end
@@ -111,13 +120,26 @@
 
 @implementation MyPopupView
 
-- (instancetype)initWithFrame:(CGRect)frame dataSource:(NSArray *)array {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
 
-        _dataList = array;
-        _imgDic = @{NSLocalizedString(@"Bookmarks", nil) : @"bookmark", NSLocalizedString(@"Nighttime", nil) : @"night", NSLocalizedString(@"Daytime", nil) : @"day",NSLocalizedString(@"Clear All History", nil) : @"clearAllHistory",
+        _dataList = @[NSLocalizedString(@"Bookmarks", nil),
+                [UserSetting imageBlockerStatus]? NSLocalizedString(@"No Image", nil):NSLocalizedString(@"Image Mode", nil),
+                [UserSetting adblockerStatus]? NSLocalizedString(@"Ad Block", nil):NSLocalizedString(@"No AdBlock", nil),
+                [UserSetting nighttime]? NSLocalizedString(@"Nighttime", nil):NSLocalizedString(@"Daytime", nil),
+                NSLocalizedString(@"Clear All History", nil),
+                NSLocalizedString(@"About Me", nil)];
+
+        _imgDic = @{NSLocalizedString(@"Bookmarks", nil) : @"bookmark",
+                NSLocalizedString(@"No Image", nil) : @"noimage",
+                NSLocalizedString(@"Image Mode", nil) : @"imagehold",
+                NSLocalizedString(@"Ad Block", nil) : @"adblock",
+                NSLocalizedString(@"No AdBlock", nil) : @"noblock",
+                NSLocalizedString(@"Nighttime", nil) : @"night",
+                NSLocalizedString(@"Daytime", nil) : @"day",
+                NSLocalizedString(@"Clear All History", nil) : @"clearAllHistory",
                 NSLocalizedString(@"About Me", nil) : @"about"};
 
         MyCollectionViewFlowLayout *flowLayout = [[MyCollectionViewFlowLayout alloc] init];
@@ -142,6 +164,16 @@
     }
 
     return self;
+}
+
+//重新加dataList
+-(void)reloadDataList{
+    _dataList = @[NSLocalizedString(@"Bookmarks", nil),
+            [UserSetting imageBlockerStatus]? NSLocalizedString(@"No Image", nil):NSLocalizedString(@"Image Mode", nil),
+            [UserSetting adblockerStatus]? NSLocalizedString(@"Ad Block", nil):NSLocalizedString(@"No AdBlock", nil),
+            [UserSetting nighttime]? NSLocalizedString(@"Nighttime", nil) : NSLocalizedString(@"Daytime", nil),
+            NSLocalizedString(@"Clear All History", nil),
+            NSLocalizedString(@"About Me", nil)];
 }
 
 #pragma mark UICollectionViewDataSource Implementation
@@ -179,6 +211,7 @@
         [self.delegate popupViewItemTaped:cell];
     }
 
+    [collectionView reloadData];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {

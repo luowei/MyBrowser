@@ -109,7 +109,8 @@
         blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
         blockRules = [blockRules stringByReplacingOccurrencesOfString:@"\r" withString:@""];
 
-        NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileABPRules('%@');AdBlocker.enable=%@;", blockRules, @"true"];
+        BOOL adblockStatus = [UserSetting adblockerStatus];
+        NSString *compileFiltersSource = [NSString stringWithFormat:@"AdBlocker.compileABPRules('%@');AdBlocker.enable=%@;", blockRules, adblockStatus?@"true":@"false"];
 
         WKUserScript *compileFiltersUserScript = [[WKUserScript alloc] initWithSource:compileFiltersSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
         [self addUserScript:compileFiltersUserScript];
@@ -117,6 +118,12 @@
     }
 
     return self;
+}
+
+- (void)addScriptMessageHandler:(id <WKScriptMessageHandler>)scriptMessageHandler name:(NSString *)name {
+    [super addScriptMessageHandler:scriptMessageHandler name:name];
+    _handlerNames = _handlerNames ?: @{}.mutableCopy;
+    [_handlerNames setValue:[NSNull null] forKey:name];
 }
 
 
@@ -161,7 +168,9 @@ static WKProcessPool *_pool;
 
         //网络连接状态标示
         _netStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        //_netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
+        //隐藏
+        _netStatusLabel.alpha = 0;
+        _netStatusLabel.text = NSLocalizedString(@"Unable Open Web Page With NetWork Disconnected", nil);
         _netStatusLabel.font = [UIFont systemFontOfSize:20.0];
         _netStatusLabel.textColor = [UIColor grayColor];
         [_netStatusLabel sizeToFit];
@@ -187,15 +196,21 @@ static WKProcessPool *_pool;
 }
 
 //加载用户js文件
-- (void)addUserScriptsToWeb:(WKUserContentController *)userContentController {
+- (void)addUserScriptsToWeb:(MyWKUserContentController *)userContentController {
 
     //添加脚本消息处理器根据消息名称
-    [userContentController addScriptMessageHandler:self name:@"docStartInjection"];
-    [userContentController addScriptMessageHandler:self name:@"docEndInjection"];
 
-//    [userContentController addScriptMessageHandler:self name:@"decideImageBlockStatus"];
-//    [userContentController addScriptMessageHandler:self name:@"decideAdBlockStatus"];
-//    [userContentController addScriptMessageHandler:self name:@"increaseAdBlockCount"];
+    if (![userContentController.handlerNames valueForKey:@"docStartInjection"])
+        [userContentController addScriptMessageHandler:self name:@"docStartInjection"];
+    if (![userContentController.handlerNames valueForKey:@"docEndInjection"])
+        [userContentController addScriptMessageHandler:self name:@"docEndInjection"];
+
+    if (![userContentController.handlerNames valueForKey:@"decideImageBlockStatus"])
+        [userContentController addScriptMessageHandler:self name:@"decideImageBlockStatus"];
+    if (![userContentController.handlerNames valueForKey:@"decideAdBlockStatus"])
+        [userContentController addScriptMessageHandler:self name:@"decideAdBlockStatus"];
+    if (![userContentController.handlerNames valueForKey:@"increaseAdBlockCount"])
+        [userContentController addScriptMessageHandler:self name:@"increaseAdBlockCount"];
 
 //        //js注入，用于改变网页字体的大小
 //        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"webFontjs" ofType:@"js"];
@@ -203,8 +218,11 @@ static WKProcessPool *_pool;
 //        [self evaluateJavaScript:jsString completionHandler:nil];
 
     //添加ScriptMessageHandler
-//    [userContentController addScriptMessageHandler:self name:@"getBeans"];
-//    [userContentController addScriptMessageHandler:self name:@"webViewBack"];
+    if (![userContentController.handlerNames valueForKey:@"webViewBack"])
+        [userContentController addScriptMessageHandler:self name:@"webViewBack"];
+    if (![userContentController.handlerNames valueForKey:@"webViewReload"])
+        [userContentController addScriptMessageHandler:self name:@"webViewReload"];
+
 }
 
 
@@ -575,11 +593,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
 
         //开启广告拦截
     } else if ([message.name isEqualToString:@"decideAdBlockStatus"]) {
-        if ([UserSetting adblockerStatus]) {
-            [self evaluateJavaScript:@"AdBlocker.enable=true;" completionHandler:nil];
-        } else {
-            [self evaluateJavaScript:@"AdBlocker.enable=false;" completionHandler:nil];
-        }
+        [self enableAdBlocker:[UserSetting adblockerStatus]];
 
         //记录拦截数
     } else if ([message.name isEqualToString:@"increaseAdBlockCount"]) {
@@ -587,12 +601,28 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
 
         //开启无图模式
     } else if ([message.name isEqualToString:@"decideImageBlockStatus"]) {
-        if ([UserSetting imageBlockerStatus]) {
-            [self evaluateJavaScript:@"ImageBlocker.enable=true;" completionHandler:nil];
-        } else {
-            [self evaluateJavaScript:@"ImageBlocker.enable=false;" completionHandler:nil];
-        }
+        [self enableImageBlock:[UserSetting imageBlockerStatus]];
     }
+}
+
+//开启广告拦截
+- (void)enableAdBlocker:(BOOL)enable {
+    if (enable) {
+        [self evaluateJavaScript:@"AdBlocker.enable=true;" completionHandler:nil];
+    } else {
+        [self evaluateJavaScript:@"AdBlocker.enable=false;" completionHandler:nil];
+    }
+
+}
+
+//开启无图模式
+- (void)enableImageBlock:(BOOL)enable {
+    if (enable) {
+        [self evaluateJavaScript:@"ImageBlocker.enable=true;" completionHandler:nil];
+    } else {
+        [self evaluateJavaScript:@"ImageBlocker.enable=false;" completionHandler:nil];
+    }
+
 }
 
 
@@ -690,18 +720,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
     return networkStatus != NotReachable;
 }
 
-
-//显示类的私有方法
-- (void)showAllPrivateMethod:(Class)clazz {
-    u_int count;
-    Method *methods = class_copyMethodList(clazz, &count);
-    NSLog(@"----------------显示类的私有方法-----------");
-    for (int i = 0; i < count; i++) {
-        SEL name = method_getName(methods[i]);
-        NSString *strName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", strName);
-    }
-}
 
 #pragma mark - snapshot(快照截图)
 

@@ -20,6 +20,9 @@
 "Nighttime" = "modo nuit";
 "Daytime" = "Mode jour";
 "No Image" = "Mode NoImage";
+"Ad Block" = "Ad Block";
+"Image Mode" = "Gardez images";
+"No AdBlock" = "annonce réservés";
 "About Me" = "Sur Moi";
 "Keyword or Url" = "Mot-clé ou URL";
 "Add Favorite Success" = "Ajouter Succès Favorite";

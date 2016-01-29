@@ -3,6 +3,7 @@
 // Copyright (c) 2016 wodedata. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "UserSetting.h"
 #import "Defines.h"
 #import "MyHelper.h"
@@ -14,6 +15,18 @@ static NSString *const NoImageMode = @"NoImageMode";
 
 @implementation UserSetting {
 
+}
+
+//显示类的私有方法
++ (void)showAllPrivateMethod:(Class)clazz {
+    u_int count;
+    Method *methods = class_copyMethodList(clazz, &count);
+    NSLog(@"----------------显示类的私有方法-----------");
+    for (int i = 0; i < count; i++) {
+        SEL name = method_getName(methods[i]);
+        NSString *strName = [NSString stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];
+        NSLog(@"*****Private Method:%@", strName);
+    }
 }
 
 + (void)setAdblockerStatus:(id)status {
@@ -95,9 +108,10 @@ static NSString *const NoImageMode = @"NoImageMode";
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"UASignIsChanged"];
 }
 +(void)SetUASign:(NSInteger)sign {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UASignIsChanged"];
-    [[NSUserDefaults standardUserDefaults] setInteger:sign forKey:@"UASign"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:YES forKey:@"UASignIsChanged"];
+    [userDefaults setInteger:sign forKey:@"UASign"];
+    [userDefaults synchronize];
 }
 
 +(NSString *)UserAgent {
@@ -105,8 +119,22 @@ static NSString *const NoImageMode = @"NoImageMode";
 }
 
 +(void)SetUserAgent:(NSString *)userAgent {
-    [[NSUserDefaults standardUserDefaults] setObject:userAgent forKey:@"UserAgent"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:userAgent forKey:@"UserAgent"];
+    [userDefaults synchronize];
 }
+
+
+//夜间模式
++ (void)setNighttime:(BOOL)isNightMode {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isNightMode forKey:@"IsNightMode"];
+    [userDefaults synchronize];
+}
+
++ (BOOL)nighttime {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"IsNightMode"];
+}
+
 
 @end

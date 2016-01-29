@@ -10,6 +10,7 @@ function endInjection() {
     //var message = {'message':'Hello,World!','numbers':[1,2,3]};
     //window.webkit.messageHandlers.myName.postMessage(message);
 
+/*
     //替换百度logo
     var logoDiv = document.getElementById('logo');
     var logoImg = logoDiv != null ? logoDiv.firstElementChild : null;
@@ -19,6 +20,9 @@ function endInjection() {
         return "{'msg':'OK!'}"
     }
     return "{'msg':'-------'}"
+*/
+
+    return "";
 }
 
 window.webkit.messageHandlers.docEndInjection.postMessage(endInjection());

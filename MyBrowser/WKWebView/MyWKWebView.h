@@ -12,8 +12,9 @@
 
 @class MyWKWebView;
 
-
 @interface MyWKUserContentController:WKUserContentController
+
+@property(nonatomic, strong) NSMutableDictionary<NSString*,id> *handlerNames;
 
 //获得MyWKUserContentController单例
 + (instancetype)shareInstance;
@@ -62,9 +63,12 @@
 - (void)switchUAMode:(NSNumber *)modeNumber;
 
 
+//开启广告拦截
+- (void)enableAdBlocker:(BOOL)enable;
 
-//显示类的私有方法
-- (void)showAllPrivateMethod:(Class)clazz;
+//开启无图模式
+- (void)enableImageBlock:(BOOL)enable;
+
 
 #pragma mark - snapshot(快照截图)
 

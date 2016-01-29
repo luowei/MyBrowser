@@ -20,7 +20,9 @@
 
 @property (nonatomic, strong) id<MyPopupViewDelegate> delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame dataSource:(NSArray *)array;
+//重新加dataList
+-(void)reloadDataList;
+
 @end
 
 

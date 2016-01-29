@@ -19,7 +19,10 @@
 "Bookmarks" = "marcadores";
 "Nighttime" = "nocturno";
 "Daytime" = "Día";
-"No Image" = "de texto";
+"No Image" = "No imágenes";
+"Ad Block" = "Ad Block";
+"Image Mode" = "Mantener imágenes";
+"No AdBlock" = "No Adblock";
 "About Me" = "acerca de";
 "Keyword or Url" = "Palabra clave o URL";
 "Add Favorite Success" = "Añadir con marcador";

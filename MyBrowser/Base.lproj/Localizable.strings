@@ -20,6 +20,9 @@
 "Nighttime" = "夜间模式";
 "Daytime" = "日间模式";
 "No Image" = "无图模式";
+"Ad Block" = "拦截广告";
+"Image Mode" = "有图模式";
+"No AdBlock" = "不拦广告";
 "About Me" = "关于";
 "Keyword or Url" = "搜索或输入地址";
 "Add Favorite Success" = "添加收藏成功";

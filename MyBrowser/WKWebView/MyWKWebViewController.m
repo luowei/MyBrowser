@@ -15,6 +15,7 @@
 #import "MyPopupView.h"
 #import "ScanQRViewController.h"
 #import "Favorite.h"
+#import "UserSetting.h"
 
 @interface MyWKWebViewController ()
 
@@ -45,6 +46,22 @@
     // Do any additional setup after loading the view.
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    //如果是夜间模式,添加摭罩层
+    if ([UserSetting nighttime]) {
+        if(self.maskView && self.maskView.superview){
+            [self.maskView removeFromSuperview];
+        }
+        self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+        self.maskView.userInteractionEnabled = NO;
+        self.maskView.backgroundColor = [UIColor blackColor];
+        self.maskView.alpha = 0.2;
+        [self.view addSubview:self.maskView];
+
+        self.maskView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
+    }
 
 }
 
@@ -285,8 +302,11 @@
         };
         [self.navigationController pushViewController:favoritesViewController animated:YES];
 
-        //夜间模式
-    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
+        //如果当前是日间模式,则开启夜间模式
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
+        if(self.maskView && self.maskView.superview){
+            [self.maskView removeFromSuperview];
+        }
         self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
         self.maskView.userInteractionEnabled = NO;
         self.maskView.backgroundColor = [UIColor blackColor];
@@ -297,10 +317,14 @@
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[maskView]|" options:0 metrics:nil views:@{@"maskView" : self.maskView}]];
 
-        //日间模式
-    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Daytime", nil)]) {
+        [UserSetting setNighttime:YES];
+
+        //如果当前是夜间模式,开启日间模式
+    } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Nighttime", nil)]) {
         [self.maskView removeFromSuperview];
         self.maskView = nil;
+
+        [UserSetting setNighttime:NO];
 
         //清除痕迹
     } else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Clear All History", nil)]) {
@@ -314,7 +338,37 @@
         [MyHelper showToastAlert:NSLocalizedString(@"Successfully cleared Footprint", nil)];
 //        [MyHelper showToastAlert:@"Sorry,Temporarily can not be cleared !"];
 
-    }else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"About Me", nil)]) {
+        //当前是无图模式
+    }else if([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No Image",nil)]){
+
+        //开启有图模式
+        [UserSetting setImageBlockerStatus:@(NO)];
+        [self.activeWindow enableImageBlock:NO];
+
+        //当前是有图模式
+    } else if([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Image Mode",nil)]){
+
+        //开启无图模式
+        [UserSetting setImageBlockerStatus:@(YES)];
+        [self.activeWindow enableImageBlock:YES];
+
+        //当前是拦截广告
+    } else if([cell.titleLabel.text isEqualToString:NSLocalizedString(@"Ad Block",nil)]){
+
+        //开启不拦截
+        [UserSetting setAdblockerStatus:@(NO)];
+        [self.activeWindow enableAdBlocker:NO];
+
+
+        //当前是不拦截广告
+    }else if([cell.titleLabel.text isEqualToString:NSLocalizedString(@"No AdBlock",nil)]){
+
+        //开启拦截
+        [UserSetting setAdblockerStatus:@(YES)];
+        [self.activeWindow enableAdBlocker:YES];
+    }
+
+    else if ([cell.titleLabel.text isEqualToString:NSLocalizedString(@"About Me", nil)]) {
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UIWEBVIEW_MODE];
 //        [NSURLProtocol registerClass:[MyURLProtocol class]];
 //
