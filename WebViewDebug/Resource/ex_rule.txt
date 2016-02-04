@@ -1,0 +1,166 @@
+.cccccccxxx.,1,1,cccccxxxxx
+sina.,1,3,mainpage
+sina.,0,1,j_sax sina_tj_baner
+.sohu.,0,3,zte
+.sohu.,1,1,adArea
+.sohu.,1,1,ad_TOP
+.sohu.,1,1,businessdoctxt
+.sohu.,1,1,businessdocimg
+.sohu.,0,1,ad20130918
+.sohu.,0,1,ap140103
+.sohu.,0,1,ads
+.sohu.,0,1,_tg2
+.sohu.,0,1,newsfloat show
+.sohu.,1,1,tip
+.sohu.,1,1,newsdoctxt
+.sohu.,1,1,newsdocimgl
+.sohu.,0,1,mask search_mask
+.sohu.,0,1,mask history_mask
+.sohu.,0,1,fixed_pinner hots_pinner show
+.baidu.,0,3,zte
+.baidu.,1,1,appad
+.baidu.,0,1,ui-topbannerad
+.baidu.,0,1,ui-toolbar-func
+.baidu.,0,1,ad-page-footer-tiebar
+.baidu.,0,1,page-ad-btm
+.baidu.,0,1,newad-banner top-banner
+.baidu.,0,1,swipe
+.baidu.,1,1,guide
+.baidu.,1,2,to-webapp
+.baidu.,0,2,client_bottom_tip_close j_client_bottom_tip_close
+.baidu.,0,2,btn -col12 to-webapp
+.baidu.,0,1,app-banner
+3g.163.com,0,1,apps
+3g.163.com,0,1,lt_top
+3g.163.com,0,1,fuceng_wrapper
+3g.163.com,0,1,tnb
+3g.163.com,0,1,text-link
+3g.163.com,0,1,wrap-text-link text-link
+3g.163.com,1,1,ltImgList
+.ifeng.,0,1,yd_page
+.ifeng.,0,1,wtamRD
+.ifeng.,0,1,wTmxNMPH
+.ifeng.,0,1,wyN3QuEv
+.ifeng.,0,1,little
+.ifeng.,0,1,wrapper
+.ifeng.,0,1,btnClose
+.qq.com,0,1,txt-ad
+.qq.com,0,1,lvAdBar lvBar2
+.qq.com,1,1,header-adtip
+.qq.com,0,1,top_announce
+.qq.com,1,1,layer_down
+.taobao.com,0,3,zte
+.taobao.com,1,1,smartAd
+.taobao.com,1,1,x12318e
+3g.cn,1,1,da-bar
+3g.cn,1,2,fullclose
+3g.cn,0,1,module_list adv
+3g.cn,0,1,list list-ad
+3g.cn,1,1,taobaoAd
+3g.cn,0,1,follow_ad_top
+3g.cn,1,1,adFlowSwitch
+3g.cn,0,1,oneImg
+3g.cn,0,1,pic-ad
+3g.cn,1,1,drag_da_normal
+.21cn.,0,1,adv
+.news.cn,0,3,zte
+.news.cn,0,1,ad
+.news.cn,1,1,focuslists
+.qiushibaike.,1,1,cproIframe1Wrap
+.autohome.,0,2,close
+.easou.,1,1,ad_ol
+.easou.,0,1,ad_ol
+.easou.,0,1,txt
+.easou.,1,1,indexAd1
+.lexun.,0,1,first_ad
+.lexun.,0,1,mid
+.lexun.,0,1,two_ad
+.lexun.,0,1,three_bar
+.yicha.,1,1,ad_169
+.yicha.,0,1,mobads-ad-content
+.yicha.,0,1,mobads-ad-click button
+.yicha.,0,1,image
+.yicha.,1,1,BAIDU_DUP_wrapper_u1712597_0
+.yicha.,1,1,cproIframe1Wrap
+.yicha.,1,1,bdAd
+.mumayi.,1,1,sdbox
+.mumayi.,1,1,shadow
+.etao.,0,2,J_SwipeCloser swipe-close
+.etao.,0,1,J_SwipeLayer swipe-layer
+.jd.,0,1,download-con
+.anjuke.,1,1,app_down_new
+.yiche.,1,1,m_download_top
+.yiche.,0,1,m-fixed-app-download
+.yiche.,1,1,app-mask
+.dianping.,0,3,zte
+.dianping.,1,1,B_download
+.dianping.,0,1,footer-fix
+.dianping.,0,1,footer_banner
+.dianping.,1,1,footer_download
+.dianping.,1,1,j-banner
+.dianping.,1,2,j-Close-me
+.ly.com,0,2,close
+.tmall.com,0,1,tmm.ad
+.tmall.com,1,1,smartAd
+.qidian.,1,1,mFooterAd
+.fengyunzhibo.com,0,3,zte
+.fengyunzhibo.com,1,1,appRecom
+.fengyunzhibo.com,1,1,recomApp
+.ku6.com,1,1,bd-2
+.ku6.com,0,2,adclose_btn
+.zol.,0,1,download-pop
+.tiexue.,0,1,topAd
+.xgo.,1,1,home_plug1
+.qyer.,0,2,close
+.dajie.,0,1,ad-wrap
+.meishij.,0,1,ad11
+.meishichina.,1,1,cproIframe2Wrap
+.meishichina.,1,1,container
+.haodou.,0,1,pos_layers
+.guahao.,0,1,pop-app
+.hao123.,0,1,show_tip_box
+.hao123.,0,1,applink_callup
+.suning.,0,2,close
+.jiuxian.,0,1,down_app
+.baozoumanhua.,1,1,cproIframe1Wrap
+.kuwo.,0,2,closed
+.kuwo.,1,1,tanchuang
+.9666.,1,1,cbAppPop
+.vip.,0,1,i_client hide
+.51buy.,0,1,mod_download
+m.pm2d5.com,1,1,google_ads_frame1_anchor
+.it168.com,0,3,zte
+.it168.com,0,1,fu
+budejie.com,0,1,client_comment
+m.kelepuzi.com,1,1,google_afmc_859806243
+m.qzone.com,1,1,layer_down
+.58.com,1,1,index_down_div
+.58.com,0,1,bban
+.xcar.,0,1,appfloat carfinder appshow
+.xcar.,0,3,zte
+m.ctrip.com,0,1,module
+m.ctrip.com,1,1,dl_app
+.douguo.,1,1,topBan
+.dangdang.,0,2,close_me
+.dangdang.,0,1,app_list
+.dangdang.,0,3,zte
+.gome.,0,3,zte
+.gome.,1,1,bottom_fixed
+.zhe800.,0,2,btn-close empty
+.qunar.com,0,1,qn_download
+.qunar.com,0,1,QNT_download_touch
+m.toacx.com,0,1,topic
+.meituan,0,1,pop-content i2app-pop
+.meituan,1,1,common-banner
+.meituan,0,3,zte
+m.yihaodian.com,0,1,idxDownTip
+.ganji.,0,1,app-guide
+.mtime.,1,1,clientAd
+m.letv,0,1,ads_top
+.sogou.,0,3,zte
+.jrj.,0,3,zte
+.zhenai.,0,3,zte
+.mogujie.,0,3,zte
+.hc360.,0,3,zte
+.52pk.,0,3,zte
+.tuniu.,0,3,zte
