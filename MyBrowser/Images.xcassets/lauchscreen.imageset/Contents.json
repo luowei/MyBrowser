@@ -6,8 +6,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "lauchscreen@2x.jpeg"
+      "filename" : "lauchscreen@2x.jpeg",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

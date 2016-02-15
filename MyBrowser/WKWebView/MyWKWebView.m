@@ -484,6 +484,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
 //    self.presentViewControllerBlock(alertViewController);
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    ((MyWKWebView *)webView).updateSearchBarTextBlock(webView.URL.absoluteString);
     //todo:更新进度条(didFailLoadWebView)
 
     switch ([error code]) {
@@ -534,6 +535,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredentia
     self.finishNavigationProgressBlock();
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    ((MyWKWebView *)webView).updateSearchBarTextBlock(webView.URL.absoluteString);
 
 //    //获得网站的icon
 //    [self evaluateJavaScript:[self JSToolCode] completionHandler:nil];
